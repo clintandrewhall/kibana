@@ -27,10 +27,6 @@ module.exports = {
   resolve: {
     alias: {
       ui: path.resolve(KIBANA_ROOT, 'src/legacy/ui/public'),
-      'data/interpreter': path.resolve(
-        KIBANA_ROOT,
-        'src/plugins/data/public/expressions/interpreter'
-      ),
       'kbn/interpreter': path.resolve(KIBANA_ROOT, 'packages/kbn-interpreter/target/common'),
       'types/interpreter': path.resolve(
         KIBANA_ROOT,
@@ -166,10 +162,6 @@ module.exports = {
           require.resolve('@elastic/eui/es/components/drag_and_drop'),
           require.resolve('@elastic/eui/packages/react-datepicker'),
           require.resolve('highlight.js'),
-          /canvas_plugin_src\/renderers\/advanced_filter/,
-          /canvas_plugin_src\/renderers\/dropdown_filter/,
-          /canvas_plugin_src\/renderers\/embeddable.tsx/,
-          /canvas_plugin_src\/renderers\/time_filter/,
         ],
         use: 'null-loader',
       },
