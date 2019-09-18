@@ -22,7 +22,6 @@ export const ToolbarSettings = ({ isAutohide, onSetAutohide = () => {} }: Props)
     <div style={{ padding: 16 }}>
       <EuiFormRow helpText="Hide the toolbar when the mouse is not within the Canvas?">
         <EuiSwitch
-          data-test-subj="hideToolbarSwitch"
           name="toolbarHide"
           id="toolbarHide"
           label="Hide Toolbar"

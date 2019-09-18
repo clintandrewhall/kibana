@@ -19,7 +19,6 @@ interface Props {
  */
 export const PagePreview = ({ index, height }: Props) => {
   const [{ workpad }, dispatch] = useExternalEmbedState();
-
   if (!workpad) {
     return null;
   }

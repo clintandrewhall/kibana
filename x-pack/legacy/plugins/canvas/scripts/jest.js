@@ -34,8 +34,6 @@ run(
         `!${path}/**/build/**`,
         '--collectCoverageFrom', // Ignore coverage on test files
         `!${path}/**/__tests__/**/*`,
-        '--collectCoverageFrom', // Ignore coverage on example files
-        `!${path}/**/__examples__/**/*`,
         '--collectCoverageFrom', // Include JS files
         `${path}/**/*.js`,
         '--collectCoverageFrom', // Include TS/X files
@@ -43,24 +41,26 @@ run(
         '--coverageDirectory', // Output to canvas/coverage
         'legacy/plugins/canvas/coverage',
       ];
-    }
-    // Mitigation for https://github.com/facebook/jest/issues/7267
-    if (all || storybook) {
-      options = options.concat(['--no-cache', '--no-watchman']);
-    }
-
-    if (all) {
-      log.info('Running all available tests. This will take a while...');
-    } else if (storybook) {
-      path = 'legacy/plugins/canvas/.storybook';
-      log.info('Running Storybook Snapshot tests...');
     } else {
-      log.info('Running tests. This does not include Storybook Snapshots...');
-    }
+      // Mitigation for https://github.com/facebook/jest/issues/7267
+      if (all || storybook || update) {
+        options = options.concat(['--no-cache', '--no-watchman']);
+      }
 
-    if (update) {
-      log.info('Updating any Jest snapshots...');
-      options.push('-u');
+      if (all) {
+        log.info('Running all available tests. This will take a while...');
+      } else if (storybook || update) {
+        path = 'legacy/plugins/canvas/.storybook';
+
+        if (update) {
+          log.info('Updating Storybook Snapshot tests...');
+          options.push('-u');
+        } else {
+          log.info('Running Storybook Snapshot tests...');
+        }
+      } else {
+        log.info('Running tests. This does not include Storybook Snapshots...');
+      }
     }
 
     runXPackScript('jest', [path].concat(options));
