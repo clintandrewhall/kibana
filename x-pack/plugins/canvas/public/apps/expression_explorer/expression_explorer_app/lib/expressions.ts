@@ -4,38 +4,31 @@
  * you may not use this file except in compliance with the Elastic License.
  */
 
-import { ExpressionAstExpression } from 'src/plugins/expressions';
+import { ExpressionAstExpression } from 'src/plugins/expressions/common/ast/types';
+import { ExpressionRenderer } from 'src/plugins/expressions/common';
 
-import { ExpressionsService, ExpressionFunction, Execution } from 'src/plugins/expressions';
-import { plugin, ExpressionRenderDefinition } from 'src/plugins/expressions/public';
+import { Execution } from 'src/plugins/expressions/common/execution/execution';
+import { ExpressionFunction } from 'src/plugins/expressions/common/expression_functions/expression_function';
+import { ExpressionsService } from 'src/plugins/expressions/common/service/expressions_services';
+import { ExpressionRenderDefinition } from 'src/plugins/expressions/common/expression_renderers/types';
 
-// @ts-ignore
-import { renderFunctions } from './renderers';
 import { CanvasFunction } from '../../../../../types';
 
 let expressionsService: ExpressionsService | null = null;
 
 export const getExpressionsService = (
-  functionDefinitions: CanvasFunction[]
+  functionDefinitions: CanvasFunction[] = [],
+  rendererDefinitions: ExpressionRenderDefinition[] = []
 ): {
   getExecution: (ast: ExpressionAstExpression) => Execution;
   getFunctions: () => Record<string, ExpressionFunction>;
+  getRenderers: () => Record<string, ExpressionRenderer>;
 } => {
   if (!expressionsService) {
-    const placeholder = {} as any;
-    const expressionsPlugin = plugin(placeholder);
-    const setup = expressionsPlugin.setup(placeholder, {
-      inspector: {},
-    } as any);
-    expressionsService = setup.fork();
+    expressionsService = new ExpressionsService();
     const { registerFunction, registerRenderer } = expressionsService;
     functionDefinitions.forEach(fn => registerFunction(fn));
-
-    renderFunctions.forEach((fn: ExpressionRenderDefinition) => {
-      if (fn) {
-        registerRenderer(fn);
-      }
-    });
+    rendererDefinitions.forEach(fn => registerRenderer(fn));
   }
 
   return {
@@ -57,6 +50,12 @@ export const getExpressionsService = (
         throw new Error("expressionsService should exist, but it doesn't");
       }
       return expressionsService.getFunctions();
+    },
+    getRenderers: () => {
+      if (!expressionsService) {
+        throw new Error("expressionsService should exist, but it doesn't");
+      }
+      return expressionsService.getRenderers();
     },
   };
 };

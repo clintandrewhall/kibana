@@ -10,6 +10,7 @@ import { ErrorMessage } from './error_message';
 
 export const ExpressionError: FC = () => {
   const { error } = useExpressions();
+
   if (!error) {
     return null;
   }

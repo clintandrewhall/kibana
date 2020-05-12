@@ -44,4 +44,10 @@ export const renderFunctions = [
   text,
 ];
 
-export const renderFunctionNames = renderFunctions.map(fn => fn().name);
+export const renderFunctionMap = renderFunctions.reduce((map, fn) => {
+  const renderer = fn();
+  map[renderer.name] = renderer;
+  return map;
+}, {});
+
+export const renderFunctionNames = Object.keys(renderFunctionMap);

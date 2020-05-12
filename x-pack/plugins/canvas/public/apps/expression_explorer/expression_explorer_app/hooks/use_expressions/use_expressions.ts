@@ -4,11 +4,8 @@
  * you may not use this file except in compliance with the Elastic License.
  */
 
-import { ExpressionAstExpression } from 'src/plugins/expressions';
-import { fromExpression } from '@kbn/interpreter/target/common';
-
-import { getExpressionsService } from '../../lib/expressions';
-import { getFunctions } from '../../lib/functions';
+// @ts-ignore Webpack-specific module.
+import url from 'worker!../../workers/expressions.worker';
 
 import { createUseContext } from '../../lib/create_use_context';
 
@@ -18,6 +15,7 @@ import {
   setExpressionDebug,
   setExpressionError,
   setExpressionResult,
+  setExpressionRunning,
   initialState,
   reducer,
 } from './store';
@@ -27,44 +25,32 @@ const { Provider, useRead, useActions } = createUseContext(reducer, initialState
 export const ExpressionsProvider = Provider;
 export const useExpressions = useRead;
 
+const expressionWorker = new Worker(url);
+expressionWorker.postMessage({ type: 'getFunctions' });
+
 export const useExpressionsActions = () => {
   const dispatch = useActions();
-  const expressionsService = getExpressionsService(getFunctions());
+
+  expressionWorker.onmessage = event => {
+    const { data } = event;
+
+    if (data && data.type === 'evaluate') {
+      const { ast, result, debug, error } = data.result;
+      dispatch(setExpressionRunning(false));
+      dispatch(setExpressionAst(ast));
+      dispatch(setExpressionDebug(debug));
+      dispatch(setExpressionError(error ? new Error(error) : null));
+      dispatch(setExpressionResult(result));
+    } else if (data && data.type === 'running') {
+      dispatch(setExpressionRunning(true));
+    } else {
+      dispatch(setExpressionRunning(false));
+    }
+  };
 
   const setExpression = (value: string) => {
-    let ast: ExpressionAstExpression | null = null;
-
     dispatch(setExpressionAction(value));
-
-    try {
-      ast = fromExpression(value);
-      dispatch(setExpressionAst(ast));
-    } catch (e) {
-      ast = null;
-      dispatch(setExpressionError(e, { ast, result: null, debug: null }));
-      return;
-    }
-
-    const runInterpreter = async () => {
-      if (!ast) {
-        dispatch(setExpressionResult(null));
-        dispatch(setExpressionDebug(null));
-        return;
-      }
-
-      try {
-        const execution = expressionsService.getExecution(ast);
-        const result = await execution.result;
-        dispatch(setExpressionDebug(execution.state.get().ast.chain));
-        dispatch(setExpressionResult(result as ExpressionAstExpression));
-      } catch (e) {
-        dispatch(setExpressionError(e, { result: null, debug: null }));
-      }
-    };
-
-    if (ast) {
-      runInterpreter();
-    }
+    expressionWorker.postMessage({ type: 'evaluate', ast: value });
   };
 
   return {

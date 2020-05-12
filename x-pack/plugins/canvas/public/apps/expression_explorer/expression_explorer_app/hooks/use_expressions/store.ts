@@ -9,6 +9,7 @@ import { produce } from 'immer';
 import {
   ExpressionAstFunction,
   ExpressionAstExpression,
+  ExpressionValueRender,
   ExpressionValueError,
   ExpressionValueBoxed,
 } from 'src/plugins/expressions';
@@ -18,7 +19,7 @@ import { createActionFactory } from '../../lib/actions';
 // TODO: needs to be added to src/plugins/expressions...?
 type ExpressionValueNull = ExpressionValueBoxed<'null'>;
 
-type Ast = ExpressionAstExpression | ExpressionValueError | ExpressionValueNull;
+type Ast = ExpressionValueRender<any> | ExpressionValueError | ExpressionValueNull;
 
 export enum ExpressionsActions {
   SET_EXPRESSION = 'SET_EXPRESSION',
@@ -26,16 +27,18 @@ export enum ExpressionsActions {
   SET_DEBUG = 'SET_DEBUG',
   SET_ERROR = 'SET_ERROR',
   SET_RESULT = 'SET_RESULT',
+  SET_RUNNING = 'SET_RUNNING',
 }
 
 export type ExpressionsAction = ReturnType<typeof actions[keyof typeof actions]>;
 
 export interface Store {
   expression: string;
-  ast: Ast | null;
+  ast: ExpressionAstExpression | null;
   debug: ExpressionAstFunction[] | null;
   result: Ast | null;
   error: Error | null;
+  running: boolean;
 }
 
 const createAction = createActionFactory<ExpressionsActions>();
@@ -44,11 +47,11 @@ export const setExpression = (expression: string) =>
   createAction(ExpressionsActions.SET_EXPRESSION, { expression });
 
 export const setExpressionError = (
-  error: Error,
+  error: Error | null,
   resets?: { ast?: Store['ast']; debug?: Store['debug']; result?: Store['result'] }
 ) => createAction(ExpressionsActions.SET_ERROR, { error, resets });
 
-export const setExpressionAst = (ast: Ast | null) =>
+export const setExpressionAst = (ast: ExpressionAstExpression | null) =>
   createAction(ExpressionsActions.SET_AST, { ast });
 
 export const setExpressionDebug = (debug: ExpressionAstFunction[] | null) =>
@@ -57,12 +60,16 @@ export const setExpressionDebug = (debug: ExpressionAstFunction[] | null) =>
 export const setExpressionResult = (result: Ast | null) =>
   createAction(ExpressionsActions.SET_RESULT, { result });
 
+export const setExpressionRunning = (running: boolean) =>
+  createAction(ExpressionsActions.SET_RUNNING, { running });
+
 const actions = {
   setExpression,
   setExpressionAst,
   setExpressionDebug,
   setExpressionError,
   setExpressionResult,
+  setExpressionRunning,
 };
 
 export const initialState: Store = {
@@ -71,6 +78,7 @@ export const initialState: Store = {
   debug: null,
   result: null,
   error: null,
+  running: false,
 };
 
 export const reducer: Reducer<Store, ExpressionsAction> = (state, action) =>
@@ -121,6 +129,12 @@ export const reducer: Reducer<Store, ExpressionsAction> = (state, action) =>
 
         draft.result = result;
         draft.error = null;
+        return;
+      }
+
+      case ExpressionsActions.SET_RUNNING: {
+        const { running } = action.payload;
+        draft.running = running;
         return;
       }
     }
