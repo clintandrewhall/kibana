@@ -5,7 +5,7 @@
  */
 
 import React, { FC, useState } from 'react';
-import { EuiTab, EuiTabs } from '@elastic/eui';
+import { EuiTab, EuiTabs, EuiLoadingContent } from '@elastic/eui';
 
 import { DebugTree } from './debug_tree';
 import { Preview } from './preview';
@@ -18,8 +18,20 @@ const TABS = [
 ];
 
 export const Output: FC = () => {
-  const { error } = useExpressions();
+  const { error, running } = useExpressions();
   const [selectedTabId, setSelectedTabId] = useState('preview');
+
+  if (error) {
+    return <ExpressionError />;
+  }
+
+  if (running) {
+    return (
+      <div style={{ padding: '24px 12px' }}>
+        <EuiLoadingContent lines={3} />
+      </div>
+    );
+  }
 
   const tabs = TABS.map((tab, index) => (
     <EuiTab
@@ -31,10 +43,6 @@ export const Output: FC = () => {
       {tab.name}
     </EuiTab>
   ));
-
-  if (error) {
-    return <ExpressionError />;
-  }
 
   let content = null;
 
@@ -48,9 +56,9 @@ export const Output: FC = () => {
   }
 
   return (
-    <div>
+    <div style={{ height: 'calc(100% - 37px)' }}>
       <EuiTabs size="s">{tabs}</EuiTabs>
-      <div style={{ padding: 12 }}>{content}</div>
+      <div style={{ margin: 12, height: 'calc(100% - 24px)' }}>{content}</div>
     </div>
   );
 };

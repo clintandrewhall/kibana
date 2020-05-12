@@ -8,40 +8,46 @@
 // visibility.
 // @ts-ignore Untyped local
 
-// import { advancedFilter } from '../../../../../canvas_plugin_src/renderers/advanced_filter';
-// import { debug } from '../../../../../canvas_plugin_src/renderers/debug';
-// import { dropdownFilter } from '../../../../../canvas_plugin_src/renderers/dropdown_filter';
-// import { error } from '../../../../../canvas_plugin_src/renderers/error';
-// import { image } from '../../../../../canvas_plugin_src/renderers/image';
-// import { markdown } from '../../../../../canvas_plugin_src/renderers/markdown';
-// import { metric } from '../../../../../canvas_plugin_src/renderers/metric';
-// import { pie } from '../../../../../canvas_plugin_src/renderers/pie';
-// import { plot } from '../../../../../canvas_plugin_src/renderers/plot';
-// import { progress } from '../../../../../canvas_plugin_src/renderers/progress';
-// import { repeatImage } from '../../../../../canvas_plugin_src/renderers/repeat_image';
-// import { revealImage } from '../../../../../canvas_plugin_src/renderers/reveal_image';
-// import { shape } from '../../../../../canvas_plugin_src/renderers/shape';
-// import { table } from '../../../../../canvas_plugin_src/renderers/table';
+import { advancedFilter } from '../../../../../canvas_plugin_src/renderers/advanced_filter';
+import { debug } from '../../../../../canvas_plugin_src/renderers/debug';
+import { dropdownFilter } from '../../../../../canvas_plugin_src/renderers/dropdown_filter';
+import { error } from '../../../../../canvas_plugin_src/renderers/error';
+import { image } from '../../../../../canvas_plugin_src/renderers/image';
+import { markdown } from '../../../../../canvas_plugin_src/renderers/markdown';
+import { metric } from '../../../../../canvas_plugin_src/renderers/metric';
+import { pie } from '../../../../../canvas_plugin_src/renderers/pie';
+import { plot } from '../../../../../canvas_plugin_src/renderers/plot';
+import { progress } from '../../../../../canvas_plugin_src/renderers/progress';
+import { repeatImage } from '../../../../../canvas_plugin_src/renderers/repeat_image';
+import { revealImage } from '../../../../../canvas_plugin_src/renderers/reveal_image';
+import { shape } from '../../../../../canvas_plugin_src/renderers/shape';
+import { table } from '../../../../../canvas_plugin_src/renderers/table';
 import { text } from '../../../../../canvas_plugin_src/renderers/text';
 
 /**
  * This is a collection of renderers to ignore embeddables, which relies on the NP */
 export const renderFunctions = [
-  // advancedFilter,
-  // debug,
-  // dropdownFilter,
-  // error,
-  // image,
-  // markdown,
-  // metric,
-  // pie,
-  // plot,
-  // progress,
-  // repeatImage,
-  // revealImage,
-  // shape,
-  // table,
+  advancedFilter,
+  debug,
+  dropdownFilter,
+  error,
+  image,
+  markdown,
+  metric,
+  pie,
+  plot,
+  progress,
+  repeatImage,
+  revealImage,
+  shape,
+  table,
   text,
 ];
 
-export const renderFunctionNames = renderFunctions.map(fn => fn().name);
+export const renderFunctionMap = renderFunctions.reduce((map, fn) => {
+  const renderer = fn();
+  map[renderer.name] = renderer;
+  return map;
+}, {});
+
+export const renderFunctionNames = Object.keys(renderFunctionMap);

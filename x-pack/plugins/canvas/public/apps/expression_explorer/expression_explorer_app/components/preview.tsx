@@ -6,47 +6,52 @@
 
 import React, { FC, useRef, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { ExpressionRenderHandler } from 'src/plugins/expressions/public';
+import { EuiCallOut } from '@elastic/eui';
 
+// @ts-ignore
+import { renderFunctionMap } from '../lib/renderers';
 import { ErrorMessage } from './error_message';
 import { useExpressions } from '../hooks';
 
+const NO_OP = () => {};
 export const Preview: FC = () => {
   const { result } = useExpressions();
   const mountRef: React.MutableRefObject<null | HTMLDivElement> = useRef(null);
-  const handlerRef: React.MutableRefObject<null | ExpressionRenderHandler> = useRef(null);
   const [renderError, setRenderError] = useState<Error | null>(null);
 
   useEffect(() => {
-    if (mountRef.current) {
-      handlerRef.current = new ExpressionRenderHandler(mountRef.current, {
-        onRenderError: (element, error) => {
-          setRenderError(error);
-          if (element) {
-            ReactDOM.unmountComponentAtNode(element);
-          }
-        },
-      });
-    }
-  }, [mountRef]);
-
-  useEffect(() => {
-    if (mountRef.current && handlerRef.current) {
-      if (!result) {
-        ReactDOM.unmountComponentAtNode(mountRef.current);
-        return;
+    if (mountRef.current && result) {
+      try {
+        if (result.type === 'render') {
+          const renderer = renderFunctionMap[result.as];
+          renderer.render(mountRef.current, result.value, {
+            getFilter: NO_OP,
+            setFilter: NO_OP,
+            done: NO_OP,
+            onEmbeddableInputChange: NO_OP,
+            onEmbeddableDestroyed: NO_OP,
+            onDestroy: NO_OP,
+            getElementId: NO_OP,
+            onResize: NO_OP,
+          });
+        } else {
+          ReactDOM.render(
+            <EuiCallOut title="Not renderable" color="warning" iconType="help">
+              Result is not renderable, of type <code>{result.type}</code>. Try adding{' '}
+              <code>| render</code> to the end of your expression.
+            </EuiCallOut>,
+            mountRef.current
+          );
+        }
+      } catch (e) {
+        setRenderError(e);
       }
-
-      handlerRef.current.render(result);
     }
-  }, [result]);
+  }, [mountRef, result]);
 
   useEffect(
     () => () => {
       ReactDOM.unmountComponentAtNode(mountRef.current!);
-      if (handlerRef && handlerRef.current) {
-        handlerRef.current.destroy();
-      }
     },
     []
   );
@@ -54,8 +59,8 @@ export const Preview: FC = () => {
   const error = renderError ? <ErrorMessage error={renderError} /> : null;
 
   return (
-    <div id="eePreview">
-      <div id="eePreviewMountPoint" ref={mountRef} />
+    <div id="eePreview" style={{ height: '100%' }}>
+      <div id="eePreviewMountPoint" ref={mountRef} style={{ height: '100%' }} />
       {error}
     </div>
   );

@@ -4,7 +4,8 @@
  * you may not use this file except in compliance with the Elastic License.
  */
 
-import url from 'worker!../../workers/expressions.worker.ts';
+// @ts-ignore Webpack-specific module.
+import url from 'worker!../../workers/expressions.worker';
 
 import { createUseContext } from '../../lib/create_use_context';
 
@@ -14,6 +15,7 @@ import {
   setExpressionDebug,
   setExpressionError,
   setExpressionResult,
+  setExpressionRunning,
   initialState,
   reducer,
 } from './store';
@@ -24,22 +26,31 @@ export const ExpressionsProvider = Provider;
 export const useExpressions = useRead;
 
 const expressionWorker = new Worker(url);
+expressionWorker.postMessage({ type: 'getFunctions' });
 
 export const useExpressionsActions = () => {
   const dispatch = useActions();
 
   expressionWorker.onmessage = event => {
-    console.log(event.data);
-    const { ast, result, debug, error } = event.data;
-    dispatch(setExpressionAst(ast));
-    dispatch(setExpressionDebug(debug));
-    dispatch(setExpressionError(error));
-    dispatch(setExpressionResult(result));
+    const { data } = event;
+
+    if (data && data.type === 'evaluate') {
+      const { ast, result, debug, error } = data.result;
+      dispatch(setExpressionRunning(false));
+      dispatch(setExpressionAst(ast));
+      dispatch(setExpressionDebug(debug));
+      dispatch(setExpressionError(error ? new Error(error) : null));
+      dispatch(setExpressionResult(result));
+    } else if (data && data.type === 'running') {
+      dispatch(setExpressionRunning(true));
+    } else {
+      dispatch(setExpressionRunning(false));
+    }
   };
 
   const setExpression = (value: string) => {
     dispatch(setExpressionAction(value));
-    expressionWorker.postMessage(value);
+    expressionWorker.postMessage({ type: 'evaluate', ast: value });
   };
 
   return {

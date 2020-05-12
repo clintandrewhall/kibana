@@ -12,10 +12,19 @@ import { getFunctions } from '../lib/functions';
 const ctx: Worker = self as any;
 const expressionsService = getExpressionsService(getFunctions());
 
-// Respond to message from parent thread
-ctx.addEventListener('message', async event => {
-  const value = event.data;
+type Type = 'evaluate' | 'getFunctions' | 'getState';
 
+interface Message {
+  type: Type;
+}
+
+export interface EvaluateMessage extends Message {
+  type: 'evaluate';
+  ast: string;
+}
+
+// TODO: handle cancel if another message comes in?
+const handleEvaluate = async (value: string) => {
   let ast = null;
   let result = null;
   let error = null;
@@ -37,23 +46,37 @@ ctx.addEventListener('message', async event => {
     }
   }
 
-  const message = {
+  return {
     ast,
     result,
-    error,
+    error: error ? error.message : null,
     debug,
   };
+};
 
-  ctx.postMessage(JSON.parse(JSON.stringify(message)));
+const post = (message: any) => ctx.postMessage(JSON.parse(JSON.stringify(message)));
+
+// Respond to message from parent thread
+ctx.addEventListener('message', async event => {
+  const value = event.data as Message;
+  const { type } = value;
+
+  switch (type) {
+    case 'evaluate':
+      post({ type: 'running', result: { type } });
+      const result = await handleEvaluate((value as EvaluateMessage).ast);
+      post({ type, result });
+      break;
+    case 'getFunctions':
+      post({
+        type,
+        result: getFunctions().map(fn => ({
+          name: fn.name,
+          help: fn.help,
+        })),
+      });
+      break;
+    default:
+      post(null);
+  }
 });
-
-// ctx.onmessage = e => {
-//   const message = e.data;
-//   console.log(`[From Main]: ${message}`);
-// };
-
-// ctx.onerror = error => {
-//   console.log('error', error);
-// };
-
-// console.log('ctx', ctx);
