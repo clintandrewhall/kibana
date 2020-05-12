@@ -4,10 +4,12 @@
  * you may not use this file except in compliance with the Elastic License.
  */
 
-import { ExpressionAstExpression } from 'src/plugins/expressions';
+import { ExpressionAstExpression } from 'src/plugins/expressions/common/ast/types';
 
-import { ExpressionsService, ExpressionFunction, Execution } from 'src/plugins/expressions';
-import { plugin, ExpressionRenderDefinition } from 'src/plugins/expressions/public';
+import { Execution } from 'src/plugins/expressions/common/execution/execution';
+import { ExpressionFunction } from 'src/plugins/expressions/common/expression_functions/expression_function';
+import { ExpressionsService } from 'src/plugins/expressions/common/service/expressions_services';
+import { ExpressionRenderDefinition } from 'src/plugins/expressions/common/expression_renderers/types';
 
 // @ts-ignore
 import { renderFunctions } from './renderers';
@@ -22,12 +24,7 @@ export const getExpressionsService = (
   getFunctions: () => Record<string, ExpressionFunction>;
 } => {
   if (!expressionsService) {
-    const placeholder = {} as any;
-    const expressionsPlugin = plugin(placeholder);
-    const setup = expressionsPlugin.setup(placeholder, {
-      inspector: {},
-    } as any);
-    expressionsService = setup.fork();
+    expressionsService = new ExpressionsService();
     const { registerFunction, registerRenderer } = expressionsService;
     functionDefinitions.forEach(fn => registerFunction(fn));
 

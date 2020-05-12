@@ -181,6 +181,7 @@
     "typescript": "3.7.2",
     "vinyl-fs": "^3.0.3",
     "whatwg-fetch": "^3.0.0",
+    "worker-plugin": "^4.0.3",
     "xml-crypto": "^1.4.0",
     "yargs": "4.8.1"
   },

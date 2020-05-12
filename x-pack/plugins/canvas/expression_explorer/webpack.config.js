@@ -8,6 +8,7 @@ const path = require('path');
 const webpack = require('webpack');
 // eslint-disable-next-line
 const { stringifyRequest } = require('loader-utils');
+const WorkerPlugin = require('worker-plugin');
 
 const {
   KIBANA_ROOT,
@@ -26,6 +27,9 @@ module.exports = {
     filename: '[name].js',
   },
   plugins: [
+    new WorkerPlugin({
+      globalObject: 'self',
+    }),
     // replace imports for `uiExports/*` modules with a synthetic module
     // created by create_ui_exports_module.js
     new webpack.NormalModuleReplacementPlugin(/^uiExports\//, resource => {
@@ -62,6 +66,11 @@ module.exports = {
       'src/plugins': path.resolve(KIBANA_ROOT, 'src/plugins'),
     },
     extensions: ['.js', '.json', '.ts', '.tsx'],
+  },
+  resolveLoader: {
+    alias: {
+      worker: 'worker-plugin/loader?esModule',
+    },
   },
   module: {
     rules: [
