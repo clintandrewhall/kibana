@@ -7,6 +7,9 @@
 import { ExpressionFunctionDefinition } from 'src/plugins/expressions/common';
 import { paulTor14 } from '../../../common/lib/palettes';
 import { getFunctionHelp } from '../../../i18n';
+// @ts-expect-error untyped local
+import { getState } from '../../../public/state/store';
+import { getWorkpadPalette } from '../../../public/state/selectors/workpad';
 
 interface Arguments {
   color: string[];
@@ -50,8 +53,20 @@ export function palette(): ExpressionFunctionDefinition<'palette', null, Argumen
       },
     },
     fn: (input, args) => {
-      const { color, reverse, gradient } = args;
-      const colors = ([] as string[]).concat(color || paulTor14.colors);
+      let colors: string[] = paulTor14.colors;
+      const { color, reverse } = args;
+      let { gradient } = args;
+
+      if (color) {
+        colors = color;
+      } else {
+        const workpadPalette = getWorkpadPalette(getState());
+
+        if (workpadPalette) {
+          colors = workpadPalette.colors;
+          gradient = workpadPalette.gradient;
+        }
+      }
 
       return {
         type: 'palette',

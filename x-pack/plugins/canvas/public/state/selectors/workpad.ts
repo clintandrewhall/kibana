@@ -27,6 +27,7 @@ import {
   ExpressionAstFunction,
   ExpressionAstExpression,
 } from '../../../types';
+import { ColorPalette, Font } from '../../../common/lib';
 
 type Modify<T, R> = Pick<T, Exclude<keyof T, keyof R>> & R;
 type WorkpadInfo = Modify<CanvasWorkpad, { pages: undefined }>;
@@ -526,3 +527,24 @@ export function getRenderedWorkpadExpressions(state: State) {
 
   return expressions;
 }
+
+export const getWorkpadTheme = (state: State) => {
+  const workpad = getRenderedWorkpad(state);
+  const { theme } = workpad;
+  return theme || { palette: null, font: { family: null, size: null } };
+};
+
+export const getWorkpadFontFamily = (state: State): Font | null => {
+  const { font } = getWorkpadTheme(state) || { family: null, size: null };
+  return font?.family || null;
+};
+
+export const getWorkpadFontSize = (state: State): number | null => {
+  const { font } = getWorkpadTheme(state) || { size: null };
+  return font?.size || null;
+};
+
+export const getWorkpadPalette = (state: State): ColorPalette | null => {
+  const { palette } = getWorkpadTheme(state);
+  return palette || null;
+};

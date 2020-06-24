@@ -5,6 +5,7 @@
  */
 
 import { ElementPosition } from './elements';
+import { ColorPalette, Font } from '../common/lib';
 
 export interface CanvasAsset {
   '@created': string;
@@ -57,6 +58,13 @@ export interface CanvasWorkpad {
   page: number;
   pages: CanvasPage[];
   width: number;
+  theme: {
+    palette: ColorPalette | null;
+    font: {
+      family: Font | null;
+      size: number | null;
+    };
+  };
 }
 
 type CanvasTemplateElement = Omit<CanvasElement, 'filter' | 'type'>;

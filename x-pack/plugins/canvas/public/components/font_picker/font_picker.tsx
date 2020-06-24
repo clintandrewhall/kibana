@@ -14,10 +14,19 @@ interface DisplayedFont {
   label: string;
 }
 
-interface Props {
+interface RequiredProps {
   onSelect?: (value: DisplayedFont['value']) => void;
   value?: FontValue;
+  clearable?: false;
 }
+
+interface ClearableProps {
+  onSelect?: (value: DisplayedFont['value'] | null) => void;
+  value?: FontValue | null;
+  clearable?: true;
+}
+
+type Props = ClearableProps | RequiredProps;
 
 export const FontPicker: FunctionComponent<Props> = (props) => {
   const { value, onSelect } = props;
@@ -32,15 +41,25 @@ export const FontPicker: FunctionComponent<Props> = (props) => {
     displayedFonts.sort((a, b) => a.label.localeCompare(b.label));
   }
 
+  let options = displayedFonts.map((font) => ({
+    value: font.value,
+    inputDisplay: <div style={{ fontFamily: font.value }}>{font.label}</div>,
+  }));
+
+  let onFontChange = (newValue: DisplayedFont['value']) => onSelect && onSelect(newValue);
+
+  if (props.clearable) {
+    options = [{ value: 'None', inputDisplay: <div>None</div> }].concat(options);
+    onFontChange = (newValue: DisplayedFont['value']) =>
+      props.onSelect && props.onSelect(newValue === 'None' ? null : newValue);
+  }
+
   return (
     <EuiSuperSelect
       compressed
-      options={displayedFonts.map((font) => ({
-        value: font.value,
-        inputDisplay: <div style={{ fontFamily: font.value }}>{font.label}</div>,
-      }))}
-      valueOfSelected={value}
-      onChange={(newValue: DisplayedFont['value']) => onSelect && onSelect(newValue)}
+      options={options}
+      valueOfSelected={value || 'None'}
+      onChange={onFontChange}
     />
   );
 };

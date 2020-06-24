@@ -27,6 +27,7 @@ if (process.env.NODE_ENV === 'test') {
           margin: '40px 60px',
         },
       },
+      source: false,
     })
   );
 }

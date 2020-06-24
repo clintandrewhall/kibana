@@ -7,15 +7,9 @@
 import { connect } from 'react-redux';
 
 import { get } from 'lodash';
-import {
-  sizeWorkpad as setSize,
-  setName,
-  setWorkpadCSS,
-  updateWorkpadVariables,
-} from '../../state/actions/workpad';
+import { setName, updateWorkpadVariables } from '../../state/actions/workpad';
 
 import { getWorkpad } from '../../state/selectors/workpad';
-import { DEFAULT_WORKPAD_CSS } from '../../../common/lib/constants';
 import { WorkpadConfig as Component } from './workpad_config';
 import { State, CanvasVariable } from '../../../types';
 
@@ -24,19 +18,12 @@ const mapStateToProps = (state: State) => {
 
   return {
     name: get(workpad, 'name'),
-    size: {
-      width: get(workpad, 'width'),
-      height: get(workpad, 'height'),
-    },
-    css: get(workpad, 'css', DEFAULT_WORKPAD_CSS),
     variables: get(workpad, 'variables', []),
   };
 };
 
 const mapDispatchToProps = {
-  setSize,
   setName,
-  setWorkpadCSS,
   setWorkpadVariables: (vars: CanvasVariable[]) => updateWorkpadVariables(vars),
 };
 

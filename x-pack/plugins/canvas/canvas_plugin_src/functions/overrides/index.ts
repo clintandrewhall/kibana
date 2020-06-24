@@ -4,10 +4,6 @@
  * you may not use this file except in compliance with the Elastic License.
  */
 
-import '@storybook/addon-actions/register';
-import '@storybook/addon-knobs/register';
-import '@storybook/addon-console';
+import { font } from './font';
 
-import addons from '@storybook/addons'
-import registerRedux from 'addon-redux/register'
-registerRedux(addons)
+export const functions = [font];

@@ -6,28 +6,30 @@
 
 import { getId } from '../lib/get_id';
 import { DEFAULT_WORKPAD_CSS } from '../../common/lib/constants';
+import { CanvasElement, CanvasPage, CanvasWorkpad } from '../../types';
 
-export const getDefaultElement = () => {
+export const getDefaultElement = (): CanvasElement => {
   return {
     id: getId('element'),
+    type: 'element',
     position: {
       top: 20,
       left: 20,
       height: 300,
       width: 500,
       angle: 0,
-      type: 'element',
+      parent: null,
     },
     expression: `
       demodata
       | pointseries y="median(cost)" x=time color="project"
       | plot defaultStyle={seriesStyle points=5}
     `,
-    filter: null,
+    filter: '',
   };
 };
 
-export const getDefaultPage = () => {
+export const getDefaultPage = (): CanvasPage => {
   return {
     id: getId('page'),
     style: {
@@ -39,9 +41,13 @@ export const getDefaultPage = () => {
   };
 };
 
-export const getDefaultWorkpad = () => {
+export const getDefaultWorkpad = (): CanvasWorkpad => {
   const page = getDefaultPage();
+  const now = new Date().toISOString();
   return {
+    assets: {},
+    '@created': now,
+    '@timestamp': now,
     name: 'My Canvas Workpad',
     id: getId('workpad'),
     width: 1080,
@@ -83,5 +89,12 @@ export const getDefaultWorkpad = () => {
     ],
     variables: [],
     isWriteable: true,
+    theme: {
+      palette: null,
+      font: {
+        family: null,
+        size: null,
+      },
+    },
   };
 };
