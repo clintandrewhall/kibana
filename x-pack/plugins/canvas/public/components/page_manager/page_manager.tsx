@@ -62,6 +62,10 @@ export class PageManager extends Component<Props, State> {
   _activePageRef: HTMLDivElement | null = null;
   _pageListRef: HTMLDivElement | null = null;
 
+  _isMounted: boolean = false;
+  _activePageRef: HTMLDivElement | null = null;
+  _pageListRef: HTMLDivElement | null = null;
+
   componentDidMount() {
     // keep track of whether or not the component is mounted, to prevent rogue setState calls
     this._isMounted = true;

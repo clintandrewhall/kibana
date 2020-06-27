@@ -7,7 +7,6 @@
 import React, { FC } from 'react';
 import PropTypes from 'prop-types';
 import { DomPreview } from '../dom_preview';
-// @ts-ignore
 import { PageControls } from './page_controls';
 import { CanvasPage } from '../../../types';
 
