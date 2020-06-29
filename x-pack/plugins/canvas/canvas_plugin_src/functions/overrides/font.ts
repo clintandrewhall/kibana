@@ -8,7 +8,7 @@ import { clone } from 'lodash';
 import { font as expressionsFontFn } from '../../../../../../src/plugins/expressions/common';
 // @ts-expect-error untyped local
 import { getState } from '../../../public/state/store';
-import { getWorkpadFontFamily } from '../../../public/state/selectors/workpad';
+import { getWorkpadFontFamily, getWorkpadFontSize } from '../../../public/state/selectors/workpad';
 
 const fontFn = clone(expressionsFontFn);
 
@@ -20,6 +20,14 @@ fontFn.fn = (input, args, context) => {
     if (workpadFont) {
       args.family = workpadFont.label;
       defaultedArgs = defaultedArgs.filter((arg) => arg !== 'family');
+    }
+  }
+
+  if (defaultedArgs.includes('size')) {
+    const workpadFontSize = getWorkpadFontSize(getState());
+    if (workpadFontSize) {
+      args.size = workpadFontSize;
+      defaultedArgs = defaultedArgs.filter((arg) => arg !== 'size');
     }
   }
 

@@ -26,6 +26,7 @@ function getPageIndexById(workpadState, id) {
 }
 
 function addPage(workpadState, payload, srcIndex = workpadState.pages.length - 1) {
+  console.log(payload);
   return insert(workpadState, 'pages', payload || getDefaultPage(), srcIndex + 1);
 }
 

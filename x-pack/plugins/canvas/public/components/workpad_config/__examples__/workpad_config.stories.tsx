@@ -7,14 +7,14 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { withRedux } from '../../../../.storybook/redux_context';
+// import { withRedux } from '../../../../.storybook/redux_context';
 
 import { WorkpadConfig } from '../';
 import { WorkpadCSS } from '../workpad_css/workpad_css';
 import { WorkpadSize } from '../workpad_size/workpad_size';
 
 storiesOf('components/WorkpadConfig', module)
-  .addDecorator(withRedux())
+  // .addDecorator(withRedux())
   .add('redux', () => (
     <div style={{ width: 325 }}>
       <WorkpadConfig />

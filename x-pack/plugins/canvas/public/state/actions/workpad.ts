@@ -10,7 +10,7 @@ import { createThunk } from '../../lib/create_thunk';
 import { getWorkpadColors } from '../selectors/workpad';
 // @ts-expect-error
 import { fetchAllRenderables } from './elements';
-import { CanvasWorkpad, CanvasVariable } from '../../../types';
+import { CanvasWorkpad, CanvasVariable, CanvasWorkpadTheme } from '../../../types';
 import { ColorPalette, Font } from '../../../common/lib';
 
 export interface SizeWorkpadPayload {
@@ -34,8 +34,10 @@ export const SET_WRITEABLE = 'setWriteable';
 export const SET_COLORS = 'setColors';
 export const SET_REFRESH_INTERVAL = 'setRefreshInterval';
 export const SET_WORKPAD_CSS = 'setWorkpadCSS';
+export const SET_WORKPAD_THEME = 'setWorkpadTheme';
 export const SET_WORKPAD_PALETTE = 'setWorkpadPalette';
 export const SET_WORKPAD_FONT_FAMILY = 'setWorkpadFontFamily';
+export const SET_WORKPAD_FONT_SIZE = 'setWorkpadFontSize';
 export const ENABLE_AUTOPLAY = 'enableAutoplay';
 export const SET_AUTOPLAY_INTERVAL = 'setAutoplayInterval';
 export const RESET_WORKPAD = 'resetWorkpad';
@@ -80,6 +82,13 @@ export const updateWorkpadVariables = createThunk(
   }
 );
 
+export const setWorkpadTheme = createThunk(
+  SET_WORKPAD_THEME,
+  ({ dispatch, type }, theme: CanvasWorkpadTheme | null) => {
+    dispatch(createAction(type)(theme));
+    dispatch(fetchAllRenderables());
+  }
+);
 export const setWorkpadPalette = createThunk(
   SET_WORKPAD_PALETTE,
   ({ dispatch, type }, palette: ColorPalette | null) => {
@@ -92,6 +101,14 @@ export const setWorkpadFontFamily = createThunk(
   SET_WORKPAD_FONT_FAMILY,
   ({ dispatch, type }, font: Font | null) => {
     dispatch(createAction(type)(font));
+    dispatch(fetchAllRenderables());
+  }
+);
+
+export const setWorkpadFontSize = createThunk(
+  SET_WORKPAD_FONT_SIZE,
+  ({ dispatch, type }, size: number | null) => {
+    dispatch(createAction(type)(size));
     dispatch(fetchAllRenderables());
   }
 );

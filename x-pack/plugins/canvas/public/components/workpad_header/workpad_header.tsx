@@ -12,6 +12,7 @@ import { EuiFlexItem, EuiFlexGroup, EuiButtonIcon, EuiToolTip } from '@elastic/e
 import { ComponentStrings } from '../../../i18n';
 import { ToolTipShortcut } from '../tool_tip_shortcut/';
 import { RefreshControl } from './refresh_control';
+import { SidebarMenu } from './sidebar_menu';
 // @ts-expect-error untyped local
 import { FullscreenControl } from './fullscreen_control';
 import { EditMenu } from './edit_menu';
@@ -26,6 +27,10 @@ export interface Props {
   toggleWriteable: () => void;
   canUserWrite: boolean;
   commit: (type: string, payload: any) => any;
+  showConfigSidebar: boolean;
+  showPageSidebar: boolean;
+  onToggleConfigSidebar: () => void;
+  onTogglePageSidebar: () => void;
 }
 
 export const WorkpadHeader: FunctionComponent<Props> = ({
@@ -33,6 +38,10 @@ export const WorkpadHeader: FunctionComponent<Props> = ({
   canUserWrite,
   toggleWriteable,
   commit,
+  showConfigSidebar,
+  showPageSidebar,
+  onToggleConfigSidebar,
+  onTogglePageSidebar,
 }) => {
   const keyHandler = (action: string) => {
     if (action === 'EDITING') {
@@ -111,6 +120,14 @@ export const WorkpadHeader: FunctionComponent<Props> = ({
       </EuiFlexItem>
       <EuiFlexItem grow={false}>
         <EuiFlexGroup alignItems="center" gutterSize="s">
+          <EuiFlexItem>
+            <SidebarMenu
+              showConfigSidebar={showConfigSidebar}
+              showPageSidebar={showPageSidebar}
+              onToggleConfigSidebar={onToggleConfigSidebar}
+              onTogglePageSidebar={onTogglePageSidebar}
+            />
+          </EuiFlexItem>
           <EuiFlexItem grow={false}>
             {canUserWrite && (
               <Shortcuts

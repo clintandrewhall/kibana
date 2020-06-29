@@ -44,6 +44,14 @@ export interface CanvasVariable {
   type: 'boolean' | 'number' | 'string';
 }
 
+export interface CanvasWorkpadTheme {
+  palette: ColorPalette | null;
+  font: {
+    family: Font | null;
+    size: number | null;
+  };
+}
+
 export interface CanvasWorkpad {
   '@created': string;
   '@timestamp': string;
@@ -58,13 +66,7 @@ export interface CanvasWorkpad {
   page: number;
   pages: CanvasPage[];
   width: number;
-  theme: {
-    palette: ColorPalette | null;
-    font: {
-      family: Font | null;
-      size: number | null;
-    };
-  };
+  theme: CanvasWorkpadTheme;
 }
 
 type CanvasTemplateElement = Omit<CanvasElement, 'filter' | 'type'>;

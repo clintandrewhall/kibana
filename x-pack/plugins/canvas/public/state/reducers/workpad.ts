@@ -16,11 +16,13 @@ import {
   SET_WORKPAD_CSS,
   SET_WORKPAD_PALETTE,
   SET_WORKPAD_FONT_FAMILY,
+  SET_WORKPAD_FONT_SIZE,
+  SET_WORKPAD_THEME,
   RESET_WORKPAD,
   Payloads,
   SizeWorkpadPayload,
 } from '../actions/workpad';
-import { CanvasWorkpad } from '../../../types';
+import { CanvasWorkpad, CanvasWorkpadTheme } from '../../../types';
 
 import { APP_ROUTE_WORKPAD } from '../../../common/lib/constants';
 import { ColorPalette, Font } from '../../../common/lib';
@@ -46,6 +48,22 @@ export const workpadReducer = handleActions<CanvasWorkpad, Payloads>(
       return { ...workpadState, colors: payload };
     },
 
+    [SET_WORKPAD_THEME]: (workpadState, { payload }: Action<CanvasWorkpadTheme | null>) => {
+      let theme = payload;
+
+      if (theme === null) {
+        theme = {
+          font: {
+            family: null,
+            size: null,
+          },
+          palette: null,
+        };
+      }
+
+      return { ...workpadState, theme };
+    },
+
     [SET_WORKPAD_PALETTE]: (workpadState, { payload }: Action<ColorPalette | null>) => {
       const { theme } = workpadState;
       return { ...workpadState, theme: { ...theme, palette: payload } };
@@ -55,6 +73,12 @@ export const workpadReducer = handleActions<CanvasWorkpad, Payloads>(
       const { theme } = workpadState;
       const { font } = theme || { font: null };
       return { ...workpadState, theme: { ...theme, font: { ...font, family: payload } } };
+    },
+
+    [SET_WORKPAD_FONT_SIZE]: (workpadState, { payload }: Action<number | null>) => {
+      const { theme } = workpadState;
+      const { font } = theme || { font: null };
+      return { ...workpadState, theme: { ...theme, font: { ...font, size: payload } } };
     },
 
     [SET_NAME]: (workpadState, { payload }: Action<string>) => {

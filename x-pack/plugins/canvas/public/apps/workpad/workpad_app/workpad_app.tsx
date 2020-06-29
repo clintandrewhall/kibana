@@ -4,31 +4,42 @@
  * you may not use this file except in compliance with the Elastic License.
  */
 
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Sidebar } from '../../../components/sidebar';
-import { Toolbar } from '../../../components/toolbar';
+// @ts-expect-error untyped local
 import { Workpad } from '../../../components/workpad';
 import { WorkpadHeader } from '../../../components/workpad_header';
+import { PageSidebar } from '../../../components/page_sidebar';
 import { CANVAS_LAYOUT_STAGE_CONTENT_SELECTOR } from '../../../../common/lib/constants';
 
 export const WORKPAD_CONTAINER_ID = 'canvasWorkpadContainer';
 
-export class WorkpadApp extends React.PureComponent {
+interface Props {
+  isWriteable: boolean;
+  deselectElement?: () => void;
+}
+
+export class WorkpadApp extends PureComponent<Props> {
   static propTypes = {
     isWriteable: PropTypes.bool.isRequired,
     deselectElement: PropTypes.func,
   };
 
-  interactivePageLayout = null; // future versions may enable editing on multiple pages => use array then
+  public state = {
+    showConfigSidebar: true,
+    showPageSidebar: true,
+  };
 
-  registerLayout(newLayout) {
+  interactivePageLayout: ((type: string, payload: any) => any) | null = null; // future versions may enable editing on multiple pages => use array then
+
+  registerLayout(newLayout: (type: string, payload: any) => any) {
     if (this.interactivePageLayout !== newLayout) {
       this.interactivePageLayout = newLayout;
     }
   }
 
-  unregisterLayout(oldLayout) {
+  unregisterLayout(oldLayout: (type: string, payload: any) => any) {
     if (this.interactivePageLayout === oldLayout) {
       this.interactivePageLayout = null;
     }
@@ -36,16 +47,25 @@ export class WorkpadApp extends React.PureComponent {
 
   render() {
     const { isWriteable, deselectElement } = this.props;
+    const commit = this.interactivePageLayout || (() => {});
+    const { showPageSidebar, showConfigSidebar } = this.state;
 
     return (
       <div className="canvasLayout">
         <div className="canvasLayout__rows">
           <div className="canvasLayout__cols">
+            {showPageSidebar ? <PageSidebar /> : null}
             <div className="canvasLayout__stage">
               <div className="canvasLayout__stageHeader">
-                <WorkpadHeader commit={this.interactivePageLayout || (() => {})} />
+                {/* @ts-expect-error All of this is messed up */}
+                <WorkpadHeader
+                  {...{ commit, showConfigSidebar, showPageSidebar }}
+                  onToggleConfigSidebar={() =>
+                    this.setState({ showConfigSidebar: !showConfigSidebar })
+                  }
+                  onTogglePageSidebar={() => this.setState({ showPageSidebar: !showPageSidebar })}
+                />
               </div>
-
               <div
                 id={CANVAS_LAYOUT_STAGE_CONTENT_SELECTOR}
                 className={CANVAS_LAYOUT_STAGE_CONTENT_SELECTOR}
@@ -63,16 +83,11 @@ export class WorkpadApp extends React.PureComponent {
                 </div>
               </div>
             </div>
-
-            {isWriteable && (
+            {isWriteable && showConfigSidebar ? (
               <div className="canvasLayout__sidebar hide-for-sharing">
-                <Sidebar />
+                <Sidebar commit={commit} />
               </div>
-            )}
-          </div>
-
-          <div className="canvasLayout__footer hide-for-sharing">
-            <Toolbar />
+            ) : null}
           </div>
         </div>
       </div>

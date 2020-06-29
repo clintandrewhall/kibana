@@ -44,8 +44,6 @@ export const WorkpadConfig: FC<Props> = (props) => {
       <VarConfig variables={variables} setVariables={setWorkpadVariables} />
       <EuiSpacer size="m" />
       <WorkpadCSS />
-      <EuiSpacer size="m" />
-      <WorkpadTheme />
     </div>
   );
 };
