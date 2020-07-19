@@ -4,52 +4,26 @@
  * you may not use this file except in compliance with the Elastic License.
  */
 
-import React, { FC } from 'react';
-import PropTypes from 'prop-types';
-import { EuiFieldText, EuiFormRow, EuiSpacer, EuiTitle } from '@elastic/eui';
+import { connect } from 'react-redux';
 
-import { VarConfig } from '../var_config';
+import { get } from 'lodash';
+import { setName, updateWorkpadVariables } from '../../state/actions/workpad';
 
-import { CanvasVariable } from '../../../types';
-import { ComponentStrings } from '../../../i18n';
-import { WorkpadSize } from './workpad_size';
-import { WorkpadCSS } from './workpad_css';
+import { getWorkpad } from '../../state/selectors/workpad';
+import { WorkpadConfig as Component } from './workpad_config.component';
+import { State, CanvasVariable } from '../../../types';
 
-const { WorkpadConfig: strings } = ComponentStrings;
+export const WorkpadConfig = connect(
+  (state: State) => {
+    const workpad = getWorkpad(state);
 
-interface Props {
-  name: string;
-  setName: (name: string) => void;
-  setWorkpadVariables: (vars: CanvasVariable[]) => void;
-  variables: CanvasVariable[];
-}
-
-export const WorkpadConfig: FC<Props> = (props) => {
-  const { name, setName, variables, setWorkpadVariables } = props;
-
-  return (
-    <div>
-      <div className="canvasLayout__sidebarHeaderWorkpad">
-        <EuiTitle size="xs">
-          <h4>{strings.getTitle()}</h4>
-        </EuiTitle>
-      </div>
-      <EuiSpacer size="m" />
-      <EuiFormRow label={strings.getNameLabel()} display="rowCompressed">
-        <EuiFieldText compressed value={name} onChange={(e) => setName(e.target.value)} />
-      </EuiFormRow>
-      <EuiSpacer size="s" />
-      <WorkpadSize />
-      <EuiSpacer size="m" />
-      <VarConfig variables={variables} setVariables={setWorkpadVariables} />
-      <WorkpadCSS />
-    </div>
-  );
-};
-
-WorkpadConfig.propTypes = {
-  name: PropTypes.string.isRequired,
-  setName: PropTypes.func.isRequired,
-  variables: PropTypes.array,
-  setWorkpadVariables: PropTypes.func.isRequired,
-};
+    return {
+      name: get(workpad, 'name'),
+      variables: get(workpad, 'variables', []),
+    };
+  },
+  {
+    setName,
+    setWorkpadVariables: (vars: CanvasVariable[]) => updateWorkpadVariables(vars),
+  }
+)(Component);

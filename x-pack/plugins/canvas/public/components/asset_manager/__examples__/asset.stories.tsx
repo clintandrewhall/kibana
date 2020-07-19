@@ -8,8 +8,7 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { storiesOf } from '@storybook/react';
 import { AssetType } from '../../../../types';
-import { Asset } from '../asset.component';
-import { Asset as ReduxComponent } from '../asset';
+import { Asset, AssetComponent } from '../';
 import { withCanvas, getAddonPanelParameters } from '../../../../storybook';
 
 const AIRPLANE: AssetType = {
@@ -33,11 +32,11 @@ storiesOf('components/Assets/Asset', module)
   .addDecorator(withCanvas({ assets: [AIRPLANE, MARKER] }))
   .addParameters(getAddonPanelParameters())
   .add('redux', () => {
-    return <ReduxComponent asset={AIRPLANE} />;
+    return <Asset asset={AIRPLANE} />;
   })
   .add('airplane', () => (
-    <Asset asset={AIRPLANE} onCreate={action('onCreate')} onDelete={action('onDelete')} />
+    <AssetComponent asset={AIRPLANE} onCreate={action('onCreate')} onDelete={action('onDelete')} />
   ))
   .add('marker', () => (
-    <Asset asset={MARKER} onCreate={action('onCreate')} onDelete={action('onDelete')} />
+    <AssetComponent asset={MARKER} onCreate={action('onCreate')} onDelete={action('onDelete')} />
   ));
