@@ -34,6 +34,9 @@ export const PageConfig = ({
         <h4>{strings.getTitle()}</h4>
       </EuiTitle>
       <EuiSpacer size="s" />
+      <p>
+        <em>This needs to be moved to its own sidebar.</em>
+      </p>
       <EuiFormRow
         display="columnCompressed"
         label={

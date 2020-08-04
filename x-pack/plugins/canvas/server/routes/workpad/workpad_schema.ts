@@ -57,6 +57,32 @@ export const WorkpadVariable = schema.object({
   type: schema.string(),
 });
 
+export const WorkpadThemeSchema = schema.object({
+  palette: schema.maybe(
+    schema.nullable(
+      schema.object({
+        id: schema.string(),
+        label: schema.string(),
+        colors: schema.arrayOf(schema.string()),
+        gradient: schema.boolean(),
+      })
+    )
+  ),
+  font: schema.nullable(
+    schema.object({
+      family: schema.maybe(
+        schema.nullable(
+          schema.object({
+            label: schema.string(),
+            value: schema.string(),
+          })
+        )
+      ),
+      size: schema.maybe(schema.nullable(schema.number())),
+    })
+  ),
+});
+
 export const WorkpadSchema = schema.object({
   '@created': schema.maybe(schema.string()),
   '@timestamp': schema.maybe(schema.string()),
@@ -71,4 +97,5 @@ export const WorkpadSchema = schema.object({
   page: schema.number(),
   pages: schema.arrayOf(WorkpadPageSchema),
   width: schema.number(),
+  theme: schema.maybe(WorkpadThemeSchema),
 });

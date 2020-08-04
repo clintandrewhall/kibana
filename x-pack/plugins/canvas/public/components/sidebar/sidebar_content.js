@@ -4,10 +4,10 @@
  * you may not use this file except in compliance with the Elastic License.
  */
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { compose, branch, renderComponent } from 'recompose';
-import { EuiSpacer } from '@elastic/eui';
+import { EuiSpacer, EuiFlexGroup, EuiFlexItem } from '@elastic/eui';
 import { getSelectedToplevelNodes, getSelectedElementId } from '../../state/selectors/workpad';
 import { SidebarHeader } from '../sidebar_header';
 import { ComponentStrings } from '../../../i18n';
@@ -24,26 +24,38 @@ const mapStateToProps = (state) => ({
 });
 
 const MultiElementSidebar = () => (
-  <Fragment>
-    <SidebarHeader title={strings.getMultiElementSidebarTitle()} />
+  <EuiFlexGroup direction="column" gutterSize="none">
+    <EuiFlexItem grow={false}>
+      <SidebarHeader title={strings.getMultiElementSidebarTitle()} />
+    </EuiFlexItem>
     <EuiSpacer />
-    <MultiElementSettings />
-  </Fragment>
+    <EuiFlexItem>
+      <MultiElementSettings />
+    </EuiFlexItem>
+  </EuiFlexGroup>
 );
 
 const GroupedElementSidebar = () => (
-  <Fragment>
-    <SidebarHeader title={strings.getGroupedElementSidebarTitle()} groupIsSelected />
+  <EuiFlexGroup direction="column" gutterSize="none">
+    <EuiFlexItem grow={false}>
+      <SidebarHeader title={strings.getGroupedElementSidebarTitle()} groupIsSelected />
+    </EuiFlexItem>
     <EuiSpacer />
-    <GroupSettings />
-  </Fragment>
+    <EuiFlexItem>
+      <GroupSettings />
+    </EuiFlexItem>
+  </EuiFlexGroup>
 );
 
 const SingleElementSidebar = ({ selectedElementId }) => (
-  <Fragment>
-    <SidebarHeader title={strings.getSingleElementSidebarTitle()} showLayerControls />
-    <ElementSettings selectedElementId={selectedElementId} />
-  </Fragment>
+  <EuiFlexGroup direction="column" gutterSize="none">
+    <EuiFlexItem grow={false}>
+      <SidebarHeader title={strings.getSingleElementSidebarTitle()} showLayerControls />
+    </EuiFlexItem>
+    <EuiFlexItem>
+      <ElementSettings selectedElementId={selectedElementId} />
+    </EuiFlexItem>
+  </EuiFlexGroup>
 );
 
 const branches = [

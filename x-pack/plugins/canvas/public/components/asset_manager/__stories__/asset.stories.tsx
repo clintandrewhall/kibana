@@ -8,8 +8,8 @@ import { action } from '@storybook/addon-actions';
 import { storiesOf } from '@storybook/react';
 import React from 'react';
 import { reduxDecorator, getAddonPanelParameters } from '../../../../storybook';
+import { AIRPLANE, MARKER, assets } from '../../../../storybook/fixtures';
 import { Asset, AssetComponent } from '../';
-import { AIRPLANE, MARKER, assets } from './assets';
 
 storiesOf('components/Assets/Asset', module)
   .addDecorator((story) => <div style={{ width: '215px' }}>{story()}</div>)

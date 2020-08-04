@@ -25,6 +25,9 @@ import {
   ExpressionAstArgument,
   ExpressionAstFunction,
   ExpressionAstExpression,
+  NodeInfoElement,
+  NodeInfoGroup,
+  NodeInfoTree,
 } from '../../../types';
 
 type Modify<T, R> = Pick<T, Exclude<keyof T, keyof R>> & R;
@@ -354,6 +357,88 @@ export function getElements(
   return elements.map(elementAppendAst);
 }
 
+export function getGroups(state: State, pageId?: string): CanvasGroup[] {
+  const id = pageId || getSelectedPage(state);
+
+  if (!id) {
+    return [];
+  }
+
+  const page = getPageById(state, id);
+
+  return get(page, 'groups') || [];
+}
+
+export const getNodeInfoTree = (
+  state: State,
+  pageId: string | undefined = undefined
+): NodeInfoTree => {
+  const groups = getGroups(state, pageId);
+  const elements = getElements(state, pageId);
+  const args = get(state, ['transient', 'resolvedArgs']);
+
+  const groupNodes: NodeInfoGroup[] = groups.map((group) => {
+    const { id, position } = group;
+    const { parent: parentId } = position;
+    return {
+      id,
+      parentId,
+      type: 'group',
+      children: [],
+    };
+  });
+
+  const elementNodes: NodeInfoElement[] = elements.map((element) => {
+    const { id, position } = element;
+    const { parent: parentId } = position;
+    return {
+      id,
+      parentId,
+      as: get(args[id], ['expressionRenderable', 'value', 'as']),
+      type: 'element',
+    };
+  });
+
+  const arr = [...groupNodes, ...elementNodes];
+
+  const isNodeInfoElement = (node: any): node is NodeInfoElement =>
+    (node as NodeInfoElement).type === 'element';
+
+  const tree: NodeInfoTree = [];
+  const lookup: Record<string, NodeInfoGroup | NodeInfoElement | { children: NodeInfoTree }> = {};
+
+  for (const item of arr) {
+    const { id, parentId } = item;
+
+    if (!lookup[id]) {
+      lookup[id] = item;
+    }
+
+    if (isNodeInfoElement(item)) {
+      lookup[id] = { ...item };
+    } else {
+      // @ts-expect-error this needs cleanup
+      lookup[id] = { ...item, children: lookup[id].children };
+    }
+
+    const resolved = lookup[id];
+
+    if (!parentId) {
+      // @ts-expect-error this needs cleanup
+      tree.push(resolved);
+    } else {
+      if (!lookup[parentId]) {
+        lookup[parentId] = { children: [] };
+      }
+
+      // @ts-expect-error this needs cleanup
+      lookup[parentId].children.push(resolved);
+    }
+  }
+
+  return tree;
+};
+
 const augment = (type: string) => <T extends CanvasElement | CanvasGroup>(n: T): T => ({
   ...n,
   position: { ...n.position, type },
@@ -402,7 +487,7 @@ export function getNodesForPage(
 // todo unify or DRY up with `getElements`
 export function getNodes(
   state: State,
-  pageId: string,
+  pageId: string | undefined = undefined,
   withAst = true
 ): CanvasElement[] | PositionedElement[] {
   const id = pageId || getSelectedPage(state);
@@ -524,3 +609,24 @@ export function getRenderedWorkpadExpressions(state: State) {
 
   return expressions;
 }
+
+export const getWorkpadTheme = (state: State) => {
+  const workpad = getRenderedWorkpad(state);
+  const { theme } = workpad;
+  return theme || null;
+};
+
+export const getWorkpadFontFamily = (state: State) => {
+  const { font } = getWorkpadTheme(state) || {};
+  return font?.family || null;
+};
+
+export const getWorkpadFontSize = (state: State) => {
+  const { font } = getWorkpadTheme(state) || {};
+  return font?.size || null;
+};
+
+export const getWorkpadPalette = (state: State) => {
+  const { palette } = getWorkpadTheme(state) || {};
+  return palette || null;
+};

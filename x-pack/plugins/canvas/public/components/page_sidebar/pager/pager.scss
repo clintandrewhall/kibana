@@ -1,0 +1,45 @@
+
+.canvasPageSidebarPager {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  flex-direction: column;
+
+  .canvasPageSidebarPager__item {
+    padding: 4px;
+    display: flex;
+    flex-grow: 0;
+    flex-basis: auto;
+
+    .canvasPageSidebarPager__button {
+      @include euiBottomShadowSmall;
+      border-radius: 0;
+      width: 42px;
+      height: 34px;
+      background-color: $euiColorEmptyShade;
+      border: $euiBorderThin;
+    }
+
+    &--active {
+      background-color: transparentize(darken($euiColorLightestShade, 30%), .5);
+    }
+  }
+
+  .euiPaginationButton-isPlaceholder {
+    width: 50px;
+    height: 30px;
+    text-align: center;
+  }
+
+  .canvasPageSidebarPager__previousButton,
+  .canvasPageSidebarPager__nextButton {
+    text-align: center;
+    height: 34px;
+    width: 42px;
+    display: flex;
+    flex-grow: 0;
+    flex-basis: auto;
+    align-items: center;
+    justify-content: center;
+  }
+}

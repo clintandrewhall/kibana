@@ -8,7 +8,6 @@ import React, { useContext, useState, useEffect, FunctionComponent } from 'react
 import { EuiLoadingSpinner } from '@elastic/eui';
 import { RouterContext } from '../router';
 import { ComponentStrings } from '../../../i18n/components';
-// @ts-expect-error
 import * as workpadService from '../../lib/workpad_service';
 import { WorkpadTemplates as Component } from './workpad_templates';
 import { CanvasTemplate } from '../../../types';

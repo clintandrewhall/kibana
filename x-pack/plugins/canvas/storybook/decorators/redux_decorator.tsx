@@ -14,7 +14,7 @@ import { set } from '@elastic/safer-lodash-set';
 
 // @ts-expect-error Untyped local
 import { getDefaultWorkpad } from '../../public/state/defaults';
-import { CanvasWorkpad, CanvasElement, CanvasAsset } from '../../types';
+import { CanvasWorkpad, CanvasElement, CanvasAsset, CanvasPage, State } from '../../types';
 
 // @ts-expect-error untyped local
 import { elementsRegistry } from '../../public/lib/elements_registry';
@@ -28,23 +28,26 @@ interface Params {
   workpad?: CanvasWorkpad;
   elements?: CanvasElement[];
   assets?: CanvasAsset[];
+  pages?: CanvasPage[];
+  state?: State;
 }
 
 export const reduxDecorator = (params: Params = {}) => {
-  const state = cloneDeep(getInitialState());
-  const { workpad, elements, assets } = params;
+  const { workpad, elements, assets, state } = params;
+
+  const populatedState = cloneDeep(state || getInitialState());
 
   if (workpad) {
-    set(state, 'persistent.workpad', workpad);
+    set(populatedState, 'persistent.workpad', workpad);
   }
 
   if (elements) {
-    set(state, 'persistent.workpad.pages.0.elements', elements);
+    set(populatedState, 'persistent.workpad.pages.0.elements', elements);
   }
 
   if (assets) {
     set(
-      state,
+      populatedState,
       'assets',
       assets.reduce((obj: Record<string, CanvasAsset>, item) => {
         obj[item.id] = item;
@@ -54,7 +57,7 @@ export const reduxDecorator = (params: Params = {}) => {
   }
 
   return (story: Function) => {
-    const store = createStore(getReducer(), state, getMiddleware());
+    const store = createStore(getReducer(), populatedState, getMiddleware());
     store.dispatch = patchDispatch(store, store.dispatch);
     return <ReduxProvider store={store}>{story()}</ReduxProvider>;
   };

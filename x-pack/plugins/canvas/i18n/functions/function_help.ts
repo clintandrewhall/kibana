@@ -73,6 +73,7 @@ import { help as string } from './dict/string';
 import { help as switchFn } from './dict/switch';
 import { help as table } from './dict/table';
 import { help as tail } from './dict/tail';
+import { help as text } from './dict/text';
 import { help as timefilter } from './dict/timefilter';
 import { help as timefilterControl } from './dict/timefilter_control';
 import { help as timelion } from './dict/timelion';
@@ -81,12 +82,12 @@ import { help as to } from './dict/to';
 import { help as urlparam } from './dict/urlparam';
 
 /**
- * This type defines an entry in the `FunctionHelpMap`.  It uses 
- * an `ExpressionFunction` to infer its `Arguments` in order to strongly-type that 
+ * This type defines an entry in the `FunctionHelpMap`.  It uses
+ * an `ExpressionFunction` to infer its `Arguments` in order to strongly-type that
  * entry.
- * 
+ *
  * For example:
- * 
+ *
 ```
    interface Arguments {
      bar: string;
@@ -116,9 +117,10 @@ export type FunctionHelp<T> = T extends ExpressionFunctionDefinition<
   infer Output
 >
   ? {
-      help: string;
-      args: { [key in keyof Arguments]: string };
-    }
+    /* eslint-disable prettier/prettier */
+    help: string;
+    args: { [key in keyof Arguments]: string };
+  }
   : never;
 
 /**
@@ -236,6 +238,7 @@ export const getFunctionHelp = (): FunctionHelpDict => ({
   switch: switchFn,
   table,
   tail,
+  text,
   timefilter,
   timefilterControl,
   timelion,

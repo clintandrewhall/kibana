@@ -1,0 +1,9 @@
+.canvasWorkpadTheme {
+  padding: $euiSizeS 0;
+  border-top: $euiBorderThin;
+
+  .canvasPaletteSwatch,
+  .canvasPaletteSwatch__background {
+    height: 12px;
+  }
+}

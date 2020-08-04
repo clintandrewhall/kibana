@@ -5,8 +5,10 @@
  */
 
 import { createAction } from 'redux-actions';
+import { createThunk } from '../../lib/create_thunk';
+import { fetchAllRenderables } from './elements';
 
-export const addPage = createAction('addPage');
+// export const addPage = createAction('addPage');
 export const duplicatePage = createAction('duplicatePage');
 export const movePage = createAction('movePage', (id, position) => ({ id, position }));
 export const removePage = createAction('removePage');
@@ -16,3 +18,8 @@ export const setPageTransition = createAction('setPageTransition', (pageId, tran
   pageId,
   transition,
 }));
+
+export const addPage = createThunk('addPage', ({ dispatch, type }, page) => {
+  dispatch(createAction(type)(page));
+  dispatch(fetchAllRenderables());
+});

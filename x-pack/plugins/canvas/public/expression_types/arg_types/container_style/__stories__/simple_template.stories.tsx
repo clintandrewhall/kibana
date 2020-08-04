@@ -7,9 +7,8 @@
 import { action } from '@storybook/addon-actions';
 import { storiesOf } from '@storybook/react';
 import React from 'react';
-// @ts-expect-error untyped local
-import { getDefaultWorkpad } from '../../../../state/defaults';
 
+import { getDefaultWorkpad } from '../../../../state/defaults';
 import { Argument, Arguments, SimpleTemplate } from '../simple_template';
 
 const defaultValues: Arguments = {

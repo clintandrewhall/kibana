@@ -1,6 +1,7 @@
 .canvasVarConfig__container {
   width: 100%;
   position: relative;
+  overflow: hidden;
 
   &.canvasVarConfig-isEditMode {
     .canvasVarConfig__innerContainer {

@@ -8,9 +8,9 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { storiesOf } from '@storybook/react';
 import { reduxDecorator, getAddonPanelParameters } from '../../../../storybook';
+import { assets } from '../../../../storybook/fixtures';
 
 import { AssetManager, AssetManagerComponent } from '../';
-import { assets } from './assets';
 
 storiesOf('components/Assets/AssetManager', module)
   .addDecorator(reduxDecorator({ assets }))

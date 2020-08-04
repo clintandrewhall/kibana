@@ -5,7 +5,6 @@
  */
 
 import { Dispatch } from 'redux';
-// @ts-expect-error Untyped local
 import * as workpadService from '../../lib/workpad_service';
 import { setWorkpad } from '../../state/actions/workpad';
 // @ts-expect-error Untyped local

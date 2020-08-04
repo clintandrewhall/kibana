@@ -5,6 +5,7 @@
  */
 
 import { ElementPosition } from './elements';
+import { ColorPalette, Font } from '../common/lib';
 
 export interface CanvasAsset {
   '@created': string;
@@ -43,6 +44,18 @@ export interface CanvasVariable {
   type: 'boolean' | 'number' | 'string';
 }
 
+export interface CanvasWorkpadTheme {
+  palette?: ColorPalette;
+  font?: {
+    color?: string;
+    family?: Font;
+    italics?: boolean;
+    size?: number;
+    underline?: boolean;
+    weight?: string;
+  };
+}
+
 export interface CanvasWorkpad {
   '@created': string;
   '@timestamp': string;
@@ -57,6 +70,7 @@ export interface CanvasWorkpad {
   page: number;
   pages: CanvasPage[];
   width: number;
+  theme: CanvasWorkpadTheme | null;
 }
 
 type CanvasTemplateElement = Omit<CanvasElement, 'filter' | 'type'>;
@@ -67,7 +81,10 @@ export interface CanvasTemplate {
   help: string;
   tags: string[];
   template_key: string;
-  template?: Omit<CanvasWorkpad, 'id' | 'isWriteable' | 'pages'> & { pages: CanvasTemplatePage[] };
+  template?: Omit<CanvasWorkpad, 'id' | 'isWriteable' | 'pages' | 'theme'> & {
+    pages: CanvasTemplatePage[];
+    theme?: CanvasWorkpadTheme;
+  };
 }
 
 export interface CanvasWorkpadBoundingBox {
@@ -80,3 +97,21 @@ export interface CanvasWorkpadBoundingBox {
 export type LayoutState = any;
 
 export type CommitFn = (type: string, payload: any) => LayoutState;
+
+interface NodeInfo {
+  id: string;
+  parentId: string | null;
+  type: 'group' | 'element';
+}
+
+export interface NodeInfoGroup extends NodeInfo {
+  type: 'group';
+  children: Array<NodeInfoGroup | NodeInfoElement>;
+}
+
+export interface NodeInfoElement extends NodeInfo {
+  type: 'element';
+  as: string;
+}
+
+export type NodeInfoTree = Array<NodeInfoGroup | NodeInfoElement>;

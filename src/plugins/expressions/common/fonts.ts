@@ -128,6 +128,10 @@ export const palatino = createFont({
   value: "Palatino, 'Book Antiqua', Georgia, Garamond, 'Times New Roman', Times, serif",
 });
 
+export const getFontByValueString = (value: string): Font | null => {
+  return fonts.find((font) => font.value === value) || null;
+};
+
 /**
  * A collection of supported fonts.
  */

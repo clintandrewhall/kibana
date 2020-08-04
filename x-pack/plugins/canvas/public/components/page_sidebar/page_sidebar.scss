@@ -1,0 +1,93 @@
+$canvasPageSidebarWidth: 50px;
+$canvasPageManagerWidthExpanded: 260px;
+
+.canvasPageSidebar {
+  position: relative;
+  max-width: $canvasPageSidebarWidth;
+  background: $euiColorLightestShade;
+
+  &.canvasPageSidebar--expanded {
+    max-width: $canvasPageManagerWidthExpanded;
+  }
+
+  .canvasPageSidebar__header {
+    font-size: $canvasLayoutFontSize;
+    border-bottom: $euiBorderThin;
+    padding: $euiSizeM;
+    border-top: 1px solid transparent;
+  }
+
+  .canvasPageSidebar__pageList {
+    @include euiScrollBar;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+  }
+
+  .canvasPageSidebar__previewSelected {
+    background-color: transparentize(darken($euiColorLightestShade, 30%), .5);
+  }
+
+  .canvasPageSidebar__pageNumber {
+    color: $euiColorDarkShade;
+    margin: $euiSizeS $euiSizeS $euiSizeS 0;
+  }
+
+  .canvasPageSidebar__preview {
+    padding: $euiSizeS;
+    position: relative;
+
+    &:focus,
+    &-isActive {
+      background-color: transparentize(darken($euiColorLightestShade, 30%), .5);
+      outline: none;
+      text-decoration: none;
+    }
+
+    &-isActive:focus {
+      .canvasPageManager__pagePreview {
+        outline-color: $euiColorVis0;
+      }
+    }
+
+    &:hover,
+    &:focus {
+      text-decoration: none;
+
+      .canvasPageManager__pagePreview {
+        @include euiBottomShadowMedium($opacity: .3);
+      }
+
+      .canvasPageSidebar__previewControls {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+
+    .canvasPage {
+      box-shadow: none;
+    }
+
+    .canvasPageSidebar__previewControls {
+      position: absolute;
+      right: $euiSizeM;
+      top: $euiSizeM;
+      margin: $euiSizeXS;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity $euiAnimSpeedFast $euiAnimSlightResistance;
+      transition-delay: $euiAnimSpeedNormal;
+      background: transparentize($euiColorGhost, .5);
+      border-radius: $euiBorderRadius;
+    }
+
+    .euiLink {
+      display: block;
+      text-decoration: none;
+      color: $euiColorDarkShade;
+    }
+  }
+}

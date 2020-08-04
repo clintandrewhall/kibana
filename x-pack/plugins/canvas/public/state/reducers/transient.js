@@ -10,7 +10,7 @@ import { restoreHistory } from '../actions/history';
 import * as pageActions from '../actions/pages';
 import * as transientActions from '../actions/transient';
 import { removeElements } from '../actions/elements';
-import { setRefreshInterval, enableAutoplay, setAutoplayInterval } from '../actions/workpad';
+import { SET_REFRESH_INTERVAL, ENABLE_AUTOPLAY, SET_AUTOPLAY_INTERVAL } from '../actions/workpad';
 
 const { set, del } = immutable;
 
@@ -69,15 +69,15 @@ export const transientReducer = handleActions(
       return { ...transientState, selectedToplevelNodes: [] };
     },
 
-    [setRefreshInterval]: (transientState, { payload }) => {
+    [SET_REFRESH_INTERVAL]: (transientState, { payload }) => {
       return { ...transientState, refresh: { interval: Number(payload) || 0 } };
     },
 
-    [enableAutoplay]: (transientState, { payload }) => {
+    [ENABLE_AUTOPLAY]: (transientState, { payload }) => {
       return set(transientState, 'autoplay.enabled', Boolean(payload) || false);
     },
 
-    [setAutoplayInterval]: (transientState, { payload }) => {
+    [SET_AUTOPLAY_INTERVAL]: (transientState, { payload }) => {
       return set(transientState, 'autoplay.interval', Number(payload) || 0);
     },
   },

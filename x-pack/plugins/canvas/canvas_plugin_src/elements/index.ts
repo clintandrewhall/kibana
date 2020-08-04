@@ -26,6 +26,7 @@ import { repeatImage } from './repeat_image';
 import { revealImage } from './reveal_image';
 import { shape } from './shape';
 import { table } from './table';
+import { text } from './text';
 import { timeFilter } from './time_filter';
 import { verticalBarChart } from './vert_bar_chart';
 import { verticalProgressBar } from './vertical_progress_bar';
@@ -34,7 +35,7 @@ import { verticalProgressPill } from './vertical_progress_pill';
 import { SetupInitializer } from '../plugin';
 import { ElementFactory } from '../../types';
 
-const elementSpecs = [
+export const elementSpecs = [
   areaChart,
   bubbleChart,
   debug,
@@ -55,6 +56,7 @@ const elementSpecs = [
   revealImage,
   shape,
   table,
+  text,
   timeFilter,
   verticalBarChart,
   verticalProgressBar,
