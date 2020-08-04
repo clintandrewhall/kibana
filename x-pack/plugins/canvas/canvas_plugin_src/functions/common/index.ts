@@ -55,6 +55,7 @@ import { staticColumn } from './staticColumn';
 import { string } from './string';
 import { table } from './table';
 import { tail } from './tail';
+import { text } from './text';
 import { timerange } from './time_range';
 import { timefilter } from './timefilter';
 import { timefilterControl } from './timefilterControl';
@@ -113,6 +114,7 @@ export const functions = [
   string,
   table,
   tail,
+  text,
   timefilter,
   timefilterControl,
   timerange,

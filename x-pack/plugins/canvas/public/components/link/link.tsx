@@ -19,9 +19,10 @@ const isModifiedEvent = (ev: MouseEvent) =>
 interface Props {
   name: string;
   params: Record<string, any>;
+  href?: string;
 }
 
-export const Link: FC<Props & EuiLinkProps> = ({
+export const Link: FC<EuiLinkProps & Props> = ({
   onClick,
   target,
   name,

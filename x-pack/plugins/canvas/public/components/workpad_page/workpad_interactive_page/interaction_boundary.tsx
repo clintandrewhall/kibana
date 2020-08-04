@@ -5,14 +5,16 @@
  */
 
 import React, { CSSProperties, PureComponent } from 'react';
-// @ts-expect-error untyped local
-import { WORKPAD_CONTAINER_ID } from '../../../apps/workpad/workpad_app';
 
 interface State {
   height: string;
   width: string;
   marginLeft: string;
   marginTop: string;
+}
+
+interface Props {
+  pageId: string;
 }
 
 // This adds a bit of a buffer to make room for scroll bars, etc.
@@ -23,11 +25,11 @@ const BUFFER = 24;
  * of the `InteractiveWorkpadPage` to the corners of the `WorkpadApp`, allowing
  * mouse events started outside to fire and be tracked within.
  */
-export class InteractionBoundary extends PureComponent<void, State, void> {
+export class InteractionBoundary extends PureComponent<Props, State, void> {
   // Implemented with state, as I think there'll be cases where we want to
   // re-evaluate the size of the interaction boundary in the future.
-  constructor() {
-    super();
+  constructor(props: Props) {
+    super(props);
     this.state = {
       height: '0',
       width: '0',
@@ -37,7 +39,7 @@ export class InteractionBoundary extends PureComponent<void, State, void> {
   }
 
   componentDidMount() {
-    const container = $('#' + WORKPAD_CONTAINER_ID);
+    const container = $('#' + this.props.pageId);
     const height = container.height();
     const width = container.width();
 

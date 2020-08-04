@@ -30,12 +30,14 @@ const variables: CanvasVariable[] = [
   },
 ];
 
-storiesOf('components/Variables/VarConfig', module).add('default', () => (
-  <VarConfig
-    variables={variables}
-    onCopyVar={action('onCopyVar')}
-    onDeleteVar={action('onDeleteVar')}
-    onAddVar={action('onAddVar')}
-    onEditVar={action('onEditVar')}
-  />
-));
+storiesOf('components/Variables/VarConfig', module)
+  .addDecorator((fn) => <div style={{ width: 325 }}>{fn()}</div>)
+  .add('default', () => (
+    <VarConfig
+      variables={variables}
+      onCopyVar={action('onCopyVar')}
+      onDeleteVar={action('onDeleteVar')}
+      onAddVar={action('onAddVar')}
+      onEditVar={action('onEditVar')}
+    />
+  ));

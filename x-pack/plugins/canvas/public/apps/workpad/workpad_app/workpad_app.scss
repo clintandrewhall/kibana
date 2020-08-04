@@ -1,54 +1,50 @@
 $canvasLayoutFontSize: $euiFontSizeS;
+$sidebarWidth: 350px;
 
-.canvasLayout {
-  display: flex;
+@import '../../../components/page_sidebar/page_sidebar.scss';
+
+.workpadApp {
   background: $euiPageBackgroundColor;
-  flex-grow: 1;
   overflow: hidden;
 }
 
-.canvasLayout__rows {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  max-height: 100vh;
-  max-width: 100%;
-}
-
-.canvasLayout__cols {
-  display: flex;
-  align-items: stretch;
-  flex-grow: 1;
-}
-
-.canvasLayout__stage {
-  flex-grow: 1;
-  flex-basis: auto;
-  display: flex;
-  flex-direction: column;
-}
-
-.canvasLayout__stageHeader {
-  flex-grow: 0;
-  flex-basis: auto;
-  padding: 1px $euiSize 0;
+.workpadApp__header {
+  padding: 9px $euiSize 8px;
   font-size: $canvasLayoutFontSize;
   border-bottom: $euiBorderThin;
   background: $euiColorLightestShade;
   user-select: none;
 }
 
-.canvasLayout__stageHeaderInner {
-  height: ($euiSizeL * 2);
+.workpadApp__pageManager {
+  background: $euiColorLightestShade;
+  width: $canvasPageSidebarWidth;
+  border-right: $euiBorderThin;
+  transition: width $euiAnimSpeedNormal $euiAnimSlightResistance;
 }
 
-.canvasLayout__stageContent {
-  flex-grow: 1;
-  flex-basis: auto;
+.workpadApp__sidebar {
+  position: relative;
+  background: $euiColorLightestShade;
+  width: $sidebarWidth;
+  margin-right: -$sidebarWidth;
+  border-left: $euiBorderThin;
+  transition: margin-right $euiAnimSpeedNormal $euiAnimSlightResistance;
+
+  .euiPanel {
+    margin-bottom: $euiSizeS;
+  }
+}
+
+.workpadApp--showPageManager .workpadApp__pageManager {
+  width: $canvasPageManagerWidthExpanded;
+}
+
+.workpadApp__stage {
   position: relative;
 }
 
-.canvasLayout__stageContentOverflow {
+.workpadApp__stageOverflow {
   @include euiScrollBar;
 
   position: absolute;
@@ -57,29 +53,92 @@ $canvasLayoutFontSize: $euiFontSizeS;
   right: 0;
   bottom: 0;
   overflow: auto;
-  display: flex;
-  align-items: center;
 }
 
-.canvasLayout__sidebar {
-  flex-grow: 0;
-  flex-basis: auto;
-  width: 350px;
-  background: $euiColorLightestShade;
-  display: flex;
-  position: relative;
-  border-left: $euiBorderThin;
+.workpadApp__expressionPanel {
+  margin: 0 -1px;
+  transition: width $euiAnimSpeedNormal $euiAnimSlightResistance;
+  width: calc(100vw - #{$canvasPageSidebarWidth} + 2px);
+  display: none;
+}
 
-  .euiPanel {
-    margin-bottom: $euiSizeS;
+.workpadApp--showExpressionPanel .workpadApp__expressionPanel {
+  display: block;
+}
+
+.workpadApp--showSidebar .workpadApp__expressionPanel {
+  width: calc(100vw - #{$sidebarWidth} + 2px);
+}
+
+.workpadApp--showPageManager .workpadApp__expressionPanel {
+  width: calc(100vw - #{$canvasPageManagerWidthExpanded} + 2px);
+}
+
+.workpadApp--showPageManager.workpadApp--showSidebar .workpadApp__expressionPanel {
+  width: calc(100vw - #{$sidebarWidth} - #{$canvasPageManagerWidthExpanded} + 2px);
+}
+
+.workpadApp__stageContent {
+  position: relative;
+}
+
+.workpadApp--showSidebar .workpadApp__sidebar {
+  margin-right: 0;
+}
+
+.workpadApp__actions {
+  position: absolute;
+  top: 56px;
+  left: $canvasPageSidebarWidth;
+  right: 12px;
+  bottom: 0;
+}
+
+.workpadApp--showPageManager .workpadApp__actions {
+  left: $canvasPageManagerWidthExpanded;
+}
+
+.workpadApp--showSidebar .workpadApp__actions {
+  right: #{$sidebarWidth + 12px};
+}
+
+.workpadApp__actionButton {
+  @include euiBottomShadowMedium;
+  position: absolute;
+  z-index: 1000;
+  border: 1px solid $euiFormBorderColor;
+  border-radius: $euiBorderRadius;
+  background-color: $euiColorEmptyShade;
+  height: $euiFormControlCompressedHeight;
+  width: $euiFormControlCompressedHeight;
+  max-width: $euiFormControlCompressedHeight;
+  font-size: $euiFontSizeS;
+  color: $euiColorDarkShade;
+
+  &:enabled,
+  &:enabled:hover,
+  &:enabled:focus {
+    background-color: $euiColorEmptyShade;
   }
 }
 
-.canvasLayout__footer {
-  flex-grow: 0;
-  flex-basis: auto;
-  width: 100%;
-  background-color: $euiPageBackgroundColor;
-  z-index: $euiZNavigation;
-  font-size: $canvasLayoutFontSize;
+.workpadApp__layerSelector.layerSelector {
+  position: absolute;
+  top: -4px;
+  right: 42px;
+}
+
+.workpadApp__pageManagerButton {
+  left: 8px;
+  top: 8px;
+  transition: left $euiAnimSpeedNormal $euiAnimSlightResistance;
+}
+
+.workpadApp__expressionPanelButton {
+  bottom: 12px;
+  left: 8px;
+}
+
+.workpadApp__expressionPanelButton .euiButton__text {
+  overflow: visible;
 }

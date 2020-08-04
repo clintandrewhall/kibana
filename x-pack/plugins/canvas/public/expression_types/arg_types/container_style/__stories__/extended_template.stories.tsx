@@ -7,9 +7,8 @@
 import { action } from '@storybook/addon-actions';
 import { storiesOf } from '@storybook/react';
 import React from 'react';
-// @ts-expect-error untyped local
-import { getDefaultWorkpad } from '../../../../state/defaults';
 
+import { getDefaultWorkpad } from '../../../../state/defaults';
 import { Arguments, ArgumentTypes, BorderStyle, ExtendedTemplate } from '../extended_template';
 import { BorderForm } from '../border_form';
 import { AppearanceForm } from '../appearance_form';

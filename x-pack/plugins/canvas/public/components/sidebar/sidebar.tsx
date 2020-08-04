@@ -4,18 +4,36 @@
  * you may not use this file except in compliance with the Elastic License.
  */
 
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
+
+import { EuiFlexGroup, EuiFlexItem, EuiButtonEmpty } from '@elastic/eui';
+
 // @ts-expect-error unconverted component
 import { SidebarContent } from './sidebar_content';
 
 interface Props {
   commit: Function;
+  isVisible: boolean;
+  onClose?: () => void;
 }
 
-export const Sidebar: FunctionComponent<Props> = ({ commit }) => {
+export const Sidebar: FC<Props> = ({ commit, isVisible, onClose = () => {} }) => {
+  if (!isVisible) {
+    return null;
+  }
+
   return (
     <div className="canvasSidebar">
-      <SidebarContent commit={commit} />
+      <EuiFlexGroup direction="column" gutterSize="none" className="canvasSidebar__content">
+        <EuiFlexItem grow={true}>
+          <SidebarContent commit={commit} />
+        </EuiFlexItem>
+        <EuiFlexItem grow={false} className="canvasSidebar__footer">
+          <EuiButtonEmpty size="s" onClick={onClose}>
+            Close
+          </EuiButtonEmpty>
+        </EuiFlexItem>
+      </EuiFlexGroup>
     </div>
   );
 };

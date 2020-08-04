@@ -14,12 +14,27 @@ interface DisplayedFont {
   value: string;
 }
 
-interface Props {
-  onSelect?: (value: DisplayedFont['value']) => void;
-  value?: FontValue;
+interface BaseProps {
+  clearable?: boolean;
 }
 
-export const FontPicker: FC<Props> = ({ value, onSelect }) => {
+interface RequiredProps extends BaseProps {
+  onSelect: (value: DisplayedFont['value']) => void;
+  value?: FontValue;
+  clearable?: false;
+}
+
+interface ClearableProps extends BaseProps {
+  onSelect: (value: DisplayedFont['value'] | null) => void;
+  value?: FontValue | null;
+  clearable: true;
+}
+
+type Props = RequiredProps | ClearableProps;
+
+export const FontPicker: FC<Props> = (props) => {
+  const { value, onSelect } = props;
+
   // While fonts are strongly-typed, we also support custom fonts someone might type in.
   // So let's cast the fonts and allow for additions.
   const displayedFonts: DisplayedFont[] = fonts;
@@ -30,15 +45,25 @@ export const FontPicker: FC<Props> = ({ value, onSelect }) => {
     displayedFonts.sort((a, b) => a.label.localeCompare(b.label));
   }
 
+  let options = displayedFonts.map((font) => ({
+    value: font.value,
+    inputDisplay: <div style={{ fontFamily: font.value }}>{font.label}</div>,
+  }));
+
+  let onFontChange = (newValue: DisplayedFont['value']) => onSelect && onSelect(newValue);
+
+  if (props.clearable) {
+    options = [{ value: 'None', inputDisplay: <div>None</div> }].concat(options);
+    onFontChange = (newValue: DisplayedFont['value']) =>
+      props.onSelect && props.onSelect(newValue === 'None' ? null : newValue);
+  }
+
   return (
     <EuiSuperSelect
       compressed
-      options={displayedFonts.map((font) => ({
-        value: font.value,
-        inputDisplay: <div style={{ fontFamily: font.value }}>{font.label}</div>,
-      }))}
-      valueOfSelected={value}
-      onChange={(newValue: DisplayedFont['value']) => onSelect && onSelect(newValue)}
+      options={options}
+      valueOfSelected={value || 'None'}
+      onChange={onFontChange}
     />
   );
 };

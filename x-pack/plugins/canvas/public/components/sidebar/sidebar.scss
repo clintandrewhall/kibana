@@ -14,11 +14,6 @@
   animation: sidebarPop $euiAnimSpeedFast $euiAnimSlightResistance;
 }
 
-.canvasSidebarFlyout {
-  width: 350px;
-  min-width: 350px;
-}
-
 .canvasSidebar__elementButtons {
   background: darken($euiColorLightestShade, 5%);
   margin-bottom: $euiSizeS;
@@ -57,6 +52,16 @@
   .canvasSidebar__accordion:before {
     display: none;
   }
+}
+
+.canvasSidebar__content {
+  height: 100%;
+}
+
+.canvasSidebar__footer {
+  border-top: $euiBorderThin;
+  padding: $euiSizeM;
+  align-items: flex-start;
 }
 
 .canvasSidebar__accordion {

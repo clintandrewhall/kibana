@@ -126,9 +126,9 @@ export const TextStylePicker: FC<Props> = ({
       <EuiFlexGroup gutterSize="s">
         <EuiFlexItem>
           {family ? (
-            <FontPicker value={family} onSelect={(value) => doChange('family', value)} />
+            <FontPicker value={family} onSelect={(value: string) => doChange('family', value)} />
           ) : (
-            <FontPicker onSelect={(value) => doChange('family', value)} />
+            <FontPicker onSelect={(value: string) => doChange('family', value)} />
           )}
         </EuiFlexItem>
         <EuiFlexItem grow={false}>

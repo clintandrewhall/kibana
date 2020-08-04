@@ -91,7 +91,7 @@ export class InteractiveWorkpadPage extends PureComponent {
         onAnimationEnd={onAnimationEnd}
         onWheel={onWheel}
       >
-        <InteractionBoundary />
+        <InteractionBoundary pageId={pageId} />
         {shortcuts}
         {elements
           .map((node) => {

@@ -1,0 +1,133 @@
+.layerSelector {
+  position: relative;
+}
+
+.layerSelector__panel {
+  margin-top: 12px;
+  margin-left: 40px;
+  transition: none;
+}
+
+.layerSelector__root {
+  width: 300px;
+  overflow: hidden;
+}
+
+.layerSelector__item .euiFlexItem {
+  position: relative;
+  z-index: 2;
+}
+
+.layerSelector__anchor {
+  display: block;
+  padding: $euiSizeS;
+  width: 100%;
+  text-align: left;
+  color: $euiTextColor;
+  position: relative;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    left: -1000px;
+    right: 0;
+    display: block;
+  }
+
+  &::after {
+    background: $euiColorLightShade;
+    bottom: -1px;
+    height: 1px;
+  }
+
+  &::before {
+    top: 1px;
+    bottom: 0;
+  }
+
+  &:hover::before,
+  &:focus::before {
+    background-color: $euiFocusBackgroundColor;
+  }
+}
+
+.layerSelector__item--selected {
+
+  .layerSelector__anchor::before {
+    background-color: lighten($euiFocusBackgroundColor, 2.5%);
+  }
+}
+
+.layerSelector_list {
+  margin-left: 24px;
+}
+
+.euiFlexItem.layerSelector__left,
+.euiFlexItem.layerSelector__right {
+  width: 24px;
+}
+
+.euiFlexItem.layerSelector__right {
+  margin-right: 4px;
+}
+
+.layerSelector__icon {
+  width: 24px;
+  align-items: center;
+}
+
+.euiFlexItem.layerSelector__name {
+  padding: 0 4px;
+  height: 24px;
+  line-height: 24px;
+}
+
+.layerSelector__workpadName {
+  font-weight: bold;
+}
+
+.layerSelector__button {
+  position: absolute;
+  z-index: 1000;
+  background-color: $euiColorEmptyShade;
+  height: $euiFormControlCompressedHeight;
+  width: $euiFormControlCompressedHeight;
+  max-width: $euiFormControlCompressedHeight;
+  font-size: $euiFontSizeS;
+  color: $euiColorDarkShade;
+}
+
+.layerSelector__button--closed {
+  @include euiBottomShadowMedium;
+  border: 1px solid $euiFormBorderColor;
+  border-radius: $euiBorderRadius;
+
+  &:enabled,
+  &:enabled:hover,
+  &:enabled:focus {
+    background-color: $euiColorEmptyShade;
+  }
+}
+
+.layerSelector__button--open {
+  visibility: hidden;
+}
+
+.layerSelector__panel .layerSelector__button--open {
+  visibility: visible;
+  top: 8px;
+  right: 4px;
+}
+
+.euiButton.layerSelector__addItem {
+  @include euiBottomShadow;
+  position: absolute;
+  width: 100%;
+  bottom: -48px;
+}

@@ -82,8 +82,9 @@ export class Workpad extends React.PureComponent {
     } = this.props;
 
     const bufferStyle = {
-      height: isFullscreen ? height : (height + 2 * WORKPAD_CANVAS_BUFFER) * zoomScale,
-      width: isFullscreen ? width : (width + 2 * WORKPAD_CANVAS_BUFFER) * zoomScale,
+      height: isFullscreen ? height : (height + WORKPAD_CANVAS_BUFFER) * zoomScale,
+      width: isFullscreen ? width : (width + WORKPAD_CANVAS_BUFFER) * zoomScale,
+      padding: isFullscreen ? 0 : WORKPAD_CANVAS_BUFFER / 2,
     };
 
     return (
