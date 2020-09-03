@@ -12,6 +12,7 @@ import { createThunk } from '../../lib/create_thunk';
 import {
   getPages,
   getWorkpadVariablesAsObject,
+  getWorkpadThemeAsObject,
   getNodeById,
   getNodes,
   getSelectedPageIndex,
@@ -102,7 +103,9 @@ export const fetchContext = createThunk(
       return i < index;
     });
 
-    const variables = getWorkpadVariablesAsObject(getState());
+    const state = getState();
+    const variables = getWorkpadVariablesAsObject(state);
+    const theme = getWorkpadThemeAsObject(state);
 
     // get context data from a partial AST
     return interpretAst(
@@ -110,7 +113,10 @@ export const fetchContext = createThunk(
         ...element.ast,
         chain: astChain,
       },
-      variables
+      {
+        variables,
+        theme,
+      }
     ).then((value) => {
       dispatch(
         args.setValue({
@@ -136,9 +142,11 @@ const fetchRenderableWithContextFn = ({ dispatch, getState }, element, ast, cont
       value: renderable,
     });
 
-  const variables = getWorkpadVariablesAsObject(getState());
+  const state = getState();
+  const variables = getWorkpadVariablesAsObject(state);
+  const theme = getWorkpadThemeAsObject(state);
 
-  return runInterpreter(ast, context, variables, { castToRender: true })
+  return runInterpreter(ast, context, { variables, theme }, { castToRender: true })
     .then((renderable) => {
       dispatch(getAction(renderable));
     })
@@ -182,9 +190,11 @@ export const fetchAllRenderables = createThunk(
         const ast = element.ast || safeElementFromExpression(element.expression);
         const argumentPath = [element.id, 'expressionRenderable'];
 
-        const variables = getWorkpadVariablesAsObject(getState());
+        const state = getState();
+        const variables = getWorkpadVariablesAsObject(state);
+        const theme = getWorkpadThemeAsObject(state);
 
-        return runInterpreter(ast, null, variables, { castToRender: true })
+        return runInterpreter(ast, null, { variables, theme }, { castToRender: true })
           .then((renderable) => ({ path: argumentPath, value: renderable }))
           .catch((err) => {
             services.notify.getService().error(err);

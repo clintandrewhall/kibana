@@ -52,27 +52,39 @@ export const workpadReducer = handleActions<CanvasWorkpad, Payloads>(
     },
 
     [SET_WORKPAD_PALETTE]: (workpadState, { payload }: Action<ColorPalette | null>) => {
-      if (payload) {
-        return set(workpadState, 'theme.palette', payload);
-      }
-      unset(workpadState, 'theme.palette');
-      return workpadState;
+      return {
+        ...workpadState,
+        theme: {
+          ...(workpadState.theme || {}),
+          palette: payload || undefined,
+        },
+      };
     },
 
     [SET_WORKPAD_FONT_FAMILY]: (workpadState, { payload }: Action<Font | null>) => {
-      if (payload) {
-        return set(workpadState, 'theme.font.family', payload);
-      }
-      unset(workpadState, 'theme.font.family');
-      return workpadState;
+      return {
+        ...workpadState,
+        theme: {
+          ...(workpadState.theme || {}),
+          font: {
+            ...(workpadState.theme?.font || {}),
+            family: payload || undefined,
+          },
+        },
+      };
     },
 
     [SET_WORKPAD_FONT_SIZE]: (workpadState, { payload }: Action<number | null>) => {
-      if (payload) {
-        return set(workpadState, 'theme.font.size', payload);
-      }
-      unset(workpadState, 'theme.font.size');
-      return workpadState;
+      return {
+        ...workpadState,
+        theme: {
+          ...(workpadState.theme || {}),
+          font: {
+            ...(workpadState.theme?.font || {}),
+            size: payload || undefined,
+          },
+        },
+      };
     },
 
     [SET_NAME]: (workpadState, { payload }: Action<string>) => {

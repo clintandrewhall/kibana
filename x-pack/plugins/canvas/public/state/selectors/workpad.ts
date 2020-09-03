@@ -616,6 +616,21 @@ export const getWorkpadTheme = (state: State) => {
   return theme || null;
 };
 
+export const getWorkpadThemeAsObject = (state: State) => {
+  const theme = getWorkpadTheme(state) || {};
+
+  // TODO: Pretty ugly -- we should re-work this.
+  // The reason for this is the theme.font.family from canvas
+  // is an object
+  return {
+    ...theme,
+    font: {
+      ...(theme?.font || {}),
+      family: theme?.font?.family?.value || null,
+    },
+  };
+};
+
 export const getWorkpadFontFamily = (state: State) => {
   const { font } = getWorkpadTheme(state) || {};
   return font?.family || null;

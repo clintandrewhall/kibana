@@ -66,6 +66,7 @@ export const create = async (workpad: CanvasWorkpad) =>
     ...sanitizeWorkpad({ ...workpad }),
     assets: workpad.assets || {},
     variables: workpad.variables || [],
+    theme: workpad.theme || null,
   });
 
 export async function createFromTemplate(templateId: string) {
