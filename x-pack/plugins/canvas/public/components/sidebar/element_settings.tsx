@@ -8,17 +8,17 @@ import React, { FunctionComponent } from 'react';
 import PropTypes from 'prop-types';
 import { EuiTabbedContent } from '@elastic/eui';
 // @ts-expect-error unconverted component
-import { Datasource } from '../../datasource';
+import { Datasource } from '../datasource';
 // @ts-expect-error unconverted component
-import { FunctionFormList } from '../../function_form_list';
-import { PositionedElement } from '../../../../types';
-import { ComponentStrings } from '../../../../i18n';
+import { FunctionFormList } from '../function_form_list';
+import { CanvasElement } from '../../../types';
+import { ComponentStrings } from '../../../i18n';
 
 interface Props {
   /**
    * a Canvas element used to populate config forms
    */
-  element: PositionedElement;
+  element: CanvasElement;
 }
 
 const { ElementSettings: strings } = ComponentStrings;

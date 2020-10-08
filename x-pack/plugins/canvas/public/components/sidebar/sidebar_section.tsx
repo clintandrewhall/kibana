@@ -4,10 +4,10 @@
  * you may not use this file except in compliance with the Elastic License.
  */
 
-import React from 'react';
+import React, { FC } from 'react';
 import PropTypes from 'prop-types';
 
-export const SidebarSection = ({ children }) => (
+export const SidebarSection: FC = ({ children }) => (
   <div className="canvasSidebar__panel">{children}</div>
 );
 

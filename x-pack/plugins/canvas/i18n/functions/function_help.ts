@@ -51,6 +51,7 @@ import { help as math } from './dict/math';
 import { help as metric } from './dict/metric';
 import { help as neq } from './dict/neq';
 import { help as pie } from './dict/pie';
+import { help as placeholder } from './dict/placeholder';
 import { help as plot } from './dict/plot';
 import { help as ply } from './dict/ply';
 import { help as pointseries } from './dict/pointseries';
@@ -216,6 +217,7 @@ export const getFunctionHelp = (): FunctionHelpDict => ({
   metric,
   neq,
   pie,
+  placeholder,
   plot,
   ply,
   pointseries,

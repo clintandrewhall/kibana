@@ -4,17 +4,24 @@
  * you may not use this file except in compliance with the Elastic License.
  */
 
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import { EuiTitle, EuiFlexItem, EuiFlexGroup, EuiToolTip } from '@elastic/eui';
 
-export const SidebarSectionTitle = ({ title, tip, children }) => {
-  const formattedTitle = (
-    <EuiTitle size="xxxs" className="canvasSidebar__panelTitleHeading">
-      <h4>{title}</h4>
-    </EuiTitle>
-  );
-  const renderTitle = () => {
+interface Props extends FC {
+  children: ReactNode;
+  title: string;
+  tip: string;
+}
+
+export const SidebarSectionTitle: FC<Props> = ({ title, tip, children }) => {
+  const getTitle = () => {
+    const formattedTitle = (
+      <EuiTitle size="xxxs" className="canvasSidebar__panelTitleHeading">
+        <h4>{title}</h4>
+      </EuiTitle>
+    );
+
     if (tip) {
       return (
         <EuiToolTip position="left" content={tip}>
@@ -33,7 +40,7 @@ export const SidebarSectionTitle = ({ title, tip, children }) => {
       alignItems="center"
       justifyContent="spaceBetween"
     >
-      <EuiFlexItem grow={false}>{renderTitle(tip)}</EuiFlexItem>
+      <EuiFlexItem grow={false}>{getTitle()}</EuiFlexItem>
       <EuiFlexItem grow={false}>{children}</EuiFlexItem>
     </EuiFlexGroup>
   );

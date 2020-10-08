@@ -4,5 +4,13 @@
  * you may not use this file except in compliance with the Elastic License.
  */
 
-export { ElementSettings } from './element_settings';
-export { ElementSettings as ElementSettingsComponent } from './element_settings.component';
+import React, { FC } from 'react';
+import { ElementPosition } from '../../../types';
+
+interface Props {
+  position: ElementPosition;
+}
+
+export const PlaceholderSettings: FC<Props> = ({ position }) => {
+  return <div />;
+};
