@@ -831,11 +831,18 @@ export const ComponentStrings = {
           'The title displayed when multiple elements are selected. "elements" refer to the different visualizations, images, ' +
           'text, etc that can be added in a Canvas workpad.',
       }),
+    getPlaceholderElementSidebarTitle: () =>
+      i18n.translate('xpack.canvas.sidebarContent.placeholderElementSidebarTitle', {
+        defaultMessage: 'Place an element',
+        description:
+          'The title displayed when a placeholder is selected. "element" refer to the different visualizations, images, ' +
+          'text, etc that can be added in a Canvas workpad.',
+      }),
     getSingleElementSidebarTitle: () =>
       i18n.translate('xpack.canvas.sidebarContent.singleElementSidebarTitle', {
         defaultMessage: 'Selected element',
         description:
-          'The title displayed when a single element are selected. "element" refer to the different visualizations, images, ' +
+          'The title displayed when a single element is selected. "element" refer to the different visualizations, images, ' +
           'text, etc that can be added in a Canvas workpad.',
       }),
   },

@@ -8,16 +8,14 @@ import React, { FC } from 'react';
 
 import { EuiFlexGroup, EuiFlexItem, EuiButtonEmpty } from '@elastic/eui';
 
-// @ts-expect-error unconverted component
 import { SidebarContent } from './sidebar_content';
 
 interface Props {
-  commit: Function;
   isVisible: boolean;
   onClose?: () => void;
 }
 
-export const Sidebar: FC<Props> = ({ commit, isVisible, onClose = () => {} }) => {
+export const Sidebar: FC<Props> = ({ isVisible, onClose = () => {} }) => {
   if (!isVisible) {
     return null;
   }
@@ -26,7 +24,7 @@ export const Sidebar: FC<Props> = ({ commit, isVisible, onClose = () => {} }) =>
     <div className="canvasSidebar">
       <EuiFlexGroup direction="column" gutterSize="none" className="canvasSidebar__content">
         <EuiFlexItem grow={true}>
-          <SidebarContent commit={commit} />
+          <SidebarContent />
         </EuiFlexItem>
         <EuiFlexItem grow={false} className="canvasSidebar__footer">
           <EuiButtonEmpty size="s" onClick={onClose}>

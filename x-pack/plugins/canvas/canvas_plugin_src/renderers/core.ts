@@ -10,6 +10,7 @@ import { image } from './image';
 import { markdown } from './markdown';
 import { metric } from './metric';
 import { pie } from './pie';
+import { placeholder } from './placeholder';
 import { plot } from './plot';
 import { progress } from './progress';
 import { repeatImage } from './repeat_image';
@@ -25,6 +26,7 @@ export const renderFunctions = [
   markdown,
   metric,
   pie,
+  placeholder,
   plot,
   progress,
   repeatImage,

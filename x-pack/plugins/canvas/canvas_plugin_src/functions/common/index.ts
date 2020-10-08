@@ -39,6 +39,7 @@ import { metric } from './metric';
 import { neq } from './neq';
 import { palette } from './palette';
 import { pie } from './pie';
+import { placeholder } from './placeholder';
 import { plot } from './plot';
 import { ply } from './ply';
 import { progress } from './progress';
@@ -98,6 +99,7 @@ export const functions = [
   neq,
   palette,
   pie,
+  placeholder,
   plot,
   ply,
   progress,

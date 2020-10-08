@@ -147,11 +147,7 @@ export const WorkpadApp: FC<Props> = ({
             </EuiFlexGroup>
           </EuiFlexItem>
           <EuiFlexItem className="workpadApp__sidebar" grow={false}>
-            <Sidebar
-              commit={commit}
-              isVisible={showSidebar}
-              onClose={() => setShowSidebar(false)}
-            />
+            <Sidebar isVisible={showSidebar} onClose={() => setShowSidebar(false)} />
           </EuiFlexItem>
         </EuiFlexGroup>
       </EuiFlexItem>
