@@ -5,6 +5,5 @@
  */
 
 import { font } from './font';
-import { palette } from './palette';
 
-export const functions = [font, palette];
+export const functions = [font];
