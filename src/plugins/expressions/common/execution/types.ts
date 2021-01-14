@@ -87,7 +87,7 @@ export interface ExecutionContext<
   /**
    * A list of names of arguments which were defaulted in the course of execution.
    */
-  defaultedArgs: string[];
+  defaultedArgs?: string[];
 }
 
 /**

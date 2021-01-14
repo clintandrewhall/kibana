@@ -97,5 +97,5 @@ export const WorkpadSchema = schema.object({
   page: schema.number(),
   pages: schema.arrayOf(WorkpadPageSchema),
   width: schema.number(),
-  theme: schema.maybe(WorkpadThemeSchema),
+  theme: schema.nullable(WorkpadThemeSchema),
 });

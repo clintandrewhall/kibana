@@ -25,20 +25,23 @@ interface Props {
 export const SidebarContent: FC<Props> = ({ selectedToplevelNodes, selectedElement }) => {
   const nodeCount = selectedToplevelNodes.length;
 
-  if (!nodeCount || !selectedElement) {
+  let title: string | null = null;
+  let settings: ReactElement | null = null;
+  let showLayerControls = false;
+
+  const groupIsSelected = selectedToplevelNodes[0] && selectedToplevelNodes[0].includes('group');
+
+  if (nodeCount > 1 || groupIsSelected) {
+    title = strings.getMultiElementSidebarTitle();
+    settings = <MultiElementSettings />;
+  } else if (!selectedElement) {
     return <GlobalConfig />;
   }
-
-  const groupIsSelected = selectedToplevelNodes[0].includes('group');
-
-  let title: string;
-  let settings: ReactElement;
-  let showLayerControls = false;
 
   if (nodeCount === 1 && groupIsSelected) {
     title = strings.getGroupedElementSidebarTitle();
     settings = <GroupSettings />;
-  } else if (nodeCount === 1) {
+  } else if (nodeCount === 1 && selectedElement) {
     showLayerControls = true;
     // TODO: this is kind of weak, but I don't think we have any "what element is this?" utility at the moment.
     if (selectedElement.expression.includes('placeholder')) {
@@ -48,9 +51,10 @@ export const SidebarContent: FC<Props> = ({ selectedToplevelNodes, selectedEleme
       title = strings.getSingleElementSidebarTitle();
       settings = <ElementSettings element={selectedElement} />;
     }
-  } else {
-    title = strings.getMultiElementSidebarTitle();
-    settings = <MultiElementSettings />;
+  }
+
+  if (!title || !settings) {
+    return <GlobalConfig />;
   }
 
   return (

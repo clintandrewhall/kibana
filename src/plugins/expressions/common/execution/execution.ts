@@ -415,6 +415,7 @@ export class Execution<
       (acc: any, argDef: any, argName: any) => {
         if (typeof acc[argName] === 'undefined' && typeof argDef.default !== 'undefined') {
           acc[argName] = [parse(argDef.default, 'argument')];
+          this.context.defaultedArgs = this.context.defaultedArgs || [];
           this.context.defaultedArgs.push(argName);
         }
 

@@ -31,4 +31,6 @@ export {
   CustomPaletteState,
   SystemPaletteArguments,
   paletteIds,
+  palette,
+  defaultCustomColors,
 } from '../common';
