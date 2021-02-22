@@ -311,7 +311,7 @@ export function getGlobalFilterGroups(state: State) {
 // element getters
 export function getSelectedToplevelNodes(
   state: State
-): State['transient']['selectedTopLevelNodes'] {
+): State['transient']['selectedToplevelNodes'] {
   return get(state, 'transient.selectedToplevelNodes', []);
 }
 

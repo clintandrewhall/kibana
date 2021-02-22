@@ -25,7 +25,7 @@ export function getServerFunctions(state: State): State['app']['serverFunctions'
   return state.app.serverFunctions;
 }
 
-export function getAppReady(state: State): boolean {
+export function getAppReady(state: State): boolean | Error {
   return state.app.ready;
 }
 

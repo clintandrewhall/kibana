@@ -10,35 +10,31 @@ import {
   Datatable,
   ExpressionValueFilter,
   ExpressionImage,
-  ExpressionFunction,
   PointSeries,
-  Render,
+  ExpressionValueRender,
   Style,
   Range,
 } from 'src/plugins/expressions';
-import { Datasource, Model, Transform, View } from '../public/expression_types';
-import { AssetType } from './assets';
+
+import { AppState, AssetsState } from '../public/features';
+
 import { CanvasWorkpad } from './canvas';
 
-export enum AppStateKeys {
+export { AppState, AssetsState } from '../public/features';
+
+export enum ChromeStateKeys {
   FULLSCREEN = '__fullscreen',
   REFRESH_INTERVAL = '__refreshInterval',
   AUTOPLAY_INTERVAL = '__autoplayInterval',
 }
 
-export interface AppState {
-  [AppStateKeys.FULLSCREEN]?: boolean;
-  [AppStateKeys.REFRESH_INTERVAL]?: string;
-  [AppStateKeys.AUTOPLAY_INTERVAL]?: string;
+export interface ChromeState {
+  [ChromeStateKeys.FULLSCREEN]?: boolean;
+  [ChromeStateKeys.REFRESH_INTERVAL]?: string;
+  [ChromeStateKeys.AUTOPLAY_INTERVAL]?: string;
 }
 
-interface StoreAppState {
-  basePath: string;
-  serverFunctions: ExpressionFunction[];
-  ready: boolean;
-}
-
-interface ElementStatsType {
+export interface ElementStats {
   total: number;
   ready: number;
   pending: number;
@@ -60,7 +56,7 @@ type ExpressionType =
 
 export interface ExpressionRenderable {
   state: 'ready' | 'pending';
-  value: Render<ExpressionType> | null;
+  value: ExpressionValueRender<ExpressionType> | null;
   error: null;
 }
 
@@ -75,12 +71,12 @@ export interface ResolvedArgType {
   expressionContext: ExpressionContext;
 }
 
-interface TransientState {
+export interface TransientState {
   canUserWrite: boolean;
   zoomScale: number;
-  elementStats: ElementStatsType;
+  elementStats: ElementStats;
   fullScreen: boolean;
-  selectedTopLevelNodes: string[];
+  selectedToplevelNodes: string[];
   resolvedArgs: { [key: string]: ResolvedArgType | undefined };
   refresh: {
     interval: number;
@@ -92,14 +88,14 @@ interface TransientState {
   inFlight: boolean;
 }
 
-interface PersistentState {
+export interface PersistentState {
   schemaVersion: number;
   workpad: CanvasWorkpad;
 }
 
-export interface State {
-  app: StoreAppState;
-  assets: { [assetKey: string]: AssetType };
+export interface State extends Record<string, any> {
+  app: AppState;
+  assets: AssetsState;
   transient: TransientState;
   persistent: PersistentState;
 }

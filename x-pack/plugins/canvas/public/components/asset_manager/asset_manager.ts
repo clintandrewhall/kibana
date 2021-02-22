@@ -18,8 +18,7 @@ import { elementsRegistry } from '../../lib/elements_registry';
 // @ts-expect-error untyped local
 import { addElement } from '../../state/actions/elements';
 import { getAssets } from '../../state/selectors/assets';
-// @ts-expect-error untyped local
-import { removeAsset, createAsset } from '../../state/actions/assets';
+import { createAsset } from '../../state/actions/assets';
 import { State, AssetType } from '../../../types';
 
 import { AssetManager as Component } from './asset_manager.component';
@@ -29,7 +28,7 @@ export const AssetManager = connect(
     assets: getAssets(state),
   }),
   (dispatch: Dispatch) => ({
-    onAddAsset: (type: string, content: string) => {
+    onAddAsset: (type: AssetType['type'], content: string) => {
       // make the ID here and pass it into the action
       const assetId = getId('asset');
       dispatch(createAsset(type, content, assetId));

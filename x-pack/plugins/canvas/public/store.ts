@@ -4,15 +4,13 @@
  * 2.0; you may not use this file except in compliance with the Elastic License
  * 2.0.
  */
-
+import { ExpressionFunction } from 'src/plugins/expressions';
 import {
   createStore as createReduxStore,
   destroyStore as destroy,
   getStore,
   cloneStore,
-  // @ts-expect-error untyped local
 } from './state/store';
-// @ts-expect-error untyped local
 import { getInitialState } from './state/initial_state';
 
 import { CoreSetup } from '../../../../src/core/public';
@@ -33,7 +31,7 @@ export async function createFreshStore(core: CoreSetup) {
 
   // Retrieve server functions
   const serverFunctionsResponse = await core.http.get(API_ROUTE_FUNCTIONS);
-  const serverFunctions = Object.values(serverFunctionsResponse);
+  const serverFunctions = Object.values<ExpressionFunction>(serverFunctionsResponse);
 
   initialState.app = {
     basePath,
