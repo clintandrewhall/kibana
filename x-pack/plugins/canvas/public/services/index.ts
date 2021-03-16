@@ -14,8 +14,10 @@ import { navLinkServiceFactory } from './nav_link';
 import { embeddablesServiceFactory } from './embeddables';
 import { expressionsServiceFactory } from './expressions';
 import { experimentsServiceFactory } from './experiments';
+import { searchServiceFactory } from './search';
 
 export { NotifyService } from './notify';
+export { SearchService } from './search';
 export { PlatformService } from './platform';
 export { NavLinkService } from './nav_link';
 export { EmbeddablesService } from './embeddables';
@@ -80,6 +82,7 @@ export const services = {
   platform: new CanvasServiceProvider(platformServiceFactory),
   navLink: new CanvasServiceProvider(navLinkServiceFactory),
   experiments: new CanvasServiceProvider(experimentsServiceFactory),
+  search: new CanvasServiceProvider(searchServiceFactory),
 };
 
 export type CanvasServiceProviders = typeof services;
@@ -91,6 +94,7 @@ export interface CanvasServices {
   platform: ServiceFromProvider<typeof services.platform>;
   navLink: ServiceFromProvider<typeof services.navLink>;
   experiments: ServiceFromProvider<typeof services.experiments>;
+  search: ServiceFromProvider<typeof services.search>;
 }
 
 export const startServices = async (
@@ -117,4 +121,5 @@ export const {
   platform: platformService,
   navLink: navLinkService,
   expressions: expressionsService,
+  search: searchService,
 } = services;
