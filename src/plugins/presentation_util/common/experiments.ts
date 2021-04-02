@@ -10,8 +10,9 @@ import { i18n } from '@kbn/i18n';
 
 export const UNIFIED_TOOLBAR = 'presentation:unifiedToolbar';
 export const TIME_TO_PRESENT = 'canvas:timeToPresent';
+export const USE_DATA_SERVICE = 'canvas:useDataService';
 
-export const experimentIDs = [UNIFIED_TOOLBAR, TIME_TO_PRESENT] as const;
+export const experimentIDs = [UNIFIED_TOOLBAR, TIME_TO_PRESENT, USE_DATA_SERVICE] as const;
 export const environmentNames = ['kibana', 'browser', 'session'] as const;
 export const solutionNames = ['canvas', 'dashboard', 'presentation'] as const;
 
@@ -84,6 +85,21 @@ export const experiments: { [ID in ExperimentID]: ExperimentConfig & { id: ID } 
       {
         defaultMessage:
           'A set of features and functions that shift Canvas more toward Presentations and Reports',
+      }
+    ),
+    solutions: ['canvas'],
+  },
+  [USE_DATA_SERVICE]: {
+    id: USE_DATA_SERVICE,
+    isActive: false,
+    environments: ['kibana', 'browser', 'session'],
+    name: i18n.translate('presentationUtil.experiments.enableUseDataServiceExperimentName', {
+      defaultMessage: 'Use data service',
+    }),
+    description: i18n.translate(
+      'presentationUtil.experiments.enableUseDataServiceExperimentDescription',
+      {
+        defaultMessage: 'An experiment of using the new data.search service for Canvas datasources',
       }
     ),
     solutions: ['canvas'],

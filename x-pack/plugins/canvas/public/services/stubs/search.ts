@@ -5,10 +5,10 @@
  * 2.0.
  */
 
-import { SearchService } from '../search';
+// import { SearchService } from '../search';
 
 const noop = (..._args: any[]): any => {};
 
-export const searchService: SearchService = {
+export const searchService: any = {
   search: noop,
 };

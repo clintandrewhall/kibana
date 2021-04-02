@@ -11,6 +11,8 @@ import { pluginServices } from './services';
 
 export { PresentationUtilPluginSetup, PresentationUtilPluginStart } from './types';
 
+export { experimentIDs, Experiment, ExperimentID } from '../common';
+
 export {
   DashboardPicker,
   ExperimentsButton,

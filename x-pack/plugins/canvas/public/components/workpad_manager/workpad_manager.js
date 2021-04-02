@@ -5,7 +5,7 @@
  * 2.0.
  */
 
-import React, { Fragment } from 'react';
+import React, { Fragment, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import {
   EuiTabbedContent,
@@ -19,6 +19,8 @@ import {
 import { WorkpadLoader } from '../workpad_loader';
 import { WorkpadTemplates } from '../workpad_templates';
 import { ComponentStrings } from '../../../i18n';
+
+import { ExperimentsButton } from '../../../../../../src/plugins/presentation_util/public';
 
 const { WorkpadManager: strings } = ComponentStrings;
 
@@ -54,6 +56,13 @@ export const WorkpadManager = ({ onClose }) => {
             <EuiModalHeaderTitle>
               <h1>{strings.getModalTitle()}</h1>
             </EuiModalHeaderTitle>
+          </EuiFlexItem>
+          <EuiFlexItem>
+            <div>
+              <Suspense fallback="Loading...">
+                <ExperimentsButton />
+              </Suspense>
+            </div>
           </EuiFlexItem>
         </EuiFlexGroup>
       </EuiModalHeader>

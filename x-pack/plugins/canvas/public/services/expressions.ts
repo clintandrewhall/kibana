@@ -24,6 +24,11 @@ export const expressionsServiceFactory: CanvasServiceFactory<ExpressionsService>
   const loadServerFunctionWrappers = async () => {
     if (!cached) {
       cached = (async () => {
+        const expService = startPlugins.presentationUtil.experimentsService;
+        const useDataSearchExp = expService.getExperiment('canvas:useDataService');
+        const hasDataSearch = useDataSearchExp.status.isEnabled;
+        const dataSearchFns = ['essql', 'esdocs', 'escount'];
+
         const serverFunctionList = await coreSetup.http.get(API_ROUTE_FUNCTIONS);
         const batchedFunction = bfetch.batchedFunction({ url: API_ROUTE_FUNCTIONS });
         const { serialize } = serializeProvider(expressions.getTypes());
@@ -32,9 +37,15 @@ export const expressionsServiceFactory: CanvasServiceFactory<ExpressionsService>
         // function that matches its definition, but which simply
         // calls the server-side function endpoint.
         Object.keys(serverFunctionList).forEach((functionName) => {
-          if (expressions.getFunction(functionName)) {
+          // Allow function to be overwritten if we want to use
+          // the server-hosted essql, esdocs, and escount functions
+          if (
+            !(!hasDataSearch && dataSearchFns.includes(functionName)) &&
+            expressions.getFunction(functionName)
+          ) {
             return;
           }
+
           const fn = () => ({
             ...serverFunctionList[functionName],
             fn: (input: any, args: any) => {
