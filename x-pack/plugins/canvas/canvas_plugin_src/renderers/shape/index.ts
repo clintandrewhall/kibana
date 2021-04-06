@@ -86,6 +86,6 @@ export const shape: RendererFactory<Output> = () => ({
 
     draw();
     handlers.done();
-    handlers.onResize(draw); // debouncing avoided for fluidity
+    // handlers.onResize(draw); // debouncing avoided for fluidity
   },
 });

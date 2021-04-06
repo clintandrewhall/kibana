@@ -98,11 +98,11 @@ export const embeddableRendererFactory = (
           handlers.done()
         );
 
-        handlers.onResize(() => {
-          ReactDOM.render(renderEmbeddable(embeddableObject, domNode), domNode, () =>
-            handlers.done()
-          );
-        });
+        // handlers.onResize(() => {
+        //   ReactDOM.render(renderEmbeddable(embeddableObject, domNode), domNode, () =>
+        //     handlers.done()
+        //   );
+        // });
 
         handlers.onDestroy(() => {
           subscription.unsubscribe();

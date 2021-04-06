@@ -50,5 +50,5 @@ export const expressionsServiceFactory: CanvasServiceFactory<ExpressionsService>
 
   await loadServerFunctionWrappers();
 
-  return setupPlugins.expressions.fork();
+  return expressions as ExpressionsService;
 };

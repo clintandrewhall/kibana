@@ -51,7 +51,7 @@ export const error: RendererFactory<Config> = () => ({
 
     draw();
 
-    handlers.onResize(draw);
+    // handlers.onResize(draw);
 
     handlers.onDestroy(() => ReactDOM.unmountComponentAtNode(domNode));
   },

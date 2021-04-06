@@ -115,10 +115,10 @@ export const progress: RendererFactory<Arguments> = () => ({
       }
       domNode.appendChild(shapeSvg);
 
-      handlers.onResize(() => {
-        shapeSvg.setAttribute('width', String(domNode.offsetWidth));
-        shapeSvg.setAttribute('height', String(domNode.offsetHeight));
-      });
+      // handlers.onResize(() => {
+      //   shapeSvg.setAttribute('width', String(domNode.offsetWidth));
+      //   shapeSvg.setAttribute('height', String(domNode.offsetHeight));
+      // });
     }
 
     handlers.done();

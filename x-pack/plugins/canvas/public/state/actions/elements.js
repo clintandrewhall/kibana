@@ -124,29 +124,7 @@ export const fetchContext = createThunk(
 );
 
 const fetchRenderableWithContextFn = ({ dispatch, getState }, element, ast, context) => {
-  const argumentPath = [element.id, 'expressionRenderable'];
-  dispatch(
-    args.setLoading({
-      path: argumentPath,
-    })
-  );
-
-  const getAction = (renderable) =>
-    args.setValue({
-      path: argumentPath,
-      value: renderable,
-    });
-
-  const variables = getWorkpadVariablesAsObject(getState());
-
-  return runInterpreter(ast, context, variables, { castToRender: true })
-    .then((renderable) => {
-      dispatch(getAction(renderable));
-    })
-    .catch((err) => {
-      services.notify.getService().error(err);
-      dispatch(getAction(err));
-    });
+  return;
 };
 
 export const fetchRenderableWithContext = createThunk(
@@ -163,13 +141,7 @@ export const fetchRenderable = createThunk('fetchRenderable', ({ dispatch }, ele
 export const fetchAllRenderables = createThunk(
   'fetchAllRenderables',
   ({ dispatch, getState }, { onlyActivePage = false } = {}) => {
-    const workpadPages = getPages(getState());
-    const currentPageIndex = getSelectedPageIndex(getState());
-
-    const currentPage = workpadPages[currentPageIndex];
-    const otherPages = without(workpadPages, currentPage);
-
-    dispatch(args.inFlightActive());
+    return;
 
     function fetchElementsOnPages(pages) {
       const elements = [];
@@ -196,18 +168,6 @@ export const fetchAllRenderables = createThunk(
       return Promise.all(renderablePromises).then((renderables) => {
         dispatch(args.setValues(renderables));
       });
-    }
-
-    if (onlyActivePage) {
-      fetchElementsOnPages([currentPage]).then(() => dispatch(args.inFlightComplete()));
-    } else {
-      fetchElementsOnPages([currentPage])
-        .then(() => {
-          return otherPages.reduce((chain, page) => {
-            return chain.then(() => fetchElementsOnPages([page]));
-          }, Promise.resolve());
-        })
-        .then(() => dispatch(args.inFlightComplete()));
     }
   }
 );

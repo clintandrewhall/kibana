@@ -36,7 +36,7 @@ export const revealImage: RendererFactory<Arguments> = () => ({
     img.style.clipPath = getClipPath(config.percent, config.origin);
     img.style.setProperty('-webkit-clip-path', getClipPath(config.percent, config.origin));
     img.src = isValidUrl(config.image) ? config.image : elasticOutline;
-    handlers.onResize(onLoad);
+    // handlers.onResize(onLoad);
 
     // set up the underlay, "empty" image
     aligner.className = 'revealImageAligner';
