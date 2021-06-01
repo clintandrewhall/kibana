@@ -17,6 +17,9 @@ import { getTickHash } from './get_tick_hash';
 import { getFunctionHelp } from '../../../i18n';
 import { AxisConfig, PointSeries, Render, SeriesStyle, Legend } from '../../../types';
 
+// @ts-expect-error untyped local
+import { getState } from '../../state/store';
+import { getWorkpadPalette } from '../../state/selectors/workpad';
 interface Arguments {
   seriesStyle: SeriesStyle[];
   defaultStyle: SeriesStyle;
@@ -135,6 +138,14 @@ export function plotFunctionFactory(
           },
         };
 
+        const p = paletteService.get(args.palette.name || 'custom');
+        let colors = p.getColors(data.length, args.palette.params);
+        const workpadPalette = getWorkpadPalette(getState());
+
+        if (workpadPalette) {
+          colors = workpadPalette.colors;
+        }
+
         const output = {
           type: 'render',
           as: 'plot',
@@ -143,9 +154,7 @@ export function plotFunctionFactory(
             data: sortBy(data, 'label'),
             options: {
               canvas: false,
-              colors: paletteService
-                .get(args.palette.name || 'custom')
-                .getColors(data.length, args.palette.params),
+              colors,
               legend: getLegendConfig(args.legend, data.length),
               grid: gridConfig,
               xaxis: getFlotAxisConfig('x', args.xaxis, {

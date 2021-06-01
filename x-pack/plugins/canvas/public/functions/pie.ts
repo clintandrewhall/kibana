@@ -18,6 +18,10 @@ import {
   ExpressionFunctionDefinition,
 } from '../../types';
 
+// @ts-expect-error untyped local
+import { getState } from '../state/store';
+import { getWorkpadPalette } from '../state/selectors/workpad';
+
 interface PieSeriesOptions {
   show: boolean;
   innerRadius: number;
@@ -163,6 +167,14 @@ export function pieFunctionFactory(
           return item;
         });
 
+        const p = paletteService.get(palette.name || 'custom');
+        let colors = p.getColors(data.length, palette.params);
+        const workpadPalette = getWorkpadPalette(getState());
+
+        if (workpadPalette) {
+          colors = workpadPalette.colors;
+        }
+
         return {
           type: 'render',
           as: 'pie',
@@ -171,9 +183,7 @@ export function pieFunctionFactory(
             data,
             options: {
               canvas: false,
-              colors: paletteService
-                .get(palette.name || 'custom')
-                .getColors(data.length, palette.params),
+              colors,
               legend: getLegendConfig(legend, data.length),
               grid: {
                 show: false,

@@ -18,7 +18,7 @@ fontFn.fn = (input, args, context) => {
   if (defaultedArgs.includes('family')) {
     const workpadFont = getWorkpadFontFamily(getState());
     if (workpadFont) {
-      args.family = workpadFont.label;
+      args.family = workpadFont.value;
       defaultedArgs = defaultedArgs.filter((arg) => arg !== 'family');
     }
   }
