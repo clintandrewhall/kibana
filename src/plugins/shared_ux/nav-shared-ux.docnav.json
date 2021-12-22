@@ -1,0 +1,17 @@
+{
+  "mission": "Shared UX",
+  "id": "sharedUX",
+  "landingPageId": "sharedUX/Welcome",
+  "icon": "globe",
+  "description": "Developer documentation for Shared UX.",
+  "items": [
+    {
+      "label": "Getting Started",
+      "items": [
+        {
+          "id": "sharedUX/About"
+        }
+      ]
+    }
+  ]
+}
