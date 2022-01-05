@@ -6,11 +6,14 @@
  * Side Public License, v 1.
  */
 
+import { FC } from 'react';
+
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SharedUXPluginSetup {}
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface SharedUXPluginStart {}
+export interface SharedUXPluginStart {
+  ServicesContext: FC;
+}
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface SharedUXPluginSetupDeps {}
