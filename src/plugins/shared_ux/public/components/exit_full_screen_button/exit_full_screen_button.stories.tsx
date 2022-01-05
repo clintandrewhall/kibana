@@ -1,0 +1,39 @@
+/*
+ * Copyright Elasticsearch B.V. and/or licensed to Elasticsearch B.V. under one
+ * or more contributor license agreements. Licensed under the Elastic License
+ * 2.0 and the Server Side Public License, v 1; you may not use this file except
+ * in compliance with, at your election, the Elastic License 2.0 or the Server
+ * Side Public License, v 1.
+ */
+
+import React from 'react';
+import { action } from '@storybook/addon-actions';
+
+import { ExitFullScreenButton as ExitFullScreenButtonComponent } from './exit_full_screen_button.component';
+import { ExitFullScreenButton } from './exit_full_screen_button';
+import mdx from './exit_full_screen_button.mdx';
+
+export default {
+  title: 'Exit Full Screen Button',
+  description:
+    'A button that floats over the plugin workspace and allows one to exit "full screen" mode.',
+  parameters: {
+    docs: {
+      page: mdx,
+    },
+  },
+};
+
+export const Serviced = ({ toggleChrome = true }: { toggleChrome: boolean }) => {
+  return <ExitFullScreenButton onExit={action('onExit')} toggleChrome={toggleChrome} />;
+};
+Serviced.argTypes = {
+  toggleChrome: {
+    control: 'boolean',
+    defaultValue: true,
+  },
+};
+
+export const Component = () => {
+  return <ExitFullScreenButtonComponent onClick={action('onClick')} />;
+};
