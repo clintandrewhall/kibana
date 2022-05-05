@@ -9,36 +9,28 @@ import './solution_avatar.scss';
 
 import React from 'react';
 
-import { DistributiveOmit, EuiAvatar, EuiAvatarProps } from '@elastic/eui';
-import classNames from 'classnames';
+import { Avatar, AvatarProps } from './avatar';
+import { KibanaAppAvatar, KibanaAppAvatarProps } from './app_avatar';
+import { KibanaLogoAvatar, KibanaLogoAvatarProps } from './logo_avatar';
 
-export type KibanaSolutionAvatarProps = DistributiveOmit<EuiAvatarProps, 'size'> & {
-  /**
-   * Any EuiAvatar size available, or `xxl` for custom large, brand-focused version
-   */
-  size?: EuiAvatarProps['size'] | 'xxl';
+const isLogo = (props: any): props is KibanaLogoAvatarProps => {
+  return typeof props.logo !== 'undefined';
 };
 
-/**
- * Applies extra styling to a typical EuiAvatar.
- * The `name` value will be appended to 'logo' to configure the `iconType` unless `iconType` is provided.
- */
-export const KibanaSolutionAvatar = ({ className, size, ...rest }: KibanaSolutionAvatarProps) => {
-  return (
-    // @ts-ignore Complains about ExclusiveUnion between `iconSize` and `iconType`, but works fine
-    <EuiAvatar
-      className={classNames(
-        'kbnSolutionAvatar',
-        {
-          [`kbnSolutionAvatar--${size}`]: size,
-        },
-        className
-      )}
-      size={size === 'xxl' ? 'xl' : size}
-      iconSize={size}
-      color="plain"
-      iconType={`logo${rest.name}`}
-      {...rest}
-    />
-  );
+const isApp = (props: any): props is KibanaAppAvatarProps => {
+  return typeof props.app !== 'undefined';
+};
+
+export type KibanaSolutionAvatarProps = KibanaLogoAvatarProps | KibanaAppAvatarProps | AvatarProps;
+
+export const KibanaSolutionAvatar = (props: KibanaSolutionAvatarProps) => {
+  if (isLogo(props)) {
+    return <KibanaLogoAvatar {...props} />;
+  }
+
+  if (isApp(props)) {
+    return <KibanaAppAvatar {...props} />;
+  }
+
+  return <Avatar {...props} />;
 };

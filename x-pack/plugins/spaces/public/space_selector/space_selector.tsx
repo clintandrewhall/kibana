@@ -109,7 +109,7 @@ export class SpaceSelector extends Component<Props, State> {
       >
         <EuiText textAlign="center" size="s">
           <EuiSpacer size="xxl" />
-          <KibanaSolutionAvatar name="Elastic" size="xl" />
+          <KibanaSolutionAvatar solution="Elastic" size="xl" />
           <EuiSpacer size="xxl" />
           <h1
             // plain `eui` class undos forced focus style on non-EUI components
