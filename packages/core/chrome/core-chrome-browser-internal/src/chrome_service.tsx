@@ -26,6 +26,7 @@ import type {
   ChromeGlobalHelpExtensionMenuLink,
   ChromeHelpExtension,
   ChromeUserBanner,
+  ChromeStyle,
 } from '@kbn/core-chrome-browser';
 import type { CustomBrandingStart } from '@kbn/core-custom-branding-browser';
 import { KIBANA_ASK_ELASTIC_LINK } from './constants';
@@ -35,6 +36,7 @@ import { NavLinksService } from './nav_links';
 import { RecentlyAccessedService } from './recently_accessed';
 import { Header } from './ui';
 import type { InternalChromeStart } from './types';
+import { ProjectHeader } from './ui/project';
 
 const IS_LOCKED_KEY = 'core.chrome.isLocked';
 const SNAPSHOT_REGEX = /-snapshot/i;
@@ -119,6 +121,7 @@ export class ChromeService {
     const customNavLink$ = new BehaviorSubject<ChromeNavLink | undefined>(undefined);
     const helpSupportUrl$ = new BehaviorSubject<string>(KIBANA_ASK_ELASTIC_LINK);
     const isNavDrawerLocked$ = new BehaviorSubject(localStorage.getItem(IS_LOCKED_KEY) === 'true');
+    const chromeStyle$ = new BehaviorSubject<ChromeStyle>('classic');
 
     const getKbnVersionClass = () => {
       // we assume that the version is valid and has the form 'X.X.X'
@@ -163,6 +166,12 @@ export class ChromeService {
 
     const getIsNavDrawerLocked$ = isNavDrawerLocked$.pipe(takeUntil(this.stop$));
 
+    const setChromeStyle = (style: ChromeStyle) => {
+      chromeStyle$.next(style);
+    };
+
+    const getChromeStyle$ = chromeStyle$.pipe(takeUntil(this.stop$));
+
     const isIE = () => {
       const ua = window.navigator.userAgent;
       const msie = ua.indexOf('MSIE '); // IE 10 or older
@@ -203,41 +212,61 @@ export class ChromeService {
       });
     }
 
+    const getHeaderComponent = () => {
+      if (chromeStyle$.getValue() === 'classic') {
+        return (
+          <Header
+            loadingCount$={http.getLoadingCount$()}
+            application={application}
+            headerBanner$={headerBanner$.pipe(takeUntil(this.stop$))}
+            badge$={badge$.pipe(takeUntil(this.stop$))}
+            basePath={http.basePath}
+            breadcrumbs$={breadcrumbs$.pipe(takeUntil(this.stop$))}
+            breadcrumbsAppendExtension$={breadcrumbsAppendExtension$.pipe(takeUntil(this.stop$))}
+            customNavLink$={customNavLink$.pipe(takeUntil(this.stop$))}
+            kibanaDocLink={docLinks.links.kibana.guide}
+            forceAppSwitcherNavigation$={navLinks.getForceAppSwitcherNavigation$()}
+            globalHelpExtensionMenuLinks$={globalHelpExtensionMenuLinks$}
+            helpExtension$={helpExtension$.pipe(takeUntil(this.stop$))}
+            helpSupportUrl$={helpSupportUrl$.pipe(takeUntil(this.stop$))}
+            homeHref={http.basePath.prepend('/app/home')}
+            isVisible$={this.isVisible$}
+            kibanaVersion={injectedMetadata.getKibanaVersion()}
+            navLinks$={navLinks.getNavLinks$()}
+            recentlyAccessed$={recentlyAccessed.get$()}
+            navControlsLeft$={navControls.getLeft$()}
+            navControlsCenter$={navControls.getCenter$()}
+            navControlsRight$={navControls.getRight$()}
+            navControlsExtension$={navControls.getExtension$()}
+            onIsLockedUpdate={setIsNavDrawerLocked}
+            isLocked$={getIsNavDrawerLocked$}
+            customBranding$={customBranding$}
+          />
+        );
+      }
+
+      return (
+        <ProjectHeader
+          {...{
+            breadcrumbs$,
+            application,
+            globalHelpExtensionMenuLinks$,
+            helpExtension$,
+            helpSupportUrl$,
+          }}
+          kibanaVersion={injectedMetadata.getKibanaVersion()}
+          kibanaDocLink={docLinks.links.kibana.guide}
+          actionMenu$={application.currentActionMenu$}
+        />
+      );
+    };
+
     return {
       navControls,
       navLinks,
       recentlyAccessed,
       docTitle,
-
-      getHeaderComponent: () => (
-        <Header
-          loadingCount$={http.getLoadingCount$()}
-          application={application}
-          headerBanner$={headerBanner$.pipe(takeUntil(this.stop$))}
-          badge$={badge$.pipe(takeUntil(this.stop$))}
-          basePath={http.basePath}
-          breadcrumbs$={breadcrumbs$.pipe(takeUntil(this.stop$))}
-          breadcrumbsAppendExtension$={breadcrumbsAppendExtension$.pipe(takeUntil(this.stop$))}
-          customNavLink$={customNavLink$.pipe(takeUntil(this.stop$))}
-          kibanaDocLink={docLinks.links.kibana.guide}
-          forceAppSwitcherNavigation$={navLinks.getForceAppSwitcherNavigation$()}
-          globalHelpExtensionMenuLinks$={globalHelpExtensionMenuLinks$}
-          helpExtension$={helpExtension$.pipe(takeUntil(this.stop$))}
-          helpSupportUrl$={helpSupportUrl$.pipe(takeUntil(this.stop$))}
-          homeHref={http.basePath.prepend('/app/home')}
-          isVisible$={this.isVisible$}
-          kibanaVersion={injectedMetadata.getKibanaVersion()}
-          navLinks$={navLinks.getNavLinks$()}
-          recentlyAccessed$={recentlyAccessed.get$()}
-          navControlsLeft$={navControls.getLeft$()}
-          navControlsCenter$={navControls.getCenter$()}
-          navControlsRight$={navControls.getRight$()}
-          navControlsExtension$={navControls.getExtension$()}
-          onIsLockedUpdate={setIsNavDrawerLocked}
-          isLocked$={getIsNavDrawerLocked$}
-          customBranding$={customBranding$}
-        />
-      ),
+      getHeaderComponent,
 
       getIsVisible$: () => this.isVisible$,
 
@@ -302,6 +331,8 @@ export class ChromeService {
       },
 
       getBodyClasses$: () => bodyClasses$.pipe(takeUntil(this.stop$)),
+      setChromeStyle,
+      getChromeStyle$: () => getChromeStyle$,
     };
   }
 

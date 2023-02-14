@@ -61,7 +61,7 @@ import { syntheticsAlertTypeInitializers } from './apps/synthetics/lib/alert_typ
 
 export interface ClientPluginsSetup {
   home?: HomePublicPluginSetup;
-  data: DataPublicPluginSetup;
+  data?: DataPublicPluginSetup;
   observability: ObservabilityPublicSetup;
   share: SharePluginSetup;
   triggersActionsUi: TriggersAndActionsUIPublicPluginSetup;
@@ -69,8 +69,8 @@ export interface ClientPluginsSetup {
 }
 
 export interface ClientPluginsStart {
-  fleet: FleetStart;
-  data: DataPublicPluginStart;
+  fleet?: FleetStart;
+  data?: DataPublicPluginStart;
   unifiedSearch: UnifiedSearchPublicPluginStart;
   discover: DiscoverStart;
   inspector: InspectorPluginStart;
@@ -106,7 +106,7 @@ export type ClientStart = void;
 export class UptimePlugin
   implements Plugin<ClientSetup, ClientStart, ClientPluginsSetup, ClientPluginsStart>
 {
-  constructor(private readonly initContext: PluginInitializerContext) {}
+  constructor(private readonly initContext: PluginInitializerContext) { }
 
   public setup(core: CoreSetup<ClientPluginsStart, unknown>, plugins: ClientPluginsSetup): void {
     if (plugins.home) {
@@ -146,7 +146,7 @@ export class UptimePlugin
 
     registerUptimeRoutesWithNavigation(core, plugins);
 
-    core.getStartServices().then(([coreStart, clientPluginsStart]) => {});
+    core.getStartServices().then(([coreStart, clientPluginsStart]) => { });
 
     const appKeywords = [
       'Synthetics',
@@ -208,11 +208,13 @@ export class UptimePlugin
   }
 
   public start(coreStart: CoreStart, pluginsStart: ClientPluginsStart): void {
-    const { triggersActionsUi } = pluginsStart;
+    const { triggersActionsUi, fleet } = pluginsStart;
 
-    const { registerExtension } = pluginsStart.fleet;
+    if (fleet) {
+      registerUptimeFleetExtensions(fleet.registerExtension);
+    }
+
     setStartServices(coreStart);
-    registerUptimeFleetExtensions(registerExtension);
 
     syntheticsAlertTypeInitializers.forEach((init) => {
       const { observabilityRuleTypeRegistry } = pluginsStart.observability;
@@ -249,7 +251,7 @@ export class UptimePlugin
     });
   }
 
-  public stop(): void {}
+  public stop(): void { }
 }
 
 function registerUptimeRoutesWithNavigation(

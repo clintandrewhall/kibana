@@ -1,0 +1,22 @@
+{
+  "id": "reportingExample",
+  "version": "1.0.0",
+  "kibanaVersion": "kibana",
+  "server": false,
+  "ui": true,
+  "owner": {
+    "name": "Kibana Reporting Services",
+    "githubTeam": "kibana-reporting-services"
+  },
+  "description": "Example integration code for applications to feature reports.",
+  "optionalPlugins": [
+    "reporting"
+  ],
+  "requiredPlugins": [
+    "developerExamples",
+    "kibanaReact",
+    "navigation",
+    "screenshotMode",
+    "share"
+  ]
+}

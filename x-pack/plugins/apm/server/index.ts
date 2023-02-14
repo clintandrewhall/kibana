@@ -53,6 +53,7 @@ const configSchema = schema.object({
     onboarding: schema.string({ defaultValue: 'apm-*' }),
   }),
   forceSyntheticSource: schema.boolean({ defaultValue: false }),
+  enabled: schema.boolean({ defaultValue: true }),
 });
 
 // plugin config
@@ -64,49 +65,49 @@ export const config: PluginConfigDescriptor<APMConfig> = {
     deprecateFromRoot,
     unusedFromRoot,
   }) => [
-    unused('indices.sourcemap', { level: 'warning' }),
-    unused('ui.transactionGroupBucketSize', {
-      level: 'warning',
-    }),
-    rename('autocreateApmIndexPattern', 'autoCreateApmDataView', {
-      level: 'warning',
-    }),
-    renameFromRoot(
-      'apm_oss.transactionIndices',
-      'xpack.apm.indices.transaction',
-      { level: 'warning' }
-    ),
-    renameFromRoot('apm_oss.spanIndices', 'xpack.apm.indices.span', {
-      level: 'warning',
-    }),
-    renameFromRoot('apm_oss.errorIndices', 'xpack.apm.indices.error', {
-      level: 'warning',
-    }),
-    renameFromRoot('apm_oss.metricsIndices', 'xpack.apm.indices.metric', {
-      level: 'warning',
-    }),
-    renameFromRoot('apm_oss.sourcemapIndices', 'xpack.apm.indices.sourcemap', {
-      level: 'warning',
-    }),
-    renameFromRoot(
-      'apm_oss.onboardingIndices',
-      'xpack.apm.indices.onboarding',
-      { level: 'warning' }
-    ),
-    deprecateFromRoot('apm_oss.enabled', '8.0.0', { level: 'warning' }),
-    unusedFromRoot('apm_oss.fleetMode', { level: 'warning' }),
-    unusedFromRoot('apm_oss.indexPattern', { level: 'warning' }),
-    renameFromRoot(
-      'xpack.apm.maxServiceEnvironments',
-      `uiSettings.overrides[${maxSuggestions}]`,
-      { level: 'warning' }
-    ),
-    renameFromRoot(
-      'xpack.apm.maxServiceSelection',
-      `uiSettings.overrides[${maxSuggestions}]`,
-      { level: 'warning' }
-    ),
-  ],
+      unused('indices.sourcemap', { level: 'warning' }),
+      unused('ui.transactionGroupBucketSize', {
+        level: 'warning',
+      }),
+      rename('autocreateApmIndexPattern', 'autoCreateApmDataView', {
+        level: 'warning',
+      }),
+      renameFromRoot(
+        'apm_oss.transactionIndices',
+        'xpack.apm.indices.transaction',
+        { level: 'warning' }
+      ),
+      renameFromRoot('apm_oss.spanIndices', 'xpack.apm.indices.span', {
+        level: 'warning',
+      }),
+      renameFromRoot('apm_oss.errorIndices', 'xpack.apm.indices.error', {
+        level: 'warning',
+      }),
+      renameFromRoot('apm_oss.metricsIndices', 'xpack.apm.indices.metric', {
+        level: 'warning',
+      }),
+      renameFromRoot('apm_oss.sourcemapIndices', 'xpack.apm.indices.sourcemap', {
+        level: 'warning',
+      }),
+      renameFromRoot(
+        'apm_oss.onboardingIndices',
+        'xpack.apm.indices.onboarding',
+        { level: 'warning' }
+      ),
+      deprecateFromRoot('apm_oss.enabled', '8.0.0', { level: 'warning' }),
+      unusedFromRoot('apm_oss.fleetMode', { level: 'warning' }),
+      unusedFromRoot('apm_oss.indexPattern', { level: 'warning' }),
+      renameFromRoot(
+        'xpack.apm.maxServiceEnvironments',
+        `uiSettings.overrides[${maxSuggestions}]`,
+        { level: 'warning' }
+      ),
+      renameFromRoot(
+        'xpack.apm.maxServiceSelection',
+        `uiSettings.overrides[${maxSuggestions}]`,
+        { level: 'warning' }
+      ),
+    ],
   exposeToBrowser: {
     serviceMapEnabled: true,
     ui: true,
