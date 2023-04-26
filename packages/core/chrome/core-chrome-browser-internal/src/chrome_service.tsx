@@ -27,12 +27,14 @@ import type {
   ChromeHelpExtension,
   ChromeUserBanner,
   ChromeStyle,
+  ChromeProjectNavigation,
 } from '@kbn/core-chrome-browser';
 import type { CustomBrandingStart } from '@kbn/core-custom-branding-browser';
 import { KIBANA_ASK_ELASTIC_LINK } from './constants';
 import { DocTitleService } from './doc_title';
 import { NavControlsService } from './nav_controls';
 import { NavLinksService } from './nav_links';
+import { ProjectNavigationService } from './project_navigation';
 import { RecentlyAccessedService } from './recently_accessed';
 import { Header, ProjectHeader } from './ui';
 import type { InternalChromeStart } from './types';
@@ -63,6 +65,7 @@ export class ChromeService {
   private readonly navLinks = new NavLinksService();
   private readonly recentlyAccessed = new RecentlyAccessedService();
   private readonly docTitle = new DocTitleService();
+  private readonly projectNavigation = new ProjectNavigationService();
 
   constructor(private readonly params: ConstructorParams) {}
 
@@ -121,6 +124,7 @@ export class ChromeService {
     const helpSupportUrl$ = new BehaviorSubject<string>(KIBANA_ASK_ELASTIC_LINK);
     const isNavDrawerLocked$ = new BehaviorSubject(localStorage.getItem(IS_LOCKED_KEY) === 'true');
     const chromeStyle$ = new BehaviorSubject<ChromeStyle>('classic');
+    const customProjectSideNav$ = new BehaviorSubject<JSX.Element | undefined>(undefined);
 
     const getKbnVersionClass = () => {
       // we assume that the version is valid and has the form 'X.X.X'
@@ -147,6 +151,7 @@ export class ChromeService {
 
     const navControls = this.navControls.start();
     const navLinks = this.navLinks.start({ application, http });
+    const projectNavigation = this.projectNavigation.start({ application, navLinks });
     const recentlyAccessed = await this.recentlyAccessed.start({ http });
     const docTitle = this.docTitle.start({ document: window.document });
     const { customBranding$ } = customBranding;
@@ -168,6 +173,14 @@ export class ChromeService {
 
     const setChromeStyle = (style: ChromeStyle) => {
       chromeStyle$.next(style);
+    };
+
+    const replaceProjectSideNav = (sideNav: JSX.Element) => {
+      customProjectSideNav$.next(sideNav);
+    };
+
+    const setProjectNavigation = (config: ChromeProjectNavigation) => {
+      projectNavigation.setProjectNavigation(config);
     };
 
     const isIE = () => {
@@ -211,8 +224,16 @@ export class ChromeService {
     }
 
     const getHeaderComponent = () => {
-      const Component = ({ style$ }: { style$: typeof chromeStyle$ }) => {
-        if (style$.getValue() === 'project') {
+      if (chromeStyle$.getValue() === 'project') {
+        const projectNavigationConfig = projectNavigation.getProjectNavigation();
+        if (projectNavigationConfig) {
+          // TODO: build default project sidenav or use custom sidenav
+          // const customSideNav = customProjectSideNav$.getValue();
+          // const navigation = customSideNav ? (
+          //   customSideNav
+          // ) : (
+          //   <div>todo: build default component using projectNavigationConfig</div>
+          // );
           return (
             <ProjectHeader
               {...{
@@ -229,38 +250,37 @@ export class ChromeService {
             />
           );
         }
+      }
 
-        return (
-          <Header
-            loadingCount$={http.getLoadingCount$()}
-            application={application}
-            headerBanner$={headerBanner$.pipe(takeUntil(this.stop$))}
-            badge$={badge$.pipe(takeUntil(this.stop$))}
-            basePath={http.basePath}
-            breadcrumbs$={breadcrumbs$.pipe(takeUntil(this.stop$))}
-            breadcrumbsAppendExtension$={breadcrumbsAppendExtension$.pipe(takeUntil(this.stop$))}
-            customNavLink$={customNavLink$.pipe(takeUntil(this.stop$))}
-            kibanaDocLink={docLinks.links.kibana.guide}
-            forceAppSwitcherNavigation$={navLinks.getForceAppSwitcherNavigation$()}
-            globalHelpExtensionMenuLinks$={globalHelpExtensionMenuLinks$}
-            helpExtension$={helpExtension$.pipe(takeUntil(this.stop$))}
-            helpSupportUrl$={helpSupportUrl$.pipe(takeUntil(this.stop$))}
-            homeHref={http.basePath.prepend('/app/home')}
-            isVisible$={this.isVisible$}
-            kibanaVersion={injectedMetadata.getKibanaVersion()}
-            navLinks$={navLinks.getNavLinks$()}
-            recentlyAccessed$={recentlyAccessed.get$()}
-            navControlsLeft$={navControls.getLeft$()}
-            navControlsCenter$={navControls.getCenter$()}
-            navControlsRight$={navControls.getRight$()}
-            navControlsExtension$={navControls.getExtension$()}
-            onIsLockedUpdate={setIsNavDrawerLocked}
-            isLocked$={getIsNavDrawerLocked$}
-            customBranding$={customBranding$}
-          />
-        );
-      };
-      return <Component {...{ style$: chromeStyle$ }} />;
+      return (
+        <Header
+          loadingCount$={http.getLoadingCount$()}
+          application={application}
+          headerBanner$={headerBanner$.pipe(takeUntil(this.stop$))}
+          badge$={badge$.pipe(takeUntil(this.stop$))}
+          basePath={http.basePath}
+          breadcrumbs$={breadcrumbs$.pipe(takeUntil(this.stop$))}
+          breadcrumbsAppendExtension$={breadcrumbsAppendExtension$.pipe(takeUntil(this.stop$))}
+          customNavLink$={customNavLink$.pipe(takeUntil(this.stop$))}
+          kibanaDocLink={docLinks.links.kibana.guide}
+          forceAppSwitcherNavigation$={navLinks.getForceAppSwitcherNavigation$()}
+          globalHelpExtensionMenuLinks$={globalHelpExtensionMenuLinks$}
+          helpExtension$={helpExtension$.pipe(takeUntil(this.stop$))}
+          helpSupportUrl$={helpSupportUrl$.pipe(takeUntil(this.stop$))}
+          homeHref={http.basePath.prepend('/app/home')}
+          isVisible$={this.isVisible$}
+          kibanaVersion={injectedMetadata.getKibanaVersion()}
+          navLinks$={navLinks.getNavLinks$()}
+          recentlyAccessed$={recentlyAccessed.get$()}
+          navControlsLeft$={navControls.getLeft$()}
+          navControlsCenter$={navControls.getCenter$()}
+          navControlsRight$={navControls.getRight$()}
+          navControlsExtension$={navControls.getExtension$()}
+          onIsLockedUpdate={setIsNavDrawerLocked}
+          isLocked$={getIsNavDrawerLocked$}
+          customBranding$={customBranding$}
+        />
+      );
     };
 
     return {
@@ -335,6 +355,8 @@ export class ChromeService {
       getBodyClasses$: () => bodyClasses$.pipe(takeUntil(this.stop$)),
       setChromeStyle,
       getChromeStyle$: () => chromeStyle$.pipe(takeUntil(this.stop$)),
+      replaceProjectSideNav,
+      setProjectNavigation,
     };
   }
 
