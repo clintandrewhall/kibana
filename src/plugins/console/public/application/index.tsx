@@ -8,10 +8,12 @@
 
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
+
 import { HttpSetup, NotificationsSetup, DocLinksStart } from '@kbn/core/public';
 
 import { UsageCollectionSetup } from '@kbn/usage-collection-plugin/public';
 import { KibanaRenderContextProvider } from '@kbn/react-kibana-context-render';
+import { HelpCenterStart } from '@kbn/core-help-center-browser';
 import {
   createStorage,
   createHistory,
@@ -36,6 +38,7 @@ export interface BootDependencies extends ConsoleStartServices {
   docLinks: DocLinksStart['links'];
   autocompleteInfo: AutocompleteInfo;
   isMonacoEnabled: boolean;
+  helpCenter: HelpCenterStart;
 }
 
 export async function renderApp({
@@ -47,6 +50,7 @@ export async function renderApp({
   docLinks,
   autocompleteInfo,
   isMonacoEnabled,
+  helpCenter,
   ...startServices
 }: BootDependencies) {
   const trackUiMetric = createUsageTracker(usageCollection);
@@ -65,6 +69,8 @@ export async function renderApp({
   const esHostService = createEsHostService({ api });
 
   autocompleteInfo.mapping.setup(http, settings);
+
+  const HelpCenterProvider = helpCenter.getProvider();
 
   render(
     <KibanaRenderContextProvider {...startServices}>
@@ -91,7 +97,9 @@ export async function renderApp({
       >
         <RequestContextProvider>
           <EditorContextProvider settings={settings.toJSON()}>
-            <Main />
+            <HelpCenterProvider>
+              <Main />
+            </HelpCenterProvider>
           </EditorContextProvider>
         </RequestContextProvider>
       </ServicesContextProvider>
