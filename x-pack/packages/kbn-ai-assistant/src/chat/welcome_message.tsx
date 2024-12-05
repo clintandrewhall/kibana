@@ -5,19 +5,15 @@
  * 2.0.
  */
 
-import React, { useMemo, useState } from 'react';
+import React from 'react';
 import { css } from '@emotion/css';
 import { EuiFlexGroup, EuiFlexItem, EuiSpacer, useCurrentEuiBreakpoint } from '@elastic/eui';
-import type { ActionConnector } from '@kbn/triggers-actions-ui-plugin/public';
-import { GenerativeAIForObservabilityConnectorFeatureId } from '@kbn/actions-plugin/common';
-import { isSupportedConnectorType } from '@kbn/observability-ai-assistant-plugin/public';
+import { Welcome } from '@kbn/ai-assistant-components-welcome';
 import type { UseKnowledgeBaseResult } from '../hooks/use_knowledge_base';
 import type { UseGenAIConnectorsResult } from '../hooks/use_genai_connectors';
-import { Disclaimer } from './disclaimer';
-import { WelcomeMessageConnectors } from './welcome_message_connectors';
 import { WelcomeMessageKnowledgeBase } from './welcome_message_knowledge_base';
 import { StarterPrompts } from './starter_prompts';
-import { useKibana } from '../hooks/use_kibana';
+import { WelcomeMessageConnectors } from './welcome_message_connectors';
 
 const fullHeightClassName = css`
   height: 100%;
@@ -39,37 +35,6 @@ export function WelcomeMessage({
 }) {
   const breakpoint = useCurrentEuiBreakpoint();
 
-  const { application, triggersActionsUi } = useKibana().services;
-
-  const [connectorFlyoutOpen, setConnectorFlyoutOpen] = useState(false);
-
-  const handleConnectorClick = () => {
-    if (application?.capabilities.management?.insightsAndAlerting?.triggersActions) {
-      setConnectorFlyoutOpen(true);
-    } else {
-      application?.navigateToApp('management', {
-        path: '/insightsAndAlerting/triggersActionsConnectors/connectors',
-      });
-    }
-  };
-
-  const onConnectorCreated = (createdConnector: ActionConnector) => {
-    setConnectorFlyoutOpen(false);
-
-    if (isSupportedConnectorType(createdConnector.actionTypeId)) {
-      connectors.reloadConnectors();
-    }
-
-    if (!knowledgeBase.status.value || knowledgeBase.status.value?.ready === false) {
-      knowledgeBase.install();
-    }
-  };
-
-  const ConnectorFlyout = useMemo(
-    () => triggersActionsUi.getAddConnectorFlyout,
-    [triggersActionsUi]
-  );
-
   return (
     <>
       <EuiFlexGroup
@@ -80,31 +45,17 @@ export function WelcomeMessage({
       >
         <EuiFlexItem grow className={centerMaxWidthClassName}>
           <EuiSpacer size={['xl', 'l'].includes(breakpoint!) ? 'l' : 's'} />
-
-          <WelcomeMessageConnectors
-            connectors={connectors}
-            onSetupConnectorClick={handleConnectorClick}
-          />
+          <WelcomeMessageConnectors {...{ connectors }} />
           {knowledgeBase.status.value?.enabled ? (
             <WelcomeMessageKnowledgeBase connectors={connectors} knowledgeBase={knowledgeBase} />
           ) : null}
         </EuiFlexItem>
-
         <EuiFlexItem grow={false}>
           <StarterPrompts onSelectPrompt={onSelectPrompt} />
-
           <EuiSpacer size="l" />
-          <Disclaimer />
+          <Welcome.Disclaimer />
         </EuiFlexItem>
       </EuiFlexGroup>
-
-      {connectorFlyoutOpen ? (
-        <ConnectorFlyout
-          featureId={GenerativeAIForObservabilityConnectorFeatureId}
-          onConnectorCreated={onConnectorCreated}
-          onClose={() => setConnectorFlyoutOpen(false)}
-        />
-      ) : null}
     </>
   );
 }

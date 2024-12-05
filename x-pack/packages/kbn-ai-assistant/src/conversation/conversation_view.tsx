@@ -11,6 +11,7 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import type { AssistantScope } from '@kbn/ai-assistant-common';
 import { isEqual } from 'lodash';
+import { WelcomeKibanaProvider } from '@kbn/ai-assistant-components-welcome';
 import { useKibana } from '../hooks/use_kibana';
 import { ConversationList, ChatBody, ChatInlineEditingContent } from '../chat';
 import { useConversationKey } from '../hooks/use_conversation_key';
@@ -51,6 +52,8 @@ export const ConversationView: React.FC<ConversationViewProps> = ({
   const {
     services: {
       observabilityAIAssistant: { ObservabilityAIAssistantChatServiceContext },
+      triggersActionsUi,
+      application,
     },
   } = useKibana();
 
@@ -132,62 +135,73 @@ export const ConversationView: React.FC<ConversationViewProps> = ({
   `;
 
   return (
-    <EuiFlexGroup
-      direction="row"
-      className={containerClassName}
-      gutterSize="none"
-      data-test-subj="observabilityAiAssistantConversationsPage"
+    <WelcomeKibanaProvider
+      {...{
+        connectors,
+        triggersActionsUi,
+        knowledgeBase,
+        core: {
+          application,
+        },
+      }}
     >
-      <EuiFlexItem grow={false} className={conversationListContainerName}>
-        <ConversationList
-          selectedConversationId={conversationId}
-          conversations={conversationList.conversations}
-          isLoading={conversationList.isLoading}
-          onConversationDeleteClick={(deletedConversationId) => {
-            conversationList.deleteConversation(deletedConversationId).then(() => {
-              if (deletedConversationId === conversationId && navigateToConversation) {
-                navigateToConversation(undefined);
-              }
-            });
-          }}
-          newConversationHref={newConversationHref}
-          onConversationSelect={navigateToConversation}
-          getConversationHref={getConversationHref}
-        />
-        <EuiSpacer size="s" />
-      </EuiFlexItem>
-
-      {!chatService.value ? (
-        <EuiFlexGroup direction="column" alignItems="center" gutterSize="l">
-          <EuiFlexItem grow={false}>
-            <EuiSpacer size="xl" />
-            <EuiLoadingSpinner size="l" />
-          </EuiFlexItem>
-        </EuiFlexGroup>
-      ) : null}
-
-      {chatService.value && (
-        <ObservabilityAIAssistantChatServiceContext.Provider value={chatService.value}>
-          <ChatBody
-            key={bodyKey}
-            currentUser={currentUser}
-            connectors={connectors}
-            initialConversationId={conversationId}
-            knowledgeBase={knowledgeBase}
-            showLinkToConversationsApp={false}
-            onConversationUpdate={handleConversationUpdate}
-            navigateToConversation={navigateToConversation}
+      <EuiFlexGroup
+        direction="row"
+        className={containerClassName}
+        gutterSize="none"
+        data-test-subj="observabilityAiAssistantConversationsPage"
+      >
+        <EuiFlexItem grow={false} className={conversationListContainerName}>
+          <ConversationList
+            selectedConversationId={conversationId}
+            conversations={conversationList.conversations}
+            isLoading={conversationList.isLoading}
+            onConversationDeleteClick={(deletedConversationId) => {
+              conversationList.deleteConversation(deletedConversationId).then(() => {
+                if (deletedConversationId === conversationId && navigateToConversation) {
+                  navigateToConversation(undefined);
+                }
+              });
+            }}
+            newConversationHref={newConversationHref}
+            onConversationSelect={navigateToConversation}
+            getConversationHref={getConversationHref}
           />
+          <EuiSpacer size="s" />
+        </EuiFlexItem>
 
-          <div className={sidebarContainerClass}>
-            <ChatInlineEditingContent
-              setContainer={setSecondSlotContainer}
-              visible={isSecondSlotVisible}
-              style={{ width: '100%' }}
+        {!chatService.value ? (
+          <EuiFlexGroup direction="column" alignItems="center" gutterSize="l">
+            <EuiFlexItem grow={false}>
+              <EuiSpacer size="xl" />
+              <EuiLoadingSpinner size="l" />
+            </EuiFlexItem>
+          </EuiFlexGroup>
+        ) : null}
+
+        {chatService.value && (
+          <ObservabilityAIAssistantChatServiceContext.Provider value={chatService.value}>
+            <ChatBody
+              key={bodyKey}
+              currentUser={currentUser}
+              connectors={connectors}
+              initialConversationId={conversationId}
+              knowledgeBase={knowledgeBase}
+              showLinkToConversationsApp={false}
+              onConversationUpdate={handleConversationUpdate}
+              navigateToConversation={navigateToConversation}
             />
-          </div>
-        </ObservabilityAIAssistantChatServiceContext.Provider>
-      )}
-    </EuiFlexGroup>
+
+            <div className={sidebarContainerClass}>
+              <ChatInlineEditingContent
+                setContainer={setSecondSlotContainer}
+                visible={isSecondSlotVisible}
+                style={{ width: '100%' }}
+              />
+            </div>
+          </ObservabilityAIAssistantChatServiceContext.Provider>
+        )}
+      </EuiFlexGroup>
+    </WelcomeKibanaProvider>
   );
 };

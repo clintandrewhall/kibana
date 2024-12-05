@@ -15,6 +15,7 @@ import useSessionStorage from 'react-use/lib/useSessionStorage';
 import type { DocLinksStart } from '@kbn/core-doc-links-browser';
 import { AssistantFeatures, defaultAssistantFeatures } from '@kbn/elastic-assistant-common';
 import { NavigateToAppOptions, UserProfileService } from '@kbn/core/public';
+import { type WelcomeKibanaDependencies } from '@kbn/ai-assistant-components-welcome';
 import { useQuery } from '@tanstack/react-query';
 import { updatePromptContexts } from './helpers';
 import type {
@@ -130,9 +131,11 @@ export interface UseAssistantContext {
   userProfileService: UserProfileService;
 }
 
-const AssistantContext = React.createContext<UseAssistantContext | undefined>(undefined);
+const AssistantContext = React.createContext<
+  (UseAssistantContext & WelcomeKibanaDependencies) | undefined
+>(undefined);
 
-export const AssistantProvider: React.FC<AssistantProviderProps> = ({
+export const AssistantProvider: React.FC<AssistantProviderProps & WelcomeKibanaDependencies> = ({
   actionTypeRegistry,
   alertsIndexPattern,
   assistantAvailability,
@@ -151,6 +154,8 @@ export const AssistantProvider: React.FC<AssistantProviderProps> = ({
   toasts,
   currentAppId,
   userProfileService,
+  core,
+  triggersActionsUi,
 }) => {
   /**
    * Session storage for traceOptions, including APM URL and LangSmith Project/API Key
@@ -262,6 +267,14 @@ export const AssistantProvider: React.FC<AssistantProviderProps> = ({
   // Fetch assistant capabilities
   const { data: assistantFeatures } = useCapabilities({ http, toasts });
 
+  const {
+    application: {
+      capabilities: { management },
+    },
+  } = core;
+
+  const { getAddConnectorFlyout } = triggersActionsUi;
+
   const value = useMemo(
     () => ({
       actionTypeRegistry,
@@ -303,6 +316,19 @@ export const AssistantProvider: React.FC<AssistantProviderProps> = ({
       currentAppId,
       codeBlockRef,
       userProfileService,
+
+      // Dependencies for kbn-ai-assistant
+      core: {
+        application: {
+          capabilities: {
+            management,
+          },
+          navigateToApp,
+        },
+      },
+      triggersActionsUi: {
+        getAddConnectorFlyout,
+      },
     }),
     [
       actionTypeRegistry,
@@ -338,6 +364,10 @@ export const AssistantProvider: React.FC<AssistantProviderProps> = ({
       currentAppId,
       codeBlockRef,
       userProfileService,
+
+      // Dependencies for kbn-ai-assistant
+      management,
+      getAddConnectorFlyout,
     ]
   );
 

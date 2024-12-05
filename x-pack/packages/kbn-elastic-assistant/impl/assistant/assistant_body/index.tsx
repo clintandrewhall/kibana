@@ -13,23 +13,22 @@ import React, {
   useMemo,
   useRef,
 } from 'react';
-import { EuiEmptyPrompt, EuiFlexGroup, EuiFlexItem, EuiPanel, EuiText } from '@elastic/eui';
+import { EuiEmptyPrompt, EuiFlexGroup, EuiFlexItem, EuiPanel } from '@elastic/eui';
 import { HttpSetup } from '@kbn/core-http-browser';
 import { euiThemeVars } from '@kbn/ui-theme';
 import { css } from '@emotion/react';
 import { PromptResponse } from '@kbn/elastic-assistant-common';
+import { Welcome } from '@kbn/ai-assistant-components-welcome';
 import { AssistantAnimatedIcon } from '../assistant_animated_icon';
 import { EmptyConvo } from './empty_convo';
-import { WelcomeSetup } from './welcome_setup';
 import { Conversation } from '../../..';
 import { UpgradeLicenseCallToAction } from '../upgrade_license_cta';
-import * as i18n from '../translations';
+
 interface Props {
   allSystemPrompts: PromptResponse[];
   comments: JSX.Element;
   currentConversation: Conversation | undefined;
   currentSystemPromptId: string | undefined;
-  handleOnConversationSelected: ({ cId, cTitle }: { cId: string; cTitle: string }) => Promise<void>;
   isAssistantEnabled: boolean;
   isSettingsModalVisible: boolean;
   isWelcomeSetup: boolean;
@@ -44,7 +43,6 @@ export const AssistantBody: FunctionComponent<Props> = ({
   comments,
   currentConversation,
   currentSystemPromptId,
-  handleOnConversationSelected,
   setCurrentSystemPromptId,
   http,
   isAssistantEnabled,
@@ -59,20 +57,7 @@ export const AssistantBody: FunctionComponent<Props> = ({
   );
 
   const disclaimer = useMemo(
-    () =>
-      isEmptyConversation && (
-        <EuiText
-          data-test-subj="assistant-disclaimer"
-          textAlign="center"
-          color={euiThemeVars.euiColorMediumShade}
-          size="xs"
-          css={css`
-            margin: 0 ${euiThemeVars.euiSizeL} ${euiThemeVars.euiSizeM} ${euiThemeVars.euiSizeL};
-          `}
-        >
-          {i18n.DISCLAIMER}
-        </EuiText>
-      ),
+    () => isEmptyConversation && <Welcome.Disclaimer />,
     [isEmptyConversation]
   );
 
@@ -100,14 +85,11 @@ export const AssistantBody: FunctionComponent<Props> = ({
 
   return (
     <EuiFlexGroup direction="column" justifyContent="spaceBetween">
-      <EuiFlexItem grow={false}>
+      <EuiFlexItem grow={isWelcomeSetup}>
         {isLoading ? (
           <EuiEmptyPrompt data-test-subj="animatedLogo" icon={<AssistantAnimatedIcon />} />
         ) : isWelcomeSetup ? (
-          <WelcomeSetup
-            currentConversation={currentConversation}
-            handleOnConversationSelected={handleOnConversationSelected}
-          />
+          <Welcome.Setup />
         ) : isEmptyConversation ? (
           <EmptyConvo
             allSystemPrompts={allSystemPrompts}
@@ -127,7 +109,14 @@ export const AssistantBody: FunctionComponent<Props> = ({
           </EuiPanel>
         )}
       </EuiFlexItem>
-      <EuiFlexItem grow={false}>{disclaimer}</EuiFlexItem>
+      <EuiFlexItem
+        grow={false}
+        css={css`
+          padding: 0 ${euiThemeVars.euiSizeL} ${euiThemeVars.euiSizeM} ${euiThemeVars.euiSizeL};
+        `}
+      >
+        {disclaimer}
+      </EuiFlexItem>
     </EuiFlexGroup>
   );
 };

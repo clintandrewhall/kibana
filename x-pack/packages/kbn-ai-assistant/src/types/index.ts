@@ -5,6 +5,7 @@
  * 2.0.
  */
 
+import { ApplicationStart } from '@kbn/core-application-browser';
 import type { LicensingPluginStart } from '@kbn/licensing-plugin/public';
 import type { MlPluginStart } from '@kbn/ml-plugin/public';
 import type { ObservabilityAIAssistantPublicStart } from '@kbn/observability-ai-assistant-plugin/public';
@@ -17,4 +18,5 @@ export interface AIAssistantPluginStartDependencies {
   observabilityAIAssistant: ObservabilityAIAssistantPublicStart;
   share: SharePluginStart;
   triggersActionsUi: TriggersAndActionsUIPublicPluginStart;
+  application: ApplicationStart;
 }

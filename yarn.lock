@@ -3814,7 +3814,19 @@
   version "0.0.0"
   uid ""
 
+"@kbn/ai-assistant-assets@link:x-pack/packages/kbn-ai-assistant/packages/assets":
+  version "0.0.0"
+  uid ""
+
 "@kbn/ai-assistant-common@link:x-pack/packages/kbn-ai-assistant-common":
+  version "0.0.0"
+  uid ""
+
+"@kbn/ai-assistant-components-add-connector@link:x-pack/packages/kbn-ai-assistant/packages/components/add-connector":
+  version "0.0.0"
+  uid ""
+
+"@kbn/ai-assistant-components-welcome@link:x-pack/packages/kbn-ai-assistant/packages/components/welcome":
   version "0.0.0"
   uid ""
 
@@ -3822,7 +3834,15 @@
   version "0.0.0"
   uid ""
 
+"@kbn/ai-assistant-service-providers@link:x-pack/packages/kbn-ai-assistant/packages/service-providers":
+  version "0.0.0"
+  uid ""
+
 "@kbn/ai-assistant@link:x-pack/packages/kbn-ai-assistant":
+  version "0.0.0"
+  uid ""
+
+"@kbn/ai-service-providers@link:x-pack/packages/ai/service-providers":
   version "0.0.0"
   uid ""
 

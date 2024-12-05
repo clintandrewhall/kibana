@@ -1,0 +1,5 @@
+{
+  "type": "shared-common",
+  "id": "@kbn/ai-assistant-components-add-connector",
+  "owner": "@elastic/kibana-sharedux"
+}

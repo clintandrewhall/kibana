@@ -6,6 +6,13 @@
  */
 
 export * from './conversation/conversation_view';
-export * from './service/create_app_service';
+export {
+  type AIAssistantAppService,
+  createAppService,
+  type AiAssistantKibanaDependencies,
+  AiAssistantKibanaProvider,
+  type AiAssistantServices,
+  AiAssistantProvider,
+} from './service';
 export * from './hooks';
 export * from './chat';

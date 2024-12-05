@@ -29,6 +29,7 @@ import { ConversationList } from './conversation_list';
 import { useKibana } from '../hooks/use_kibana';
 import { useKnowledgeBase } from '../hooks/use_knowledge_base';
 import { NewChatButton } from '../buttons/new_chat_button';
+import { AiAssistantKibanaProvider } from '../service';
 
 const CONVERSATIONS_SIDEBAR_WIDTH = 260;
 const CONVERSATIONS_SIDEBAR_WIDTH_COLLAPSED = 34;
@@ -80,6 +81,8 @@ export function ChatFlyout({
   const {
     services: {
       observabilityAIAssistant: { ObservabilityAIAssistantMultipaneFlyoutContext },
+      triggersActionsUi,
+      application,
     },
   } = useKibana();
   const conversationList = useConversationList();
@@ -140,171 +143,182 @@ export function ChatFlyout({
   };
 
   return isOpen ? (
-    <ObservabilityAIAssistantMultipaneFlyoutContext.Provider
-      value={{
-        container: secondSlotContainer,
-        setVisibility: setIsSecondSlotVisible,
+    <AiAssistantKibanaProvider
+      {...{
+        connectors,
+        triggersActionsUi,
+        knowledgeBase,
+        core: {
+          application,
+        },
       }}
     >
-      <EuiFlyoutResizable
-        aria-label={i18n.translate(
-          'xpack.aiAssistant.chatFlyout.euiFlyoutResizable.aiAssistantLabel',
-          { defaultMessage: 'AI Assistant Chat Flyout' }
-        )}
-        className={flyoutClassName}
-        closeButtonProps={{
-          css: {
-            marginRight: breakpoint === 'xs' ? euiTheme.size.xs : euiTheme.size.s,
-            marginTop: breakpoint === 'xs' ? euiTheme.size.xs : euiTheme.size.s,
-          },
-        }}
-        paddingSize="m"
-        pushAnimation
-        minWidth={SIDEBAR_WIDTH}
-        size={getFlyoutWidth({
-          breakpoint,
-          expanded: conversationsExpanded,
-          isSecondSlotVisible,
-        })}
-        type={flyoutPositionMode}
-        onClose={() => {
-          onClose();
-          setIsSecondSlotVisible(false);
-          if (secondSlotContainer) {
-            ReactDOM.unmountComponentAtNode(secondSlotContainer);
-          }
+      <ObservabilityAIAssistantMultipaneFlyoutContext.Provider
+        value={{
+          container: secondSlotContainer,
+          setVisibility: setIsSecondSlotVisible,
         }}
       >
-        <EuiFlexGroup gutterSize="none" className={containerClassName}>
-          {!hideConversationList ? (
-            <EuiFlexItem className={breakpoint === 'xs' ? hideClassName : sidebarClass}>
-              <EuiPopover
-                anchorPosition="downLeft"
-                className={expandButtonContainerClassName}
-                button={
-                  <EuiToolTip
-                    content={
-                      conversationsExpanded
-                        ? i18n.translate(
-                            'xpack.aiAssistant.chatFlyout.euiToolTip.collapseConversationListLabel',
-                            { defaultMessage: 'Collapse conversation list' }
-                          )
-                        : i18n.translate(
-                            'xpack.aiAssistant.chatFlyout.euiToolTip.expandConversationListLabel',
-                            { defaultMessage: 'Expand conversation list' }
-                          )
-                    }
-                    display="block"
-                  >
-                    <EuiButtonIcon
-                      aria-label={i18n.translate(
-                        'xpack.aiAssistant.chatFlyout.euiButtonIcon.expandConversationListLabel',
-                        { defaultMessage: 'Expand conversation list' }
-                      )}
-                      className={expandButtonClassName}
-                      color="text"
-                      data-test-subj="observabilityAiAssistantChatFlyoutButton"
-                      iconType={conversationsExpanded ? 'transitionLeftIn' : 'transitionLeftOut'}
-                      onClick={() => setConversationsExpanded(!conversationsExpanded)}
-                    />
-                  </EuiToolTip>
-                }
-              />
-
-              {conversationsExpanded ? (
-                <ConversationList
-                  conversations={conversationList.conversations}
-                  isLoading={conversationList.isLoading}
-                  selectedConversationId={conversationId}
-                  onConversationDeleteClick={(deletedConversationId) => {
-                    conversationList.deleteConversation(deletedConversationId).then(() => {
-                      if (deletedConversationId === conversationId) {
-                        setConversationId(undefined);
-                      }
-                    });
-                  }}
-                  onConversationSelect={(nextConversationId) => {
-                    setConversationId(nextConversationId);
-                  }}
-                />
-              ) : (
+        <EuiFlyoutResizable
+          aria-label={i18n.translate(
+            'xpack.aiAssistant.chatFlyout.euiFlyoutResizable.aiAssistantLabel',
+            { defaultMessage: 'AI Assistant Chat Flyout' }
+          )}
+          className={flyoutClassName}
+          closeButtonProps={{
+            css: {
+              marginRight: breakpoint === 'xs' ? euiTheme.size.xs : euiTheme.size.s,
+              marginTop: breakpoint === 'xs' ? euiTheme.size.xs : euiTheme.size.s,
+            },
+          }}
+          paddingSize="m"
+          pushAnimation
+          minWidth={SIDEBAR_WIDTH}
+          size={getFlyoutWidth({
+            breakpoint,
+            expanded: conversationsExpanded,
+            isSecondSlotVisible,
+          })}
+          type={flyoutPositionMode}
+          onClose={() => {
+            onClose();
+            setIsSecondSlotVisible(false);
+            if (secondSlotContainer) {
+              ReactDOM.unmountComponentAtNode(secondSlotContainer);
+            }
+          }}
+        >
+          <EuiFlexGroup gutterSize="none" className={containerClassName}>
+            {!hideConversationList ? (
+              <EuiFlexItem className={breakpoint === 'xs' ? hideClassName : sidebarClass}>
                 <EuiPopover
                   anchorPosition="downLeft"
+                  className={expandButtonContainerClassName}
                   button={
                     <EuiToolTip
-                      content={i18n.translate(
-                        'xpack.aiAssistant.chatFlyout.euiToolTip.newChatLabel',
-                        { defaultMessage: 'New conversation' }
-                      )}
+                      content={
+                        conversationsExpanded
+                          ? i18n.translate(
+                              'xpack.aiAssistant.chatFlyout.euiToolTip.collapseConversationListLabel',
+                              { defaultMessage: 'Collapse conversation list' }
+                            )
+                          : i18n.translate(
+                              'xpack.aiAssistant.chatFlyout.euiToolTip.expandConversationListLabel',
+                              { defaultMessage: 'Expand conversation list' }
+                            )
+                      }
                       display="block"
                     >
-                      <NewChatButton
+                      <EuiButtonIcon
                         aria-label={i18n.translate(
-                          'xpack.aiAssistant.chatFlyout.euiButtonIcon.newChatLabel',
-                          { defaultMessage: 'New conversation' }
+                          'xpack.aiAssistant.chatFlyout.euiButtonIcon.expandConversationListLabel',
+                          { defaultMessage: 'Expand conversation list' }
                         )}
-                        collapsed
-                        data-test-subj="observabilityAiAssistantNewChatFlyoutButton"
-                        onClick={() => {
-                          setConversationId(undefined);
-                        }}
+                        className={expandButtonClassName}
+                        color="text"
+                        data-test-subj="observabilityAiAssistantChatFlyoutButton"
+                        iconType={conversationsExpanded ? 'transitionLeftIn' : 'transitionLeftOut'}
+                        onClick={() => setConversationsExpanded(!conversationsExpanded)}
                       />
                     </EuiToolTip>
                   }
-                  className={newChatButtonClassName}
                 />
-              )}
-            </EuiFlexItem>
-          ) : null}
 
-          <EuiFlexItem className={chatBodyContainerClassName}>
-            <ChatBody
-              key={bodyKey}
-              connectors={connectors}
-              currentUser={currentUser}
-              flyoutPositionMode={flyoutPositionMode}
-              initialTitle={initialTitle}
-              initialMessages={initialMessages}
-              initialConversationId={conversationId}
-              knowledgeBase={knowledgeBase}
-              showLinkToConversationsApp
-              onConversationUpdate={(conversation) => {
-                if (!conversationId) {
-                  updateConversationIdInPlace(conversation.conversation.id);
-                }
-                setConversationId(conversation.conversation.id);
-                conversationList.conversations.refresh();
-              }}
-              onToggleFlyoutPositionMode={handleToggleFlyoutPositionMode}
-              navigateToConversation={
-                navigateToConversation
-                  ? (newConversationId?: string) => {
-                      if (onClose) onClose();
-                      navigateToConversation(newConversationId);
+                {conversationsExpanded ? (
+                  <ConversationList
+                    conversations={conversationList.conversations}
+                    isLoading={conversationList.isLoading}
+                    selectedConversationId={conversationId}
+                    onConversationDeleteClick={(deletedConversationId) => {
+                      conversationList.deleteConversation(deletedConversationId).then(() => {
+                        if (deletedConversationId === conversationId) {
+                          setConversationId(undefined);
+                        }
+                      });
+                    }}
+                    onConversationSelect={(nextConversationId) => {
+                      setConversationId(nextConversationId);
+                    }}
+                  />
+                ) : (
+                  <EuiPopover
+                    anchorPosition="downLeft"
+                    button={
+                      <EuiToolTip
+                        content={i18n.translate(
+                          'xpack.aiAssistant.chatFlyout.euiToolTip.newChatLabel',
+                          { defaultMessage: 'New conversation' }
+                        )}
+                        display="block"
+                      >
+                        <NewChatButton
+                          aria-label={i18n.translate(
+                            'xpack.aiAssistant.chatFlyout.euiButtonIcon.newChatLabel',
+                            { defaultMessage: 'New conversation' }
+                          )}
+                          collapsed
+                          data-test-subj="observabilityAiAssistantNewChatFlyoutButton"
+                          onClick={() => {
+                            setConversationId(undefined);
+                          }}
+                        />
+                      </EuiToolTip>
                     }
-                  : undefined
-              }
-            />
-          </EuiFlexItem>
+                    className={newChatButtonClassName}
+                  />
+                )}
+              </EuiFlexItem>
+            ) : null}
 
-          <EuiFlexItem
-            style={{
-              maxWidth: isSecondSlotVisible ? SIDEBAR_WIDTH : 0,
-              paddingTop: '56px',
-            }}
-          >
-            <ChatInlineEditingContent
-              setContainer={setSecondSlotContainer}
-              visible={isSecondSlotVisible}
+            <EuiFlexItem className={chatBodyContainerClassName}>
+              <ChatBody
+                key={bodyKey}
+                connectors={connectors}
+                currentUser={currentUser}
+                flyoutPositionMode={flyoutPositionMode}
+                initialTitle={initialTitle}
+                initialMessages={initialMessages}
+                initialConversationId={conversationId}
+                knowledgeBase={knowledgeBase}
+                showLinkToConversationsApp
+                onConversationUpdate={(conversation) => {
+                  if (!conversationId) {
+                    updateConversationIdInPlace(conversation.conversation.id);
+                  }
+                  setConversationId(conversation.conversation.id);
+                  conversationList.conversations.refresh();
+                }}
+                onToggleFlyoutPositionMode={handleToggleFlyoutPositionMode}
+                navigateToConversation={
+                  navigateToConversation
+                    ? (newConversationId?: string) => {
+                        if (onClose) onClose();
+                        navigateToConversation(newConversationId);
+                      }
+                    : undefined
+                }
+              />
+            </EuiFlexItem>
+
+            <EuiFlexItem
               style={{
-                borderTop: `solid 1px ${euiTheme.border.color}`,
-                borderLeft: `solid 1px ${euiTheme.border.color}`,
+                maxWidth: isSecondSlotVisible ? SIDEBAR_WIDTH : 0,
+                paddingTop: '56px',
               }}
-            />
-          </EuiFlexItem>
-        </EuiFlexGroup>
-      </EuiFlyoutResizable>
-    </ObservabilityAIAssistantMultipaneFlyoutContext.Provider>
+            >
+              <ChatInlineEditingContent
+                setContainer={setSecondSlotContainer}
+                visible={isSecondSlotVisible}
+                style={{
+                  borderTop: `solid 1px ${euiTheme.border.color}`,
+                  borderLeft: `solid 1px ${euiTheme.border.color}`,
+                }}
+              />
+            </EuiFlexItem>
+          </EuiFlexGroup>
+        </EuiFlyoutResizable>
+      </ObservabilityAIAssistantMultipaneFlyoutContext.Provider>
+    </AiAssistantKibanaProvider>
   ) : null;
 }
 

@@ -136,14 +136,16 @@ export const createBasePrompts = async (notifications: NotificationsStart, http:
  */
 export const AssistantProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
   const {
-    application: { navigateToApp, currentAppId$ },
+    application,
     http,
     notifications,
     storage,
-    triggersActionsUi: { actionTypeRegistry },
+    triggersActionsUi,
     docLinks: { ELASTIC_WEBSITE_URL, DOC_LINK_VERSION },
     userProfile,
   } = useKibana().services;
+  const { navigateToApp, currentAppId$ } = application;
+  const { actionTypeRegistry } = triggersActionsUi;
   const basePath = useBasePath();
 
   const baseConversations = useBaseConversations();
@@ -227,6 +229,10 @@ export const AssistantProvider: FC<PropsWithChildren<unknown>> = ({ children }) 
       toasts={toasts}
       currentAppId={currentAppId ?? 'securitySolutionUI'}
       userProfileService={userProfile}
+      // These props are not added to the context, but are provided for the
+      // kbn-ai-assistant service provider, as unified components are integrated.
+      core={{ application }}
+      triggersActionsUi={triggersActionsUi}
     >
       {children}
     </ElasticAssistantProvider>

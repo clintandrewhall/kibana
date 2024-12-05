@@ -1,0 +1,5 @@
+{
+  "type": "shared-common",
+  "id": "@kbn/ai-service-providers",
+  "owner": "@elastic/appex-ai-infra"
+}
