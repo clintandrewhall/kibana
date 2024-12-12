@@ -7,16 +7,9 @@
 
 import React from 'react';
 import moment from 'moment';
-import {
-  EuiFlexGroup,
-  EuiFlexItem,
-  EuiText,
-  EuiPanel,
-  EuiHorizontalRule,
-  EuiIcon,
-} from '@elastic/eui';
+import { EuiFlexGroup, EuiFlexItem, EuiText, EuiPanel, EuiHorizontalRule } from '@elastic/eui';
 import { SecurityPageName } from '@kbn/security-solution-navigation';
-import { AssistantAvatar } from '@kbn/elastic-assistant/impl/assistant/assistant_avatar/assistant_avatar';
+import { AssistantIcon } from '@kbn/ai-assistant-icon';
 import { SecuritySolutionLinkButton } from '../../../../../../../common/components/links';
 import type { RuleMigrationStats } from '../../../../../../../siem_migrations/rules/types';
 import * as i18n from '../translations';
@@ -53,7 +46,7 @@ export const MigrationResultPanel = React.memo<MigrationResultPanelProps>(({ mig
           <EuiFlexItem grow={false}>
             <EuiFlexGroup direction="row" alignItems="center" gutterSize="s">
               <EuiFlexItem grow={false}>
-                <EuiIcon type={AssistantAvatar} size="m" />
+                <AssistantIcon size="xl" />
               </EuiFlexItem>
               <EuiFlexItem>
                 <EuiText size="s" className={TITLE_CLASS_NAME}>
