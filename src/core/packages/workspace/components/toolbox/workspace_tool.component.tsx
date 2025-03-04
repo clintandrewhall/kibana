@@ -29,6 +29,7 @@ export interface WorkspaceToolComponentProps
   children?: ReactNode;
   isScrollable?: boolean;
   containerPadding?: 'none' | 's' | 'm' | 'l';
+  isRight?: boolean;
 }
 
 export const WorkspaceToolComponent = ({
@@ -40,20 +41,28 @@ export const WorkspaceToolComponent = ({
   hasBorder = false,
   color = 'transparent',
   containerPadding = 's',
+  isRight = true,
 }: WorkspaceToolComponentProps) => {
-  const euiTheme = useEuiTheme();
-  const scrolling = euiScrollBarStyles(euiTheme);
+  const theme = useEuiTheme();
+  const scrolling = euiScrollBarStyles(theme);
+  const { euiTheme } = theme;
 
   const containerStyle = css`
     ${styles.container}
-    padding: ${containerPadding === 'none' ? '0' : euiTheme.euiTheme.size[containerPadding]};
+    padding: ${containerPadding === 'none' ? '0' : euiTheme.size[containerPadding]};
     ${isScrollable ? scrolling : ''}
     ${isScrollable ? 'overflow-y: auto;' : ''}
   `;
 
+  const panelStyle = css`
+    ${styles.panel(theme)}
+    margin: ${euiTheme.size.xs} ${isRight ? '0' : euiTheme.size.s} ${euiTheme.size.xs}
+        ${isRight ? euiTheme.size.s : '0'};
+  `;
+
   return (
     <aside css={styles.root}>
-      <EuiPanel paddingSize="none" css={styles.panel} {...{ hasShadow, color, hasBorder }}>
+      <EuiPanel paddingSize="none" css={panelStyle} {...{ hasShadow, color, hasBorder }}>
         <EuiFlexGroup css={styles.header}>
           <EuiFlexItem>
             <EuiTitle size="xs">

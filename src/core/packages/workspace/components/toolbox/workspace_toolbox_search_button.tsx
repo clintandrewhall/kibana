@@ -19,7 +19,11 @@ import {
 import { css } from '@emotion/react';
 import useEvent from 'react-use/lib/useEvent';
 
-import { closeToolbox, useWorkspaceDispatch } from '@kbn/core-workspace-state';
+import {
+  closeToolbox,
+  useIsSearchInToolbox,
+  useWorkspaceDispatch,
+} from '@kbn/core-workspace-state';
 
 import { WorkspaceToolboxButtonComponent } from './workspace_toolbox_button.component';
 
@@ -33,19 +37,23 @@ export const WorkspaceToolboxSearchButton = ({ children }: WorkspaceToolboxSearc
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useWorkspaceDispatch();
   const { euiTheme } = useEuiTheme();
+  const isSearchInToolbox = useIsSearchInToolbox();
 
   const panelStyle = css`
     position: fixed;
     top: 80px;
     z-index: ${euiTheme.levels.modal};
-    left: 50%;
 
     ${useEuiBreakpoint(['m', 'l'])} {
-      margin-left: -200px;
+      left: calc(
+        var(--kbnWorkspace--application-left) + (var(--kbnWorkspace--application-width) / 2) - 200px
+      );
     }
 
     ${useEuiBreakpoint(['xl'])} {
-      margin-left: -300px;
+      left: calc(
+        var(--kbnWorkspace--application-left) + (var(--kbnWorkspace--application-width) / 2) - 300px
+      );
     }
   `;
 
@@ -80,7 +88,9 @@ export const WorkspaceToolboxSearchButton = ({ children }: WorkspaceToolboxSearc
         iconType="search"
         aria-label="Search"
         onClick={() => {
-          dispatch(closeToolbox());
+          if (isSearchInToolbox) {
+            dispatch(closeToolbox());
+          }
           setIsOpen(!isOpen);
         }}
       />

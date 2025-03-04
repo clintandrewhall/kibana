@@ -15,8 +15,9 @@ import {
   useToolboxSize,
   useIsChromeVisible,
   useIsNavigationCollapsed,
+  useIsModern,
+  useIsToolboxRight,
 } from '@kbn/core-workspace-state';
-import { useIs2030 } from '@kbn/core-workspace-state';
 import { WorkspaceGlobalCSSComponent } from './workspace_global_css.component';
 
 export const WorkspaceGlobalCSS = () => {
@@ -26,7 +27,8 @@ export const WorkspaceGlobalCSS = () => {
   const toolboxSize = useToolboxSize();
   const isChromeVisible = useIsChromeVisible();
   const isNavigationCollapsed = useIsNavigationCollapsed();
-  const is2030 = useIs2030();
+  const isModern = useIsModern();
+  const isToolboxRight = useIsToolboxRight();
 
   return (
     <WorkspaceGlobalCSSComponent
@@ -37,7 +39,8 @@ export const WorkspaceGlobalCSS = () => {
         toolboxSize,
         isChromeVisible,
         isNavigationCollapsed,
-        is2030,
+        isModern,
+        isToolboxRight,
       }}
     />
   );

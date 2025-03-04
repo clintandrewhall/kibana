@@ -23,7 +23,15 @@ import {
 import { css } from '@emotion/react';
 import React from 'react';
 
-import { setIs2030, useIs2030, useWorkspaceDispatch } from '@kbn/core-workspace-state';
+import {
+  setIsModern,
+  setIsSearchInToolbox,
+  setIsToolboxRight,
+  useIsModern,
+  useIsSearchInToolbox,
+  useIsToolboxRight,
+  useWorkspaceDispatch,
+} from '@kbn/core-workspace-state';
 import type { AuthenticatedUser } from '@kbn/security-plugin-types-common';
 import type { GetUserProfileResponse } from '@kbn/security-plugin-types-public';
 import type { UserProfileAvatarData } from '@kbn/user-profile-components';
@@ -71,7 +79,9 @@ const CurrentUserContent = ({
   logoutUrl,
 }: { user: Pick<AuthenticatedUser, 'roles' | 'username'> } & Props) => {
   const [selectedValue, setSelectedValue] = React.useState('light');
-  const is2030 = useIs2030();
+  const isModern = useIsModern();
+  const isToolboxRight = useIsToolboxRight();
+  const isSearchInToolbox = useIsSearchInToolbox();
   const dispatch = useWorkspaceDispatch();
 
   return (
@@ -153,15 +163,33 @@ const CurrentUserContent = ({
               <EuiFlexGroup direction="column" gutterSize="s">
                 <EuiFlexItem>
                   <EuiTitle size="xs">
-                    <h5>One more thing</h5>
+                    <h5>Workspace options</h5>
                   </EuiTitle>
                 </EuiFlexItem>
                 <EuiFlexItem>
                   <EuiSwitch
                     label="Make it modern"
-                    checked={is2030}
+                    checked={isModern}
                     onChange={() => {
-                      dispatch(setIs2030(!is2030));
+                      dispatch(setIsModern(!isModern));
+                    }}
+                  />
+                </EuiFlexItem>
+                <EuiFlexItem>
+                  <EuiSwitch
+                    label="Keep toolbox on right"
+                    checked={isToolboxRight}
+                    onChange={() => {
+                      dispatch(setIsToolboxRight(!isToolboxRight));
+                    }}
+                  />
+                </EuiFlexItem>
+                <EuiFlexItem>
+                  <EuiSwitch
+                    label="Place search in toolbox"
+                    checked={isSearchInToolbox}
+                    onChange={() => {
+                      dispatch(setIsSearchInToolbox(!isSearchInToolbox));
                     }}
                   />
                 </EuiFlexItem>

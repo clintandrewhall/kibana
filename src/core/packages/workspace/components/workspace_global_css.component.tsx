@@ -20,7 +20,8 @@ export interface WorkspaceGlobalCSSComponentProps {
   hasFooter: boolean;
   isChromeVisible: boolean;
   isNavigationCollapsed: boolean;
-  is2030: boolean;
+  isModern: boolean;
+  isToolboxRight: boolean;
 }
 
 const dimensions = {
@@ -52,12 +53,13 @@ const dimensions = {
 
 export const WorkspaceGlobalCSSComponent = ({
   isToolboxOpen,
+  isToolboxRight,
   toolboxSize,
   hasBanner,
   hasFooter,
   isChromeVisible,
   isNavigationCollapsed,
-  is2030,
+  isModern,
 }: WorkspaceGlobalCSSComponentProps) => {
   const theme = useEuiTheme();
   const shadow = euiShadowSmall(theme);
@@ -104,7 +106,7 @@ export const WorkspaceGlobalCSSComponent = ({
 
   const styles = css`
     :root {
-      ${is2030 ? its2030 : ''}
+      ${isModern ? its2030 : ''}
 
       body {
         padding: 0 !important;

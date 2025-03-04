@@ -9,11 +9,13 @@
 
 import { css } from '@emotion/react';
 import { useEuiTheme } from '@elastic/eui';
+import { useIsToolboxRight } from '@kbn/core-workspace-state';
 
 // TODO: clintandrewhall - Handle smaller screens using `useEuiBreakpoints`.
 
 export const useWorkspaceStyles = () => {
   const { euiTheme } = useEuiTheme();
+  const isToolboxRight = useIsToolboxRight();
 
   const workspace = css`
     align-items: baseline;
@@ -26,8 +28,8 @@ export const useWorkspaceStyles = () => {
     grid-template-columns:
       var(--kbnWorkspace--navigation-width, 0)
       1fr
-      var(--kbnWorkspace--toolbox-width, 0)
-      var(--kbnWorkspace--tool-width, 0);
+      var(${isToolboxRight ? '--kbnWorkspace--tool-width' : '--kbnWorkspace--toolbox-width'}, 0)
+      var(${isToolboxRight ? '--kbnWorkspace--toolbox-width' : '--kbnWorkspace--tool-width'}, 0)
 
     grid-template-rows:
       var(--kbnWorkspace--banner-height, 0)
@@ -37,9 +39,9 @@ export const useWorkspaceStyles = () => {
 
     grid-template-areas:
       'banner banner banner banner'
-      'header header toolbox tool'
-      'navigation app toolbox tool'
-      'navigation footer toolbox tool';
+      'header header ${isToolboxRight ? 'tool toolbox' : 'toolbox tool'}'
+      'navigation app ${isToolboxRight ? 'tool toolbox' : 'toolbox tool'}'
+      'navigation footer ${isToolboxRight ? 'tool toolbox' : 'toolbox tool'}';
 
     .euiCollapsibleNavButtonWrapper {
       border-right: none;

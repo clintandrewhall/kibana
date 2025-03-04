@@ -12,6 +12,7 @@ import {
   closeToolbox,
   useCurrentTool,
   useIsToolboxOpen,
+  useIsToolboxRight,
   useWorkspaceDispatch,
 } from '@kbn/core-workspace-state';
 import { useWorkspaceContext } from '@kbn/core-workspace-state';
@@ -28,6 +29,7 @@ export interface WorkspaceToolProps extends Omit<WorkspaceToolComponentProps, 'o
 
 export const WorkspaceTool = () => {
   const isToolboxOpen = useIsToolboxOpen();
+  const isRight = useIsToolboxRight();
   const currentTool = useCurrentTool();
   const context = useWorkspaceContext();
   const dispatch = useWorkspaceDispatch();
@@ -44,5 +46,5 @@ export const WorkspaceTool = () => {
 
   const { tool } = definition;
 
-  return <WorkspaceToolComponent {...{ onClose, ...tool }} />;
+  return <WorkspaceToolComponent {...{ onClose, isRight, ...tool }} />;
 };

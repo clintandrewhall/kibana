@@ -13,13 +13,17 @@ export {
   setHasFooter,
   setIsChromeVisible,
   setIsLoading,
-  setIs2030,
+  setIsModern,
   useHasBanner,
   useHasFooter,
   useIsChromeVisible,
   useIsLoading,
   useWorkspaceState,
-  useIs2030,
+  useIsModern,
+  setIsToolboxRight,
+  useIsToolboxRight,
+  setIsSearchInToolbox,
+  useIsSearchInToolbox,
 } from './workspace';
 
 export {

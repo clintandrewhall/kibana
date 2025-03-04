@@ -15,7 +15,9 @@ export interface WorkspaceState {
   isChromeVisible: boolean;
   isLoading: boolean;
   hasBanner: boolean;
-  is2030: boolean;
+  isModern: boolean;
+  isToolboxRight: boolean;
+  isSearchInToolbox: boolean;
 }
 
 const initialState: WorkspaceState = {
@@ -23,7 +25,9 @@ const initialState: WorkspaceState = {
   isChromeVisible: true,
   isLoading: false,
   hasBanner: false,
-  is2030: false,
+  isModern: false,
+  isToolboxRight: false,
+  isSearchInToolbox: true,
 };
 
 export const workspaceSlice = createSlice({
@@ -42,13 +46,26 @@ export const workspaceSlice = createSlice({
     setHasBanner: (state, action: PayloadAction<boolean>) => {
       state.hasBanner = action.payload;
     },
-    setIs2030: (state, action: PayloadAction<boolean>) => {
-      state.is2030 = action.payload;
+    setIsModern: (state, action: PayloadAction<boolean>) => {
+      state.isModern = action.payload;
+    },
+    setIsToolboxRight: (state, action: PayloadAction<boolean>) => {
+      state.isToolboxRight = action.payload;
+    },
+    setIsSearchInToolbox: (state, action: PayloadAction<boolean>) => {
+      state.isSearchInToolbox = action.payload;
     },
   },
 });
 
-export const { setHasFooter, setIsChromeVisible, setIsLoading, setHasBanner, setIs2030 } =
-  workspaceSlice.actions;
+export const {
+  setHasFooter,
+  setIsChromeVisible,
+  setIsLoading,
+  setHasBanner,
+  setIsModern,
+  setIsToolboxRight,
+  setIsSearchInToolbox,
+} = workspaceSlice.actions;
 
 export const workspaceReducer = workspaceSlice.reducer;

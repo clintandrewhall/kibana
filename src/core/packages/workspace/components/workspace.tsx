@@ -11,7 +11,7 @@ import React from 'react';
 import { useIsNavigationCollapsed, useIsToolboxOpen } from '@kbn/core-workspace-state';
 
 import { EuiThemeProvider } from '@elastic/eui';
-import { useIs2030 } from '@kbn/core-workspace-state';
+import { useIsModern } from '@kbn/core-workspace-state';
 import { WorkspaceComponent, WorkspaceComponentProps } from './workspace.component';
 import { WorkspaceGlobalCSS } from './workspace_global_css';
 
@@ -20,7 +20,7 @@ export type WorkspaceProps = Pick<WorkspaceComponentProps, 'children'>;
 const WorkspaceLayout = ({ children }: WorkspaceProps) => {
   const isNavigationCollapsed = useIsNavigationCollapsed();
   const isToolboxOpen = useIsToolboxOpen();
-  const is2030 = useIs2030();
+  const isModern = useIsModern();
 
   const component = (
     <>
@@ -31,7 +31,7 @@ const WorkspaceLayout = ({ children }: WorkspaceProps) => {
     </>
   );
 
-  return is2030 ? <EuiThemeProvider colorMode="dark">{component}</EuiThemeProvider> : component;
+  return isModern ? <EuiThemeProvider colorMode="dark">{component}</EuiThemeProvider> : component;
 };
 
 export const Workspace = Object.assign(WorkspaceLayout, {

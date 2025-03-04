@@ -16,4 +16,6 @@ export const useHasFooter = () => useWorkspaceState().hasFooter;
 export const useIsChromeVisible = () => useWorkspaceState().isChromeVisible;
 export const useIsLoading = () => useWorkspaceState().isLoading;
 export const useHasBanner = () => useWorkspaceState().hasBanner;
-export const useIs2030 = () => useWorkspaceState().is2030;
+export const useIsModern = () => useWorkspaceState().isModern;
+export const useIsToolboxRight = () => useWorkspaceState().isToolboxRight;
+export const useIsSearchInToolbox = () => useWorkspaceState().isSearchInToolbox;

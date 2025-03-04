@@ -21,18 +21,18 @@ const root = css`
   display: flex;
 `;
 
-const panel: EmotionFn = ({ euiTheme }) => css`
-  margin: ${euiTheme.size.xs} ${euiTheme.size.s} ${euiTheme.size.s} 0;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  width: var(--kbnWorkspace--tool-width, 0);
+const panel: EmotionFn = ({ euiTheme }) =>
+  css`
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: var(--kbnWorkspace--tool-width, 0);
 
-  .euiFlyoutFooter {
-    border-bottom-right-radius: ${euiTheme.border.radius.small};
-    border-bottom-left-radius: ${euiTheme.border.radius.small};
-  }
-`;
+    .euiFlyoutFooter {
+      border-bottom-right-radius: ${euiTheme.border.radius.small};
+      border-bottom-left-radius: ${euiTheme.border.radius.small};
+    }
+  `;
 
 const container = css`
   flex-grow: 1;

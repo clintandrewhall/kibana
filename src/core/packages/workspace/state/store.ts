@@ -13,33 +13,48 @@ import { workspaceReducer } from './workspace';
 import { navigationReducer, setIsNavigationCollapsed } from './navigation';
 import { toolboxReducer, openToolbox, closeToolbox, setToolboxSize } from './toolbox';
 import { headerReducer } from './header';
-import { setIs2030 } from './workspace/slice';
+import {
+  setIsModern,
+  setIsSearchInToolbox,
+  setIsToolboxRight,
+  workspaceSlice,
+} from './workspace/slice';
 
 const listenerMiddleware = createListenerMiddleware();
 listenerMiddleware.startListening({
-  matcher: isAnyOf(setIsNavigationCollapsed, openToolbox, closeToolbox, setToolboxSize, setIs2030),
+  matcher: isAnyOf(
+    setIsNavigationCollapsed,
+    openToolbox,
+    closeToolbox,
+    setToolboxSize,
+    setIsModern,
+    setIsToolboxRight,
+    setIsSearchInToolbox
+  ),
   effect: (action) => {
     const {
-      workspace: { is2030 },
+      workspace: { isModern, isToolboxRight, isSearchInToolbox },
       navigation: { isCollapsed },
       toolbox: { currentToolId, isOpen, size },
     } = store.getState();
 
     const value = {
-      workspace: { is2030 },
+      workspace: { isModern, isToolboxRight, isSearchInToolbox },
       navigation: { isCollapsed },
       toolbox: { currentToolId, isOpen, size },
     };
 
     localStorage.setItem('workspace', JSON.stringify(value));
 
-    if (action.type === setIs2030.type) {
+    if (action.type === setIsModern.type) {
       // window.location.reload();
     }
   },
 });
 
-const preloadedState = JSON.parse(localStorage.getItem('workspace') || '{}');
+const preloadedState = JSON.parse(
+  localStorage.getItem('workspace') || JSON.stringify(workspaceSlice.getInitialState())
+);
 
 export const store = configureStore({
   preloadedState,

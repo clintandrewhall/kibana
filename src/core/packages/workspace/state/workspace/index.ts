@@ -14,7 +14,9 @@ export {
   setIsChromeVisible,
   setIsLoading,
   workspaceReducer,
-  setIs2030,
+  setIsModern,
+  setIsToolboxRight,
+  setIsSearchInToolbox,
 } from './slice';
 
 export {
@@ -23,5 +25,7 @@ export {
   useIsChromeVisible,
   useIsLoading,
   useWorkspaceState,
-  useIs2030,
+  useIsModern,
+  useIsToolboxRight,
+  useIsSearchInToolbox,
 } from './hooks';
