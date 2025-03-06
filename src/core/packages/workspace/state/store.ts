@@ -19,61 +19,77 @@ import {
   setIsToolboxRight,
   workspaceSlice,
 } from './workspace/slice';
+import { toolboxSlice } from './toolbox/slice';
+import { headerSlice } from './header/slice';
+import { navigationSlice } from './navigation/slice';
 
-const listenerMiddleware = createListenerMiddleware();
-listenerMiddleware.startListening({
-  matcher: isAnyOf(
-    setIsNavigationCollapsed,
-    openToolbox,
-    closeToolbox,
-    setToolboxSize,
-    setIsModern,
-    setIsToolboxRight,
-    setIsSearchInToolbox
-  ),
-  effect: (action) => {
-    const {
-      workspace: { isModern, isToolboxRight, isSearchInToolbox },
-      navigation: { isCollapsed },
-      toolbox: { currentToolId, isOpen, size },
-    } = store.getState();
-
-    const value = {
-      workspace: { isModern, isToolboxRight, isSearchInToolbox },
-      navigation: { isCollapsed },
-      toolbox: { currentToolId, isOpen, size },
-    };
-
-    localStorage.setItem('workspace', JSON.stringify(value));
-
-    if (action.type === setIsModern.type) {
-      // window.location.reload();
-    }
-  },
-});
+const initialState = {
+  ...workspaceSlice.getInitialState(),
+  ...toolboxSlice.getInitialState(),
+  ...headerSlice.getInitialState(),
+  ...navigationSlice.getInitialState(),
+};
 
 const preloadedState = JSON.parse(
-  localStorage.getItem('workspace') || JSON.stringify(workspaceSlice.getInitialState())
+  localStorage.getItem('workspace') || JSON.stringify(initialState)
 );
 
-export const store = configureStore({
-  preloadedState,
-  reducer: {
-    workspace: workspaceReducer,
-    navigation: navigationReducer,
-    toolbox: toolboxReducer,
-    header: headerReducer,
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(listenerMiddleware.middleware),
-});
+export const createStore = () => {
+  const listenerMiddleware = createListenerMiddleware();
+
+  const store = configureStore({
+    preloadedState,
+    reducer: {
+      workspace: workspaceReducer,
+      navigation: navigationReducer,
+      toolbox: toolboxReducer,
+      header: headerReducer,
+    },
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(listenerMiddleware.middleware),
+  });
+
+  listenerMiddleware.startListening({
+    matcher: isAnyOf(
+      setIsNavigationCollapsed,
+      openToolbox,
+      closeToolbox,
+      setToolboxSize,
+      setIsModern,
+      setIsToolboxRight,
+      setIsSearchInToolbox
+    ),
+    effect: (action) => {
+      const {
+        workspace: { isModern, isToolboxRight, isSearchInToolbox },
+        navigation: { isCollapsed },
+        toolbox: { currentToolId, isOpen, size },
+      } = store.getState();
+
+      const value = {
+        workspace: { isModern, isToolboxRight, isSearchInToolbox },
+        navigation: { isCollapsed },
+        toolbox: { currentToolId, isOpen, size },
+      };
+
+      localStorage.setItem('workspace', JSON.stringify(value));
+
+      if (action.type === setIsModern.type) {
+        // window.location.reload();
+      }
+    },
+  });
+
+  return store;
+};
+
+export type WorkspaceStore = ReturnType<typeof createStore>;
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootWorkspaceState = ReturnType<typeof store.getState>;
+export type RootWorkspaceState = ReturnType<WorkspaceStore['getState']>;
 
 // Inferred type
-export type WorkspaceDispatch = typeof store.dispatch;
+export type WorkspaceDispatch = WorkspaceStore['dispatch'];
 
 export const useWorkspaceDispatch: () => WorkspaceDispatch = useDispatch;
-
 export const useWorkspaceSelector: TypedUseSelectorHook<RootWorkspaceState> = useSelector;

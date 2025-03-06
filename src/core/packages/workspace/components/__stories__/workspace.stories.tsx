@@ -13,7 +13,8 @@ import { action } from '@storybook/addon-actions';
 import { Global, css } from '@emotion/react';
 import { EuiCollapsibleNavBeta, EuiCollapsibleNavItemProps, EuiTitle } from '@elastic/eui';
 
-import { WorkspaceProvider } from '@kbn/core-workspace-state';
+import { WorkspaceProvider, createStore } from '@kbn/core-workspace-state';
+import { Provider } from 'react-redux';
 import { Workspace as WorkspaceComponent } from '../workspace';
 
 export default {
@@ -168,25 +169,29 @@ const ExampleApplication = () => (
   </div>
 );
 
+const store = createStore();
+
 export const Workspace = () => (
-  <WorkspaceProvider tools={[]}>
-    <Global styles={styles} />
-    <WorkspaceComponent>
-      {{
-        header: <WorkspaceComponent.Header breadcrumbs={[]} />,
-        navigation: (
-          <WorkspaceComponent.Navigation>
-            <ExampleNavigation />
-          </WorkspaceComponent.Navigation>
-        ),
-        application: (
-          <WorkspaceComponent.Application colorMode="LIGHT">
-            <ExampleApplication />
-          </WorkspaceComponent.Application>
-        ),
-        toolbox: <WorkspaceComponent.Toolbox>Toolbox</WorkspaceComponent.Toolbox>,
-        tool: <WorkspaceComponent.Tool />,
-      }}
-    </WorkspaceComponent>
-  </WorkspaceProvider>
+  <Provider store={store}>
+    <WorkspaceProvider tools={[]}>
+      <Global styles={styles} />
+      <WorkspaceComponent>
+        {{
+          header: <WorkspaceComponent.Header breadcrumbs={[]} />,
+          navigation: (
+            <WorkspaceComponent.Navigation>
+              <ExampleNavigation />
+            </WorkspaceComponent.Navigation>
+          ),
+          application: (
+            <WorkspaceComponent.Application colorMode="LIGHT">
+              <ExampleApplication />
+            </WorkspaceComponent.Application>
+          ),
+          toolbox: <WorkspaceComponent.Toolbox>Toolbox</WorkspaceComponent.Toolbox>,
+          tool: <WorkspaceComponent.Tool />,
+        }}
+      </WorkspaceComponent>
+    </WorkspaceProvider>
+  </Provider>
 );

@@ -107,8 +107,6 @@ export class RenderingService {
       },
     });
 
-    // TODO: unpack observables here, props changes will handle the rest.
-
     ReactDOM.render(
       <KibanaRootContextProvider {...startServices} theme={theme} globalStyles={true}>
         <KibanaWorkspace

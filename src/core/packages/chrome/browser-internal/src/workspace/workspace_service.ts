@@ -22,15 +22,17 @@ import {
   type WorkspaceStart,
   WORKSPACE_KNOWN_TOOLS,
 } from '@kbn/core-chrome-browser';
+import React from 'react';
+import { Provider, type ProviderProps } from 'react-redux';
 import type { FeatureFlagsStart } from '@kbn/core-feature-flags-browser';
 import type { HttpStart } from '@kbn/core-http-browser';
 import type { CustomBranding } from '@kbn/core-custom-branding-common';
 import {
   setIsLoading,
   setIsChromeVisible,
-  store,
   setHomeHref,
   setIconType,
+  createStore,
 } from '@kbn/core-workspace-state';
 import { ApplicationStart } from '@kbn/core-application-browser';
 import { RecentlyAccessed } from '@kbn/recently-accessed';
@@ -87,11 +89,10 @@ export class WorkspaceService {
     featureFlags,
     http,
     customBranding,
-    application: { navigateToUrl },
     projectNavigation,
     isVisible$,
-    recentlyAccessed,
   }: WorkspaceServiceStartDeps): WorkspaceStart {
+    const store = createStore();
     const tools$ = new BehaviorSubject<ReadonlySet<WorkspaceTool>>(new Set());
     const breadcrumbs$ = projectNavigation.getProjectBreadcrumbs$().pipe(takeUntil(this.stop$));
 
@@ -132,6 +133,10 @@ export class WorkspaceService {
     };
 
     return {
+      getStateProvider:
+        () =>
+        ({ children }) =>
+          React.createElement<ProviderProps>(Provider, { store }, children),
       isEnabled: () => featureFlags.getBooleanValue('workbench', false),
       header: {
         getBreadcrumbs$: () => breadcrumbs$,

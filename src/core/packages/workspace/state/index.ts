@@ -51,16 +51,33 @@ export {
   useIsToolboxOpen,
   useToolboxSize,
   useToolboxState,
+  WORKSPACE_KNOWN_TOOLS,
+  WORKSPACE_TOOL_AI_ASSISTANT,
+  WORKSPACE_TOOL_FEEDBACK,
+  WORKSPACE_TOOL_HELP,
+  WORKSPACE_TOOL_NEWSFEED,
+  WORKSPACE_TOOL_PROFILE,
+  WORKSPACE_TOOL_RECENT,
+  type WorkspaceButtonProps,
+  type WorkspaceKnownTool,
+  type WorkspaceTool,
+  type WorkspaceToolProps,
 } from './toolbox';
 
 export {
-  store,
+  type WorkspaceStore,
+  createStore,
   type RootWorkspaceState,
   type WorkspaceDispatch,
   useWorkspaceDispatch,
   useWorkspaceSelector,
 } from './store';
 
-export { WorkspaceProvider, type WorkspaceProviderProps, useWorkspaceContext } from './provider';
+export {
+  WorkspaceProvider,
+  type WorkspaceProviderProps,
+  useWorkspaceContext,
+  useWorkspaceTools,
+} from './provider';
 
 export type { ToolboxSize } from './types';

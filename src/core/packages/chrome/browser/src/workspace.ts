@@ -8,46 +8,9 @@
  */
 
 import type { Observable } from 'rxjs';
-import type { EuiButtonIconPropsForButton, EuiPanelProps, EuiBreadcrumb } from '@elastic/eui';
-import type { ReactNode } from 'react';
-
-export const WORKSPACE_TOOL_PROFILE = 'profile';
-export const WORKSPACE_TOOL_RECENT = 'recent';
-export const WORKSPACE_TOOL_FEEDBACK = 'feedback';
-export const WORKSPACE_TOOL_NEWSFEED = 'newsfeed';
-export const WORKSPACE_TOOL_HELP = 'help';
-export const WORKSPACE_TOOL_AI_ASSISTANT = 'aiAssistant';
-
-export const WORKSPACE_KNOWN_TOOLS = [
-  WORKSPACE_TOOL_PROFILE,
-  WORKSPACE_TOOL_RECENT,
-  WORKSPACE_TOOL_NEWSFEED,
-  WORKSPACE_TOOL_FEEDBACK,
-  WORKSPACE_TOOL_HELP,
-  WORKSPACE_TOOL_AI_ASSISTANT,
-] as const;
-
-export type WorkspaceKnownTool = (typeof WORKSPACE_KNOWN_TOOLS)[number];
-
-export interface WorkspaceButtonProps extends Pick<EuiButtonIconPropsForButton, 'iconType'> {
-  size?: 'regular' | 'wide' | 'fullWidth';
-  'aria-label'?: string;
-}
-export interface WorkspaceToolProps
-  extends Pick<EuiPanelProps, 'color' | 'hasShadow' | 'hasBorder'> {
-  title: string;
-  children?: ReactNode;
-  isScrollable?: boolean;
-  containerPadding?: 'none' | 's' | 'm' | 'l';
-}
-
-export interface WorkspaceTool {
-  toolId: WorkspaceKnownTool | string;
-  button: WorkspaceButtonProps;
-  tool: WorkspaceToolProps;
-  size?: 'regular' | 'wide' | 'fullWidth';
-  // TODO: reducer?: (state: any, action: any) => any;
-}
+import type { EuiBreadcrumb } from '@elastic/eui';
+import { WorkspaceTool } from '@kbn/core-workspace-state';
+import { ReactNode } from 'react';
 
 export interface WorkspaceHeaderService {
   getBreadcrumbs$: () => Observable<EuiBreadcrumb[]>;
@@ -65,6 +28,23 @@ export interface WorkspaceService {
   isEnabled: () => boolean;
   header: WorkspaceHeaderService;
   toolbox: WorkspaceToolboxService;
+  getStateProvider: () => ({ children }: { children: ReactNode }) => JSX.Element;
 }
 
 export type WorkspaceStart = WorkspaceService;
+
+export {
+  WORKSPACE_KNOWN_TOOLS,
+  WORKSPACE_TOOL_AI_ASSISTANT,
+  WORKSPACE_TOOL_FEEDBACK,
+  WORKSPACE_TOOL_HELP,
+  WORKSPACE_TOOL_NEWSFEED,
+  WORKSPACE_TOOL_PROFILE,
+  WORKSPACE_TOOL_RECENT,
+  type WorkspaceState,
+  type WorkspaceStore,
+  type WorkspaceToolProps,
+  type WorkspaceKnownTool,
+  type WorkspaceTool,
+  type WorkspaceButtonProps,
+} from '@kbn/core-workspace-state';

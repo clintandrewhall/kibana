@@ -21,7 +21,6 @@ export interface WorkspaceGlobalCSSComponentProps {
   isChromeVisible: boolean;
   isNavigationCollapsed: boolean;
   isModern: boolean;
-  isToolboxRight: boolean;
 }
 
 const dimensions = {
@@ -53,7 +52,6 @@ const dimensions = {
 
 export const WorkspaceGlobalCSSComponent = ({
   isToolboxOpen,
-  isToolboxRight,
   toolboxSize,
   hasBanner,
   hasFooter,

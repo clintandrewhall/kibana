@@ -15,7 +15,7 @@ import {
   useIsToolboxRight,
   useWorkspaceDispatch,
 } from '@kbn/core-workspace-state';
-import { useWorkspaceContext } from '@kbn/core-workspace-state';
+import { useWorkspaceTools } from '@kbn/core-workspace-state';
 
 import {
   WorkspaceToolComponent,
@@ -31,10 +31,10 @@ export const WorkspaceTool = () => {
   const isToolboxOpen = useIsToolboxOpen();
   const isRight = useIsToolboxRight();
   const currentTool = useCurrentTool();
-  const context = useWorkspaceContext();
+  const tools = useWorkspaceTools();
   const dispatch = useWorkspaceDispatch();
   const onClose = () => dispatch(closeToolbox());
-  const definition = context.tools.find((t) => t.toolId === currentTool);
+  const definition = tools.find((t) => t.toolId === currentTool);
 
   if (!definition) {
     if (isToolboxOpen) {
