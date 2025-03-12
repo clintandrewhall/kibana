@@ -8,13 +8,18 @@
  */
 
 import { css } from '@emotion/react';
+import { SerializedStyles } from '@emotion/serialize';
+import { UseEuiTheme } from '@elastic/eui';
 
-const root = css`
+type EmotionFn = (theme: UseEuiTheme) => SerializedStyles;
+
+const root: EmotionFn = ({ euiTheme: { border } }) => css`
   position: sticky;
   grid-area: banner;
   height: var(--kbnWorkspace--banner-height, 0);
   width: var(--kbnWorkspace--banner-width, 100vw);
   top: var(--kbnWorkspace--banner-top, 0);
+  outline: ${border.thin};
 `;
 
 export const styles = {
