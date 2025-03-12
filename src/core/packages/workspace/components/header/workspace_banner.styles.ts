@@ -11,7 +11,6 @@ import { css } from '@emotion/react';
 
 const root = css`
   position: sticky;
-  overflow: hidden;
   grid-area: banner;
   height: var(--kbnWorkspace--banner-height, 0);
   width: var(--kbnWorkspace--banner-width, 100vw);

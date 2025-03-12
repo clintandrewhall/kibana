@@ -46,6 +46,7 @@ const Component = ({
   const actionMenu = <KibanaActionMenuMount {...{ currentActionMenu$ }} />;
   const sideNav = <KibanaSideNavigation {...{ getActiveNodes$, getProjectSideNavComponent$ }} />;
   const logo = <WorkspaceHeaderLogo />;
+  const banner = useDistinctObservable(workspace.banner.getBanner$(), null);
 
   const searchButton = search ? (
     <EuiFlexItem key="search" grow={false}>
@@ -65,6 +66,7 @@ const Component = ({
               </EuiFlexGroup>
             </Workspace.Header>
           ),
+          banner: banner ? <Workspace.Banner>{banner}</Workspace.Banner> : undefined,
           application: (
             <Workspace.Application colorMode={colorMode}>{application}</Workspace.Application>
           ),
