@@ -24,9 +24,6 @@ export interface WorkspaceGlobalCSSComponentProps {
 }
 
 const dimensions = {
-  banner: {
-    height: 32,
-  },
   navigation: {
     width: {
       collapsed: 48,
@@ -113,9 +110,10 @@ export const WorkspaceGlobalCSSComponent = ({
 
       /* Banner */
       --kbnWorkspace--banner-top: 0px;
+      --kbnWorkspace-banner-content-height: 0px; /* dynamically set by the banner content */
       --kbnWorkspace--banner-height: ${!isChromeVisible || !hasBanner
         ? 0
-        : dimensions.banner.height}px;
+        : `var(--kbnWorkspace-banner-content-height)`};
       --kbnWorkspace--banner-width: 100%;
 
       /* Header */
