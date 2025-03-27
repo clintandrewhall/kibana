@@ -14,6 +14,7 @@ import { useDeleteKnowledgeBaseEntry } from '../../hooks/use_delete_knowledge_ba
 import { useGetKnowledgeBaseEntries } from '../../hooks/use_get_knowledge_base_entries';
 import { useImportKnowledgeBaseEntries } from '../../hooks/use_import_knowledge_base_entries';
 import { KnowledgeBaseTab } from './knowledge_base_tab';
+import { DATA_TEST_SUBJ_INSTALL_KNOWLEDGE_BASE_BUTTON } from '@kbn/ai-assistant-cta';
 
 jest.mock('../../hooks/use_get_knowledge_base_entries');
 jest.mock('../../hooks/use_create_knowledge_base_entry');
@@ -90,9 +91,7 @@ describe('KnowledgeBaseTab', () => {
 
     it('should render the Install Knowledge base setup', () => {
       const { getByTestId } = render(<KnowledgeBaseTab />);
-      expect(
-        getByTestId('observabilityAiAssistantWelcomeMessageSetUpKnowledgeBaseButton')
-      ).toBeInTheDocument();
+      expect(getByTestId(DATA_TEST_SUBJ_INSTALL_KNOWLEDGE_BASE_BUTTON)).toBeInTheDocument();
     });
   });
 

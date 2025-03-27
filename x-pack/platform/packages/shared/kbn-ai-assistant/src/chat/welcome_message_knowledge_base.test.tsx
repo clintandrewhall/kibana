@@ -10,6 +10,10 @@ import { act, render, screen } from '@testing-library/react';
 
 import { WelcomeMessageKnowledgeBase } from './welcome_message_knowledge_base';
 import type { UseKnowledgeBaseResult } from '../hooks/use_knowledge_base';
+import { KibanaRenderContextProvider } from '@kbn/react-kibana-context-render';
+import { coreMock } from '@kbn/core/public/mocks';
+
+const corePluginMock = coreMock.createStart();
 
 describe('WelcomeMessageKnowledgeBase', () => {
   afterEach(() => {
@@ -36,15 +40,18 @@ describe('WelcomeMessageKnowledgeBase', () => {
   }
 
   function renderComponent(kb: UseKnowledgeBaseResult) {
-    return render(<WelcomeMessageKnowledgeBase knowledgeBase={kb} />);
+    return render(
+      <KibanaRenderContextProvider {...corePluginMock}>
+        <WelcomeMessageKnowledgeBase knowledgeBase={kb} />
+      </KibanaRenderContextProvider>
+    );
   }
 
   it('renders install message if isInstalling', () => {
     const kb = createMockKnowledgeBase({ isInstalling: true });
     renderComponent(kb);
 
-    expect(screen.getByText(/We are setting up your knowledge base/i)).toBeInTheDocument();
-    expect(screen.getByText(/Setting up Knowledge base/i)).toBeInTheDocument();
+    expect(screen.getByText(/Installing Knowledge Base/i)).toBeInTheDocument();
   });
 
   it('renders the success banner after a transition from installing to not installing with no error', async () => {
@@ -52,10 +59,10 @@ describe('WelcomeMessageKnowledgeBase', () => {
     let kb = createMockKnowledgeBase({
       isInstalling: true,
     });
-    const { rerender } = renderComponent(kb);
+    const { rerender, container } = renderComponent(kb);
 
     // Should not see success banner initially
-    expect(screen.queryByText(/Knowledge base successfully installed/i)).toBeNull();
+    expect(container).not.toBeEmptyDOMElement();
 
     // 2) Transition to isInstalling = false, no installError
     kb = {
@@ -76,7 +83,7 @@ describe('WelcomeMessageKnowledgeBase', () => {
     });
 
     // Now we should see success banner
-    expect(screen.getByText(/Knowledge base successfully installed/i)).toBeInTheDocument();
+    expect(container).toBeEmptyDOMElement();
   });
 
   it('renders "not set up" if installError is present', () => {
@@ -85,7 +92,7 @@ describe('WelcomeMessageKnowledgeBase', () => {
     });
     renderComponent(kb);
 
-    expect(screen.getByText(/Your Knowledge base hasn't been set up/i)).toBeInTheDocument();
+    expect(screen.getByText(/You have not set up a Knowledge Base yet./i)).toBeInTheDocument();
     expect(screen.getByText(/Install Knowledge base/i)).toBeInTheDocument();
     // Because we have an installError, we also see "Inspect issues" button
     expect(screen.getByText(/Inspect issues/i)).toBeInTheDocument();
@@ -110,7 +117,7 @@ describe('WelcomeMessageKnowledgeBase', () => {
     });
     renderComponent(kb);
 
-    expect(screen.getByText(/Your Knowledge base hasn't been set up/i)).toBeInTheDocument();
+    expect(screen.getByText(/You have not set up a Knowledge Base yet./i)).toBeInTheDocument();
     expect(screen.getByText(/Install Knowledge base/i)).toBeInTheDocument();
     expect(screen.queryByText(/Inspect issues/i)).toBeNull();
   });
@@ -133,7 +140,7 @@ describe('WelcomeMessageKnowledgeBase', () => {
     });
     renderComponent(kb);
 
-    expect(screen.getByText(/Your Knowledge base hasn't been set up/i)).toBeInTheDocument();
+    expect(screen.getByText(/You have not set up a Knowledge Base yet./i)).toBeInTheDocument();
     expect(screen.getByText(/Install Knowledge base/i)).toBeInTheDocument();
     expect(screen.getByText(/Inspect issues/i)).toBeInTheDocument();
   });
@@ -154,7 +161,7 @@ describe('WelcomeMessageKnowledgeBase', () => {
     renderComponent(kb);
 
     expect(screen.queryByText(/We are setting up your knowledge base/i)).toBeNull();
-    expect(screen.queryByText(/Your Knowledge base hasn't been set up/i)).toBeNull();
+    expect(screen.queryByText(/You have not set up a Knowledge Base yet./i)).toBeNull();
     expect(screen.queryByText(/Knowledge base successfully installed/i)).toBeNull();
   });
 });
