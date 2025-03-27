@@ -130,6 +130,7 @@ export function ChatTimeline({
     <EuiCommentList
       className={css`
         padding-bottom: 32px;
+        flex-grow: 1;
       `}
     >
       {items.map((item, index) => {

@@ -69,21 +69,29 @@ export function WelcomeMessage({
     [triggersActionsUi]
   );
 
-  const CallToAction = () => {
-    if (connectors.error) {
-      return <NoConnectorAccess data-test-subj="no-connector-access-cta" />;
-    }
+  const isKnowledgeBaseReady = useMemo(
+    () =>
+      knowledgeBase.status.value?.ready &&
+      !knowledgeBase.isInstalling &&
+      !knowledgeBase.installError &&
+      !knowledgeBase.status.value?.errorMessage,
+    [knowledgeBase]
+  );
 
-    if (!connectors.connectors?.length) {
+  const isConnectorReady = useMemo(
+    () => !connectors.error && connectors.connectors?.length && connectors.connectors.length > 0,
+    [connectors]
+  );
+
+  const CallToAction = () => {
+    if (!isConnectorReady) {
+      if (connectors.error) {
+        return <NoConnectorAccess data-test-subj="no-connector-access-cta" />;
+      }
       return <AddConnector onAddConnector={handleConnectorClick} />;
     }
 
-    if (
-      !knowledgeBase.status.value?.ready ||
-      knowledgeBase.isInstalling ||
-      knowledgeBase.installError ||
-      knowledgeBase.status.value?.errorMessage
-    ) {
+    if (knowledgeBase.isInstalling || !isKnowledgeBaseReady) {
       return <WelcomeMessageKnowledgeBase knowledgeBase={knowledgeBase} />;
     }
 
@@ -103,7 +111,7 @@ export function WelcomeMessage({
   };
 
   const Footer = () => {
-    if (!connectors.connectors?.length || !knowledgeBase.status.value?.ready) {
+    if (!isConnectorReady || !isKnowledgeBaseReady) {
       return null;
     }
 
