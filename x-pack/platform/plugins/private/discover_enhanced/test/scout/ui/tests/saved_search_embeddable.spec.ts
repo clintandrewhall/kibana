@@ -69,20 +69,26 @@ test.describe.skip(
       kbnClient,
       page,
       pageObjects,
+      visualRegression,
     }) => {
+      await visualRegression.capture('start of test');
       await pageObjects.dashboard.openNewDashboard();
+      await visualRegression.capture('open new dashboard');
       await createSavedSearch(
         kbnClient,
         SAVED_SEARCH_ID,
         SAVED_SEARCH_TITLE,
         testData.DATA_VIEW_ID.LOGSTASH
       );
+      await visualRegression.capture('create saved search');
       await pageObjects.dashboard.addPanelFromLibrary(SAVED_SEARCH_TITLE);
       await page.testSubj.locator('savedSearchTotalDocuments').waitFor({
         state: 'visible',
       });
+      await visualRegression.capture('add panel from library');
 
       await pageObjects.dashboard.saveDashboard('Dashboard with deleted saved search');
+      await visualRegression.capture('save dashboard');
       await kbnClient.savedObjects.delete({
         type: 'search',
         id: SAVED_SEARCH_ID,
@@ -94,12 +100,14 @@ test.describe.skip(
         page.testSubj.locator('embeddableError'),
         'Embeddable error should be displayed'
       ).toBeVisible();
+      await visualRegression.capture('embeddable error displayed');
 
       await pageObjects.dashboard.removePanel('embeddableError');
       await expect(
         page.testSubj.locator('embeddableError'),
         'Embeddable error should not be displayed'
       ).toBeHidden();
+      await visualRegression.capture('remove panel');
     });
   }
 );

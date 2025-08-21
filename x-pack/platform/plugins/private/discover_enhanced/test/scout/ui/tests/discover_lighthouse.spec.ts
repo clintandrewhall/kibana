@@ -28,10 +28,11 @@ lighthouseTest.describe(
 
     lighthouseTest(
       'runs audit on Discover Page',
-      async ({ browserAuth, lighthouse, page, pageObjects }) => {
+      async ({ browserAuth, lighthouse, page, pageObjects, visualRegression }) => {
         await browserAuth.loginAsAdmin();
         await pageObjects.discover.goto();
         await pageObjects.discover.waitForHistogramRendered();
+        await visualRegression.capture('histogram rendered');
         const currentUrl = page.url();
 
         // Run the Lighthouse audit on the current page and attach the report

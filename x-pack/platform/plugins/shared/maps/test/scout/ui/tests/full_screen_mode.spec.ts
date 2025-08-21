@@ -25,13 +25,14 @@ test.describe(
       await pageObjects.maps.waitForRenderComplete();
     });
 
-    test('Full screen mode', async ({ page }) => {
+    test('Full screen mode', async ({ page, visualRegression }) => {
       const fullScreenBtn = page.getByTestId(FULL_SCREEN_MODE);
       const exitFullScreenBtn = page.getByTestId(EXIT_FULL_SCREEN);
       const visibleChrome = page.getByTestId(VISIBLE_CHROME);
       const hiddenChrome = page.getByTestId(HIDDEN_CHROME);
       const baseMapBtn = page.getByRole('button', { name: 'Basemap' });
 
+      await visualRegression.capture('start');
       await expect(fullScreenBtn).toBeVisible();
       await expect(exitFullScreenBtn).toBeHidden();
       await expect(visibleChrome).toBeVisible();
@@ -39,6 +40,7 @@ test.describe(
       await expect(baseMapBtn).toBeVisible();
 
       await fullScreenBtn.click();
+      await visualRegression.capture('full screen button click');
 
       await expect(fullScreenBtn).toBeHidden();
       await expect(exitFullScreenBtn).toBeVisible();
@@ -47,6 +49,7 @@ test.describe(
       await expect(baseMapBtn).toBeVisible();
 
       await exitFullScreenBtn.click();
+      await visualRegression.capture('exit full screen button click');
 
       await expect(fullScreenBtn).toBeVisible();
     });

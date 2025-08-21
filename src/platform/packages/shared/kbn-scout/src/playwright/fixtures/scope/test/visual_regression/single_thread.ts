@@ -1,0 +1,22 @@
+/*
+ * Copyright Elasticsearch B.V. and/or licensed to Elasticsearch B.V. under one
+ * or more contributor license agreements. Licensed under the "Elastic License
+ * 2.0", the "GNU Affero General Public License v3.0 only", and the "Server Side
+ * Public License v 1"; you may not use this file except in compliance with, at
+ * your election, the "Elastic License 2.0", the "GNU Affero General Public
+ * License v3.0 only", or the "Server Side Public License, v 1".
+ */
+
+import { scoutPageFixture } from '../scout_page/single_thread';
+import { createVisualRegressionApi, type VisualRegression } from './visual_regression_fixture';
+
+export const visualRegressionFixture = scoutPageFixture.extend<{
+  visualRegression: VisualRegression;
+}>({
+  visualRegression: [
+    async ({ page }, use, testInfo) => {
+      await use(createVisualRegressionApi(page, testInfo));
+    },
+    { scope: 'test' },
+  ],
+});

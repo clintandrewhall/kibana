@@ -20,10 +20,15 @@ test.describe('Stream data routing - previewing data', { tag: ['@ess', '@svlOblt
     await generateLogsData(logsSynthtraceEsClient)({ index: 'logs' });
   });
 
-  test.beforeEach(async ({ browserAuth, pageObjects }) => {
+  test.beforeEach(async ({ browserAuth, pageObjects, visualRegression }) => {
     await browserAuth.loginAsAdmin();
+    await visualRegression.capture('start of test');
+
     await pageObjects.streams.gotoPartitioningTab('logs');
+    await visualRegression.capture('go to logs partitioning tab');
+
     await pageObjects.datePicker.setAbsoluteRange(DATE_RANGE);
+    await visualRegression.capture('set absolute range');
   });
 
   test.afterAll(async ({ apiServices, logsSynthtraceEsClient }) => {
@@ -32,9 +37,12 @@ test.describe('Stream data routing - previewing data', { tag: ['@ess', '@svlOblt
     await apiServices.streams.disable();
   });
 
-  test('should show preview during rule creation', async ({ pageObjects }) => {
+  test('should show preview during rule creation', async ({ pageObjects, visualRegression }) => {
     await pageObjects.streams.clickCreateRoutingRule();
+    await visualRegression.capture('click create routing rule');
+
     await pageObjects.streams.fillRoutingRuleName('logs.preview-test');
+    await visualRegression.capture('fill routing rule name');
 
     // Set condition that should match the test data
     await pageObjects.streams.fillConditionEditor({
@@ -42,9 +50,12 @@ test.describe('Stream data routing - previewing data', { tag: ['@ess', '@svlOblt
       operator: 'equals',
       value: 'info',
     });
+    await visualRegression.capture('fill condition editor');
 
     // Verify preview panel shows matching documents
     await pageObjects.streams.expectPreviewPanelVisible();
+    await visualRegression.capture('preview panel visible');
+
     const rows = await pageObjects.streams.getPreviewTableRows();
     for (let rowIndex = 0; rowIndex < rows.length; rowIndex++) {
       await pageObjects.streams.expectCellValueContains({
@@ -53,11 +64,18 @@ test.describe('Stream data routing - previewing data', { tag: ['@ess', '@svlOblt
         value: 'info',
       });
     }
+    await visualRegression.capture('preview table rows');
   });
 
-  test('should update preview when condition changes', async ({ pageObjects }) => {
+  test('should update preview when condition changes', async ({
+    pageObjects,
+    visualRegression,
+  }) => {
     await pageObjects.streams.clickCreateRoutingRule();
+    await visualRegression.capture('click create routing rule');
+
     await pageObjects.streams.fillRoutingRuleName('logs.preview-test');
+    await visualRegression.capture('fill routing rule name');
 
     // Set condition that should match the test data
     await pageObjects.streams.fillConditionEditor({
@@ -65,9 +83,12 @@ test.describe('Stream data routing - previewing data', { tag: ['@ess', '@svlOblt
       operator: 'equals',
       value: 'info',
     });
+    await visualRegression.capture('fill condition editor');
 
     // Verify preview panel shows matching documents
     await pageObjects.streams.expectPreviewPanelVisible();
+    await visualRegression.capture('preview panel visible');
+
     const rows = await pageObjects.streams.getPreviewTableRows();
     for (let rowIndex = 0; rowIndex < rows.length; rowIndex++) {
       await pageObjects.streams.expectCellValueContains({
@@ -76,6 +97,7 @@ test.describe('Stream data routing - previewing data', { tag: ['@ess', '@svlOblt
         value: 'info',
       });
     }
+    await visualRegression.capture('preview table rows');
 
     // Change condition to match a different value
     await pageObjects.streams.fillConditionEditor({
@@ -83,9 +105,12 @@ test.describe('Stream data routing - previewing data', { tag: ['@ess', '@svlOblt
       operator: 'equals',
       value: 'warn',
     });
+    await visualRegression.capture('fill condition editor different value');
 
     // Verify preview panel updated documents
     await pageObjects.streams.expectPreviewPanelVisible();
+    await visualRegression.capture('preview panel visible after changing condition');
+
     const updatedRows = await pageObjects.streams.getPreviewTableRows();
     for (let rowIndex = 0; rowIndex < updatedRows.length; rowIndex++) {
       await pageObjects.streams.expectCellValueContains({
@@ -94,14 +119,23 @@ test.describe('Stream data routing - previewing data', { tag: ['@ess', '@svlOblt
         value: 'warn',
       });
     }
+    await visualRegression.capture('preview table rows after changing condition');
   });
 
-  test('should allow updating the condition manually by syntax editor', async ({ pageObjects }) => {
+  test('should allow updating the condition manually by syntax editor', async ({
+    pageObjects,
+    visualRegression,
+  }) => {
     await pageObjects.streams.clickCreateRoutingRule();
+    await visualRegression.capture('click create routing rule');
+
     await pageObjects.streams.fillRoutingRuleName('logs.preview-test');
+    await visualRegression.capture('fill routing rule name');
 
     // Enable syntax editor
     await pageObjects.streams.toggleConditionEditorWithSyntaxSwitch();
+    await visualRegression.capture('toggle condition editor with syntax switch');
+
     // Set condition that should match the test data
     await pageObjects.streams.fillConditionEditorWithSyntax(
       JSON.stringify(
@@ -113,9 +147,12 @@ test.describe('Stream data routing - previewing data', { tag: ['@ess', '@svlOblt
         2
       )
     );
+    await visualRegression.capture('fill condition editor with syntax');
 
     // Verify preview panel shows matching documents
     await pageObjects.streams.expectPreviewPanelVisible();
+    await visualRegression.capture('preview panel visible');
+
     const rows = await pageObjects.streams.getPreviewTableRows();
     for (let rowIndex = 0; rowIndex < rows.length; rowIndex++) {
       await pageObjects.streams.expectCellValueContains({
@@ -124,6 +161,7 @@ test.describe('Stream data routing - previewing data', { tag: ['@ess', '@svlOblt
         value: 'info',
       });
     }
+    await visualRegression.capture('preview table rows');
 
     // Change condition to match a different value
     await pageObjects.streams.fillConditionEditorWithSyntax(
@@ -144,9 +182,12 @@ test.describe('Stream data routing - previewing data', { tag: ['@ess', '@svlOblt
         2
       )
     );
+    await visualRegression.capture('fill condition editor with syntax');
 
     // Verify preview panel updated documents
     await pageObjects.streams.expectPreviewPanelVisible();
+    await visualRegression.capture('preview panel visible after changing condition');
+
     const updatedRows = await pageObjects.streams.getPreviewTableRows();
     for (let rowIndex = 0; rowIndex < updatedRows.length; rowIndex++) {
       await pageObjects.streams.expectCellValueContains({
@@ -155,11 +196,19 @@ test.describe('Stream data routing - previewing data', { tag: ['@ess', '@svlOblt
         value: 'warn',
       });
     }
+    await visualRegression.capture('preview table rows after changing condition');
   });
 
-  test('should show no matches when condition matches nothing', async ({ page, pageObjects }) => {
+  test('should show no matches when condition matches nothing', async ({
+    page,
+    pageObjects,
+    visualRegression,
+  }) => {
     await pageObjects.streams.clickCreateRoutingRule();
+    await visualRegression.capture('click create routing rule');
+
     await pageObjects.streams.fillRoutingRuleName('logs.no-matches');
+    await visualRegression.capture('fill routing rule name');
 
     // Set condition that won't match anything
     await pageObjects.streams.fillConditionEditor({
@@ -167,6 +216,7 @@ test.describe('Stream data routing - previewing data', { tag: ['@ess', '@svlOblt
       value: 'nonexistent-value',
       operator: 'equals',
     });
+    await visualRegression.capture('fill condition editor');
 
     // Should show no matching documents
     await expect(page.getByText('No documents to preview')).toBeVisible();

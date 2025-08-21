@@ -38,25 +38,38 @@ test.describe(
       await apiServices.streams.disable();
     });
 
-    test('should reorder processors via drag and drop', async ({ pageObjects }) => {
+    test('should reorder processors via drag and drop', async ({
+      pageObjects,
+      visualRegression,
+    }) => {
       await pageObjects.streams.expectProcessorsOrder(['GROK', 'SET', 'RENAME']);
+      await visualRegression.capture('processors order');
 
       await pageObjects.streams.dragProcessor({ processorPos: 0, steps: 2 });
+      await visualRegression.capture('drag processor');
 
       await pageObjects.streams.saveProcessorsListChanges();
+      await visualRegression.capture('save processors list changes');
+
       await pageObjects.streams.expectToastVisible();
+      await visualRegression.capture('toast visible');
 
       await pageObjects.streams.expectProcessorsOrder(['SET', 'RENAME', 'GROK']);
+      await visualRegression.capture('processors order after saving changes');
     });
 
-    test('should cancel reordering', async ({ pageObjects }) => {
+    test('should cancel reordering', async ({ pageObjects, visualRegression }) => {
       await pageObjects.streams.expectProcessorsOrder(['GROK', 'SET', 'RENAME']);
+      await visualRegression.capture('processors order');
 
       await pageObjects.streams.dragProcessor({ processorPos: 0, steps: 2 });
+      await visualRegression.capture('drag processor');
 
       await pageObjects.streams.cancelChanges();
+      await visualRegression.capture('cancel changes');
 
       await pageObjects.streams.expectProcessorsOrder(['GROK', 'SET', 'RENAME']);
+      await visualRegression.capture('processors order after canceling changes');
     });
   }
 );

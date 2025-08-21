@@ -45,17 +45,20 @@ test.describe('Painless Lab', { tag: tags.ESS_ONLY }, () => {
     await pageObjects.painlessLab.waitForEditorToLoad();
   });
 
-  test('validate painless lab editor and request', async ({ pageObjects }) => {
+  test('validate painless lab editor and request', async ({ pageObjects, visualRegression }) => {
     await pageObjects.painlessLab.setCodeEditorValue(TEST_SCRIPT);
     await pageObjects.painlessLab.editorOutputPane.waitFor({ state: 'visible' });
+    await visualRegression.capture('editor output pane');
     await expect(pageObjects.painlessLab.editorOutputPane).toContainText(TEST_SCRIPT_RESULT);
 
     await pageObjects.painlessLab.viewRequestButton.click();
+    await visualRegression.capture('view request click');
     await expect(pageObjects.painlessLab.requestFlyoutHeader).toBeVisible();
 
     expect(await pageObjects.painlessLab.getFlyoutRequestBody()).toBe(TEST_SCRIPT_REQUEST);
 
     await pageObjects.painlessLab.flyoutResponseTab.click();
+    await visualRegression.capture('view response click');
     expect(await pageObjects.painlessLab.getFlyoutResponseBody()).toBe(
       UPDATED_TEST_SCRIPT_RESPONSE
     );

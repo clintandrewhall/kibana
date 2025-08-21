@@ -28,6 +28,7 @@ test.describe('Observability Landing Page', { tag: ['@ess', '@svlOblt'] }, () =>
     page,
     kbnClient,
     kbnUrl,
+    visualRegression,
   }) => {
     // Set custom default route
     const prevDefaultRoute = await kbnClient.uiSettings.get('defaultRoute');
@@ -37,6 +38,7 @@ test.describe('Observability Landing Page', { tag: ['@ess', '@svlOblt'] }, () =>
 
     // Navigate to observability landing page
     await page.goto(kbnUrl.get('/'));
+    await visualRegression.capture('go to root');
 
     // Wait for redirect and verify we're on the metrics page
     await expect(page).toHaveURL(/\/app\/metrics/, { timeout: 10000 });
@@ -51,13 +53,14 @@ test.describe('Observability Landing Page', { tag: ['@ess', '@svlOblt'] }, () =>
     page,
     pageObjects,
     logsSynthtraceEsClient,
+    visualRegression,
   }) => {
     // Generate logs data only
     await generateLogsData(logsSynthtraceEsClient);
 
     // Navigate to observability landing page
     await pageObjects.observabilityNavigation.gotoLanding();
-
+    await visualRegression.capture('go to landing');
     // Wait for redirect and verify we're on Discover logs page
     await expect(page).toHaveURL(/\/app\/discover/, { timeout: 10000 });
   });
@@ -66,15 +69,18 @@ test.describe('Observability Landing Page', { tag: ['@ess', '@svlOblt'] }, () =>
     page,
     pageObjects,
     apmSynthtraceEsClient,
+    visualRegression,
   }) => {
     // Generate APM data only
     await generateApmData(apmSynthtraceEsClient);
 
     // Navigate to observability landing page
     await pageObjects.observabilityNavigation.gotoLanding();
+    await visualRegression.capture('go to landing');
 
     // Wait for redirect and verify we're on APM page
     await expect(page).toHaveURL(/\/app\/apm/, { timeout: 10000 });
+    await visualRegression.capture('expect apm');
   });
 
   test('redirects to Discover logs when both logs and APM data exist (logs priority)', async ({
@@ -82,6 +88,7 @@ test.describe('Observability Landing Page', { tag: ['@ess', '@svlOblt'] }, () =>
     pageObjects,
     logsSynthtraceEsClient,
     apmSynthtraceEsClient,
+    visualRegression,
   }) => {
     // Generate both logs and APM data
     await generateLogsData(logsSynthtraceEsClient);
@@ -89,16 +96,24 @@ test.describe('Observability Landing Page', { tag: ['@ess', '@svlOblt'] }, () =>
 
     // Navigate to observability landing page
     await pageObjects.observabilityNavigation.gotoLanding();
+    await visualRegression.capture('go to landing');
 
     // Wait for redirect and verify we're on Discover logs page (logs takes priority)
     await expect(page).toHaveURL(/\/app\/discover/, { timeout: 10000 });
+    await visualRegression.capture('expect discover');
   });
 
-  test('redirects to onboarding when no data exists', async ({ page, pageObjects }) => {
+  test('redirects to onboarding when no data exists', async ({
+    page,
+    pageObjects,
+    visualRegression,
+  }) => {
     // Navigate to observability landing page with no data
     await pageObjects.observabilityNavigation.gotoLanding();
+    await visualRegression.capture('go to landing');
 
     // Wait for redirect and verify we're on onboarding page
     await expect(page).toHaveURL(/\/app\/observabilityOnboarding/, { timeout: 10000 });
+    await visualRegression.capture('expect onboarding');
   });
 });

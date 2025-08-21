@@ -18,18 +18,23 @@ test.describe('SLOs Overview', { tag: ['@ess', '@svlOblt'] }, () => {
     await sloData.addSLO();
   });
 
-  test.beforeEach(async ({ pageObjects, browserAuth }) => {
+  test.beforeEach(async ({ pageObjects, browserAuth, visualRegression }) => {
     await browserAuth.loginAsAdmin();
 
     await pageObjects.slo.goto();
+    await visualRegression.capture('start of test');
   });
 
-  test('Go to slos overview and validate data retention tab', async ({ page }) => {
+  test('Go to slos overview and validate data retention tab', async ({
+    page,
+    visualRegression,
+  }) => {
     // Already navigated in beforeEach
     // This test ensures the page loads
     expect(page).toBeDefined();
     await expect(async () => {
       await page.getByTestId('querySubmitButton').click();
+      await visualRegression.capture('query submitted');
 
       await expect
         .poll(() => page.locator('text=Test Stack SLO').count(), { timeout: 1000 })
