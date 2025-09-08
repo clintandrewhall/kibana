@@ -28,21 +28,27 @@ test.describe('Stream data processing - creating processors', { tag: ['@ess', '@
     await apiServices.streams.disable();
   });
 
-  test('should create a new processor successfully', async ({ pageObjects }) => {
+  test('should create a new processor successfully', async ({ pageObjects, visualRegression }) => {
     await pageObjects.streams.clickAddProcessor();
+    await visualRegression.capture('click add processor');
 
     await pageObjects.streams.fillFieldInput('message');
     await pageObjects.streams.fillGrokPatternInput('%{WORD:attributes.method}');
     await pageObjects.streams.clickSaveProcessor();
+    await visualRegression.capture('click save processor');
+
     await pageObjects.streams.saveProcessorsListChanges();
+    await visualRegression.capture('processors list');
     expect(await pageObjects.streams.getProcessorsListItems()).toHaveLength(1);
   });
 
   test('should disable creating new processors while one is in progress', async ({
     page,
     pageObjects,
+    visualRegression,
   }) => {
     await pageObjects.streams.clickAddProcessor();
+    await visualRegression.capture('click add processor');
 
     await expect(
       page.getByTestId('streamsAppStreamDetailEnrichmentAddProcessorButton')
@@ -50,6 +56,7 @@ test.describe('Stream data processing - creating processors', { tag: ['@ess', '@
 
     // Cancel the operation
     await pageObjects.streams.clickCancelProcessorChanges();
+    await visualRegression.capture('click cancel processor changes');
 
     // Verify we're back to idle state
     await expect(
@@ -60,27 +67,35 @@ test.describe('Stream data processing - creating processors', { tag: ['@ess', '@
   test('should disable saving the pipeline while one is in progress', async ({
     page,
     pageObjects,
+    visualRegression,
   }) => {
     // Create a new processor ready to be saved
     await pageObjects.streams.clickAddProcessor();
+    await visualRegression.capture('click add processor');
+
     await pageObjects.streams.fillFieldInput('message');
     await pageObjects.streams.fillGrokPatternInput('%{WORD:attributes.method}');
     await pageObjects.streams.clickSaveProcessor();
+    await visualRegression.capture('click save processor');
 
     // Verify save button is enabled
     await expect(page.getByRole('button', { name: 'Save changes' })).toBeEnabled();
 
     await pageObjects.streams.clickEditProcessor(0);
+    await visualRegression.capture('click edit processor');
 
     // Verify save button is disabled
     await expect(page.getByRole('button', { name: 'Save changes' })).toBeDisabled();
     await pageObjects.streams.clickCancelProcessorChanges();
+    await visualRegression.capture('click cancel processor changes');
+
     // Verify save button is enabled
     await expect(page.getByRole('button', { name: 'Save changes' })).toBeEnabled();
   });
 
-  test('should cancel creating a new processor', async ({ page, pageObjects }) => {
+  test('should cancel creating a new processor', async ({ pageObjects, visualRegression }) => {
     await pageObjects.streams.clickAddProcessor();
+    await visualRegression.capture('click add processor');
 
     // Fill in some data
     await pageObjects.streams.fillFieldInput('message');
@@ -88,7 +103,9 @@ test.describe('Stream data processing - creating processors', { tag: ['@ess', '@
 
     // Cancel the changes and confirm discard
     await pageObjects.streams.clickCancelProcessorChanges();
+    await visualRegression.capture('click cancel processor changes');
     await pageObjects.streams.confirmDiscardInModal();
+    await visualRegression.capture('confirm discard in modal');
 
     // Verify we're back to idle state
     expect(await pageObjects.streams.getProcessorsListItems()).toHaveLength(0);
@@ -97,21 +114,27 @@ test.describe('Stream data processing - creating processors', { tag: ['@ess', '@
   test('should show validation errors for invalid processors configuration', async ({
     page,
     pageObjects,
+    visualRegression,
   }) => {
     await pageObjects.streams.clickAddProcessor();
+    await visualRegression.capture('click add processor');
 
     // Try to create without filling required fields
     await pageObjects.streams.clickSaveProcessor();
     await expect(page.getByText('A field value is required.')).toBeVisible();
+    await visualRegression.capture('click save processor with empty field');
 
     await pageObjects.streams.fillFieldInput('message');
     await pageObjects.streams.clickSaveProcessor();
     await expect(page.getByText('Empty patterns are not allowed.')).toBeVisible();
+    await visualRegression.capture('click save processor with empty pattern');
 
     await pageObjects.streams.fillGrokPatternInput('%{WORD:attributes.method}');
     await pageObjects.streams.clickSaveProcessor();
+    await visualRegression.capture('click save processor with valid pattern');
 
     await pageObjects.streams.saveProcessorsListChanges();
+    await visualRegression.capture('save processors list');
     expect(await pageObjects.streams.getProcessorsListItems()).toHaveLength(1);
   });
 
@@ -119,13 +142,16 @@ test.describe('Stream data processing - creating processors', { tag: ['@ess', '@
     page,
     browserAuth,
     pageObjects,
+    visualRegression,
   }) => {
     // Login as user with limited privileges
     await browserAuth.loginAsViewer();
     await pageObjects.streams.gotoProcessingTab('logs-generic-default');
+    await visualRegression.capture('goto processing tab');
 
     // Create button should be disabled or show tooltip
     const createButton = page.getByTestId('streamsAppStreamDetailEnrichmentAddProcessorButton');
     await expect(createButton).toBeHidden();
+    await visualRegression.capture('create button is hidden');
   });
 });

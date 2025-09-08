@@ -34,11 +34,15 @@ test.describe(
     test('should handle network failures during a processor creation', async ({
       page,
       pageObjects,
+      visualRegression,
     }) => {
       await pageObjects.streams.clickAddProcessor();
+      await visualRegression.capture('click add processor');
+
       await pageObjects.streams.fillFieldInput('message');
       await pageObjects.streams.fillGrokPatternInput('%{WORD:attributes.method}');
       await pageObjects.streams.clickSaveProcessor();
+      await visualRegression.capture('click save processor');
 
       // Simulate network failure
       await page.route('**/streams/**/_ingest', (route) => {
@@ -47,38 +51,53 @@ test.describe(
       });
 
       await pageObjects.streams.saveProcessorsListChanges();
+      await visualRegression.capture('save processors list after aborting request');
 
       // Should show error and stay in creating state
       await pageObjects.streams.expectToastVisible();
+      await visualRegression.capture('toast visible');
+
       await expect(page.getByText("An issue occurred saving processors' changes")).toBeVisible();
       await pageObjects.streams.closeToasts();
+      await visualRegression.capture('close toasts');
 
       // Restore network and retry
       await page.route('**/streams/**/_ingest', (route) => {
         route.continue();
       });
       await pageObjects.streams.saveProcessorsListChanges();
+      await visualRegression.capture('save processors list after restoring network');
 
       // Should succeed
       expect(await pageObjects.streams.getProcessorsListItems()).toHaveLength(1);
+      await visualRegression.capture('processors list');
     });
 
     test('should recover from API errors during a processor updates', async ({
       page,
       pageObjects,
+      visualRegression,
     }) => {
       // Create a processor first
       await pageObjects.streams.clickAddProcessor();
+      await visualRegression.capture('click add processor');
+
       await pageObjects.streams.fillFieldInput('message');
       await pageObjects.streams.fillGrokPatternInput('%{WORD:attributes.method}');
       await pageObjects.streams.clickSaveProcessor();
+      await visualRegression.capture('click save processor');
+
       await pageObjects.streams.saveProcessorsListChanges();
+      await visualRegression.capture('save processors list');
+
       await pageObjects.streams.closeToasts();
+      await visualRegression.capture('close toasts');
 
       // Edit the processor
       await pageObjects.streams.clickEditProcessor(0);
       await pageObjects.streams.fillGrokPatternInput('%{WORD:attributes.hostname}');
       await pageObjects.streams.clickSaveProcessor();
+      await visualRegression.capture('click save processor after edit');
 
       // Simulate network failure
       await page.route('**/streams/**/_ingest', (route) => {
@@ -87,20 +106,27 @@ test.describe(
       });
 
       await pageObjects.streams.saveProcessorsListChanges();
+      await visualRegression.capture('save processors list after aborting request');
 
       // Should show error and return to editing state
       await pageObjects.streams.expectToastVisible();
+      await visualRegression.capture('toast visible after aborting request');
+
       await expect(page.getByText("An issue occurred saving processors' changes")).toBeVisible();
       await pageObjects.streams.closeToasts();
+      await visualRegression.capture('close toasts');
 
       // Restore network and retry
       await page.route('**/streams/**/_ingest', (route) => {
         route.continue();
       });
       await pageObjects.streams.saveProcessorsListChanges();
+      await visualRegression.capture('save processors list after restoring network');
 
       // Should succeed
       await pageObjects.streams.expectToastVisible();
+      await visualRegression.capture('toast visible after restoring network');
+
       await expect(page.getByText("Stream's processors updated")).toBeVisible();
     });
   }
