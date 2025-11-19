@@ -1,0 +1,519 @@
+# Recipes
+
+Common patterns and examples for building content list UIs with `@kbn/content-list-provider`.
+
+> **See also:** [README](./README.md) for package overview, quick start, and API documentation.
+
+## Table of Contents
+
+- [Data Source Configuration](#data-source-configuration)
+  - [Basic findItems with Saved Objects](#basic-finditems-with-saved-objects)
+  - [Handling Favorites Filter](#handling-favorites-filter)
+  - [Custom Transform Function](#custom-transform-function)
+- [Basic Components](#basic-components)
+  - [Table Component](#table-component)
+  - [Search Box](#search-box)
+  - [Pagination Footer](#pagination-footer)
+  - [Conditional Rendering Based on Support](#conditional-rendering-based-on-support)
+- [Working with Custom Fields](#working-with-custom-fields)
+  - [Adding Custom Fields via Transform](#adding-custom-fields-via-transform)
+  - [Custom Sorting](#custom-sorting)
+  - [Custom Filtering](#custom-filtering)
+  - [Accessing Custom Filter Values](#accessing-custom-filter-values)
+  - [Handling Custom Filters in findItems](#handling-custom-filters-in-finditems)
+  - [Complete Custom Fields Example](#complete-custom-fields-example)
+
+---
+
+## Data Source Configuration
+
+The provider requires a `findItems` function that handles data fetching with server-side filtering, sorting, and pagination.
+
+### Basic findItems with Saved Objects
+
+For Kibana applications using the Saved Objects API:
+
+```tsx
+import { ContentListKibanaProvider, type FindItemsFn } from '@kbn/content-list-provider';
+
+const findItems: FindItemsFn = async ({ searchQuery, filters, sort, page, signal }) => {
+  const response = await savedObjectsClient.find({
+    type: 'dashboard',
+    search: searchQuery ? `${searchQuery}*` : undefined,
+    searchFields: ['title'],
+    sortField: sort.field,
+    sortOrder: sort.direction,
+    page: page.index + 1,  // Saved Objects uses 1-based pagination
+    perPage: page.size,
+    // Map tag filters to hasReference.
+    hasReference: filters.tags?.include?.map(id => ({ type: 'tag', id })),
+    // Map createdBy filter to KQL.
+    filter: filters.users?.length 
+      ? `dashboard.attributes.createdBy:(${filters.users.join(' OR ')})` 
+      : undefined,
+  });
+
+  return {
+    items: response.savedObjects.map(so => ({
+      id: so.id,
+      ...so.attributes,
+      updatedAt: so.updated_at,
+      createdAt: so.created_at,
+      createdBy: so.created_by,
+      references: so.references,
+    })),
+    total: response.total,
+  };
+};
+
+<ContentListKibanaProvider
+  entityName="dashboard"
+  entityNamePlural="dashboards"
+  dataSource={{ findItems }}
+  savedObjectsTagging={savedObjectsTagging}
+  core={core}
+>
+  {children}
+</ContentListKibanaProvider>
+```
+
+### Handling Favorites Filter
+
+When the user filters by favorites, route the request through the favorites search endpoint:
+
+```tsx
+const findItems: FindItemsFn = async ({ searchQuery, filters, sort, page, signal }) => {
+  // Use favorites search endpoint when favoritesOnly is enabled.
+  if (filters.favoritesOnly) {
+    return favoritesClient.search({
+      savedObjectType: 'dashboard',
+      search: searchQuery,
+      sortField: sort.field,
+      sortOrder: sort.direction,
+      page: page.index + 1,
+      perPage: page.size,
+      // Tags can still be filtered server-side.
+      hasReference: filters.tags?.include?.map(id => ({ type: 'tag', id })),
+    });
+  }
+
+  // Standard saved objects query for non-favorites.
+  const response = await savedObjectsClient.find({
+    type: 'dashboard',
+    search: searchQuery ? `${searchQuery}*` : undefined,
+    searchFields: ['title'],
+    sortField: sort.field,
+    sortOrder: sort.direction,
+    page: page.index + 1,
+    perPage: page.size,
+    hasReference: filters.tags?.include?.map(id => ({ type: 'tag', id })),
+  });
+
+  return {
+    items: response.savedObjects.map(so => ({
+      id: so.id,
+      ...so.attributes,
+      updatedAt: so.updated_at,
+    })),
+    total: response.total,
+  };
+};
+```
+
+### Custom Transform Function
+
+For custom item types, provide a `transform` function to convert them to `ContentListItem`:
+
+```tsx
+interface MyReport {
+  uuid: string;
+  name: string;
+  summary: string;
+  modified: string;
+  status: 'pending' | 'complete';
+}
+
+const findItems: FindItemsFn<MyReport> = async (params) => {
+  const response = await myApi.searchReports(params);
+  return { items: response.results, total: response.total };
+};
+
+<ContentListKibanaProvider
+  entityName="report"
+  entityNamePlural="reports"
+  dataSource={{
+    findItems,
+    transform: (item) => ({
+      id: item.uuid,
+      title: item.name,
+      description: item.summary,
+      updatedAt: new Date(item.modified),
+      // Custom fields are preserved.
+      status: item.status,
+    }),
+  }}
+  savedObjectsTagging={savedObjectsTagging}
+  core={core}
+>
+  {children}
+</ContentListKibanaProvider>
+```
+
+---
+
+## Basic Components
+
+These recipes demonstrate common UI patterns using the provider's hooks. Each component is self-contained and can be composed together to build a complete content list UI.
+
+### Table Component
+
+A basic table that displays items with selection support:
+
+```tsx
+import { useContentListItems, useContentListSelection } from '@kbn/content-list-provider';
+import { EuiBasicTable, EuiLoadingSpinner, EuiCallOut } from '@elastic/eui';
+
+const MyTable = () => {
+  const { items, isLoading, error } = useContentListItems();
+  const { isSelected, toggleSelection } = useContentListSelection();
+
+  if (isLoading) return <EuiLoadingSpinner />;
+  if (error) return <EuiCallOut color="danger">{error.message}</EuiCallOut>;
+
+  return (
+    <EuiBasicTable
+      items={items}
+      columns={[
+        { field: 'title', name: 'Title' },
+        { field: 'updatedAt', name: 'Updated', render: (date) => formatDate(date) },
+      ]}
+      selection={{
+        selected: items.filter((item) => isSelected(item.id)),
+        onSelectionChange: (selected) => {
+          // Update selection state
+        },
+      }}
+    />
+  );
+};
+```
+
+### Search Box
+
+A search input that updates the query state with debouncing handled by the provider:
+
+```tsx
+import { useContentListSearch, useContentListConfig } from '@kbn/content-list-provider';
+import { EuiFieldSearch } from '@elastic/eui';
+
+const SearchBox = () => {
+  const { queryText, setSearch } = useContentListSearch();
+  const { features } = useContentListConfig();
+
+  const placeholder = typeof features.search === 'object' 
+    ? features.search.placeholder 
+    : 'Search...';
+
+  return (
+    <EuiFieldSearch
+      value={queryText}
+      onChange={(e) => setSearch(e.target.value)}
+      placeholder={placeholder}
+    />
+  );
+};
+```
+
+### Pagination Footer
+
+A pagination component that syncs with the provider's pagination state:
+
+```tsx
+import { useContentListPagination, useContentListItems } from '@kbn/content-list-provider';
+import { EuiTablePagination } from '@elastic/eui';
+
+const Footer = () => {
+  const { index, size, totalPages, setPage } = useContentListPagination();
+  const { totalItems } = useContentListItems();
+
+  return (
+    <EuiTablePagination
+      pageCount={totalPages}
+      activePage={index}
+      itemsPerPage={size}
+      onChangePage={(pageIndex) => setPage(pageIndex, size)}
+      onChangeItemsPerPage={(pageSize) => setPage(0, pageSize)}
+    />
+  );
+};
+```
+
+### Conditional Rendering Based on Support
+
+Render UI elements only when the corresponding service is available:
+
+```tsx
+import { useContentListConfig } from '@kbn/content-list-provider';
+import { EuiFlexGroup } from '@elastic/eui';
+
+const Toolbar = () => {
+  const { supports } = useContentListConfig();
+
+  return (
+    <EuiFlexGroup>
+      <SearchBox />
+      {supports.tags && <TagFilter />}
+      {supports.favorites && <FavoritesToggle />}
+      {supports.userProfiles && <CreatedByFilter />}
+    </EuiFlexGroup>
+  );
+};
+```
+
+The `supports` object reflects which services are available:
+- `supports.tags` — `true` when `savedObjectsTagging` service is provided
+- `supports.favorites` — `true` when `favorites` service is provided
+- `supports.userProfiles` — `true` when `core.userProfile` service is provided
+
+---
+
+## Working with Custom Fields
+
+The `ContentListItem` interface includes standard fields (`id`, `title`, `description`, `updatedAt`, etc.), but you can include additional custom fields from your data source. These custom fields can then be used for sorting and filtering.
+
+### Adding Custom Fields via Transform
+
+Include custom fields in your transform function. They become available on items returned by `useContentListItems()`:
+
+```tsx
+interface MyDashboard {
+  id: string;
+  attributes: {
+    title: string;
+    description: string;
+    status: 'draft' | 'published' | 'archived';
+    priority: number;
+  };
+  updatedAt: string;
+}
+
+const dashboardTransform: TransformFunction<MyDashboard> = (item) => ({
+  id: item.id,
+  title: item.attributes.title,
+  description: item.attributes.description,
+  updatedAt: new Date(item.updatedAt),
+  // Custom fields
+  status: item.attributes.status,
+  priority: item.attributes.priority,
+});
+```
+
+### Custom Sorting
+
+To enable sorting by custom fields, add them to `features.sorting.fields`. Use `DEFAULT_SORT_FIELDS` to include the standard `title` and `updatedAt` fields:
+
+```tsx
+import { DEFAULT_SORT_FIELDS } from '@kbn/content-list-provider';
+
+<ContentListKibanaProvider
+  dataSource={{
+    findItems: fetchDashboards,
+    transform: dashboardTransform,
+  }}
+  features={{
+    sorting: {
+      fields: [
+        ...DEFAULT_SORT_FIELDS,  // title, updatedAt
+        { field: 'status', name: 'Status' },
+        { field: 'priority', name: 'Priority' },
+      ],
+      initialSort: { field: 'priority', direction: 'desc' },
+    },
+  }}
+  // ...
+/>
+```
+
+Each `SortField` generates ascending and descending options automatically:
+- Text fields: "Name A-Z" / "Name Z-A"
+- Date fields: "Last updated (newest first)" / "(oldest first)"
+
+For custom labels, use `ascLabel` and `descLabel`:
+
+```tsx
+{ 
+  field: 'status', 
+  name: 'Status',
+  ascLabel: 'Status: Draft → Published',
+  descLabel: 'Status: Published → Draft',
+}
+```
+
+The `useSortableFields()` hook returns the list of sortable field names, useful for determining which table columns should show sort controls.
+
+### Custom Filtering
+
+Define custom filters in `features.filtering.custom`. Each filter specifies available options:
+
+```tsx
+<ContentListKibanaProvider
+  dataSource={{
+    findItems: fetchDashboards,
+    transform: dashboardTransform,
+  }}
+  features={{
+    filtering: {
+      tags: true,
+      users: true,
+      custom: {
+        status: {
+          name: 'Status',
+          options: [
+            { value: 'draft', label: 'Draft' },
+            { value: 'published', label: 'Published' },
+            { value: 'archived', label: 'Archived' },
+          ],
+        },
+        priority: {
+          name: 'Priority',
+          multiSelect: true,  // Allow selecting multiple values
+          options: [
+            { value: 'high', label: 'High' },
+            { value: 'medium', label: 'Medium' },
+            { value: 'low', label: 'Low' },
+          ],
+        },
+      },
+    },
+  }}
+  // ...
+/>
+```
+
+**Single-select vs Multi-select:**
+
+| Mode | Behavior |
+|------|----------|
+| `multiSelect: false` (default) | Radio-button style. One value at a time. Query syntax: `status:draft`. |
+| `multiSelect: true` | Checkbox style. Multiple values. Query syntax: `priority:(high OR medium)`. |
+
+Custom filters integrate with the search bar. Users can type filter syntax directly (e.g., `status:published my search`) or use filter UI components.
+
+### Accessing Custom Filter Values
+
+Custom filter values appear in the `filters` object from `useContentListFilters()`:
+
+```tsx
+const { filters } = useContentListFilters();
+
+// Built-in filters
+console.log(filters.tags);        // { include: ['tag-1'], exclude: [] }
+console.log(filters.favoritesOnly); // true
+
+// Custom filters (keyed by field name)
+console.log(filters.status);      // ['published']
+console.log(filters.priority);    // ['high', 'medium']
+```
+
+### Handling Custom Filters in findItems
+
+Your `findItems` function receives custom filter values in the `filters` parameter:
+
+```tsx
+const findItems: FindItemsFn<MyDashboard> = async ({ searchQuery, filters, sort, page }) => {
+  const query = {
+    search: searchQuery,
+    tags: filters.tags?.include,
+    excludeTags: filters.tags?.exclude,
+    createdBy: filters.users,
+    favoritesOnly: filters.favoritesOnly,
+    // Custom filters
+    status: filters.status,
+    priority: filters.priority,
+  };
+
+  const response = await api.searchDashboards(query, sort, page);
+  return { items: response.results, total: response.total };
+};
+```
+
+### Complete Custom Fields Example
+
+A complete example showing custom fields with sorting and filtering:
+
+```tsx
+import { 
+  ContentListKibanaProvider, 
+  DEFAULT_SORT_FIELDS,
+  type TransformFunction,
+  type FindItemsFn,
+} from '@kbn/content-list-provider';
+
+interface Report {
+  uuid: string;
+  name: string;
+  status: 'pending' | 'complete' | 'failed';
+  category: string;
+  createdAt: string;
+}
+
+const transform: TransformFunction<Report> = (item) => ({
+  id: item.uuid,
+  title: item.name,
+  createdAt: new Date(item.createdAt),
+  status: item.status,
+  category: item.category,
+});
+
+const findItems: FindItemsFn<Report> = async ({ searchQuery, filters, sort, page }) => {
+  return api.searchReports({
+    query: searchQuery,
+    status: filters.status,
+    category: filters.category,
+    sort,
+    page,
+  });
+};
+
+const ReportListPage = () => (
+  <ContentListKibanaProvider
+    entityName="report"
+    entityNamePlural="reports"
+    dataSource={{ findItems, transform }}
+    features={{
+      sorting: {
+        fields: [
+          { field: 'title', name: 'Name' },
+          { field: 'createdAt', name: 'Created' },
+          { field: 'status', name: 'Status' },
+        ],
+        initialSort: { field: 'createdAt', direction: 'desc' },
+      },
+      filtering: {
+        custom: {
+          status: {
+            name: 'Status',
+            options: [
+              { value: 'pending', label: 'Pending' },
+              { value: 'complete', label: 'Complete' },
+              { value: 'failed', label: 'Failed' },
+            ],
+          },
+          category: {
+            name: 'Category',
+            multiSelect: true,
+            options: [
+              { value: 'sales', label: 'Sales' },
+              { value: 'marketing', label: 'Marketing' },
+              { value: 'engineering', label: 'Engineering' },
+            ],
+          },
+        },
+      },
+    }}
+    // ... service props
+  >
+    <ReportTable />
+  </ContentListKibanaProvider>
+);
+```
