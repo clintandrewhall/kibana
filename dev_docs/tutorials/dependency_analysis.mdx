@@ -1,0 +1,270 @@
+---
+id: kibDevDocsDependencyAnalysis
+slug: /kibana-dev-docs/tutorials/dependency-analysis
+title: Plugin Dependency Analysis
+description: Using dependency-cruiser to analyze and visualize Kibana plugin dependencies
+date: 2024-12-05
+tags: ['kibana', 'dev', 'architecture', 'dependencies']
+---
+
+# Plugin Dependency Analysis
+
+Kibana integrates [dependency-cruiser](https://github.com/sverweij/dependency-cruiser) to provide comprehensive dependency analysis and architectural validation for the plugin ecosystem. This tooling helps enforce plugin boundaries, detect circular dependencies, and visualize the dependency graph.
+
+## Quick Start
+
+```bash
+# Validate all plugin dependencies (will fail on violations)
+yarn deps:validate
+
+# Generate an interactive HTML dependency report
+yarn deps:graph
+
+# Generate a high-level architecture diagram
+yarn deps:graph:archi
+
+# Analyze with custom options
+yarn deps:analyze --focus "^src/platform/plugins/shared/dashboard"
+```
+
+## Available Commands
+
+| Command | Description |
+|---------|-------------|
+| `yarn deps:validate` | Run validation only; exits with error code if violations are found |
+| `yarn deps:graph` | Generate an interactive HTML dependency visualization |
+| `yarn deps:graph:archi` | Generate a high-level architecture SVG diagram |
+| `yarn deps:analyze` | Run analysis with custom options (see below) |
+
+## Command Options
+
+The `yarn deps:analyze` command accepts the following options:
+
+| Option | Description |
+|--------|-------------|
+| `--validate` | Run in validation mode (exit with error on violations) |
+| `--output-type TYPE` | Output format: `html`, `dot`, `archi`, `json`, `err`, `text` |
+| `--output-to PATH` | Custom output file path |
+| `--focus REGEX` | Focus analysis on modules matching the regex pattern |
+| `--preset NAME` | Use predefined paths: `platform`, `x-pack`, `observability`, `security`, `search`, `all` |
+| `--paths PATH` | Custom paths to analyze (can be specified multiple times) |
+| `--max-depth N` | Maximum traversal depth |
+| `--collapse-pattern REGEX` | Collapse modules matching pattern in visualization |
+
+### Examples
+
+```bash
+# Validate only platform plugins
+yarn deps:analyze --validate --preset platform
+
+# Generate HTML report for security plugins
+yarn deps:analyze --preset security --output-type html
+
+# Focus on the dashboard plugin and its dependencies
+yarn deps:analyze --focus "^src/platform/plugins/shared/dashboard" --output-type html
+
+# Analyze specific paths
+yarn deps:analyze --paths src/platform/plugins/shared/discover --paths src/platform/plugins/shared/data
+
+# Generate a collapsed high-level view
+yarn deps:analyze --output-type archi --collapse-pattern "^src/platform/plugins/(shared|private)/[^/]+"
+```
+
+## Architectural Rules
+
+The dependency analysis enforces several architectural rules defined in `.dependency-cruiser.cjs`:
+
+### 1. No Circular Dependencies
+
+Circular dependencies create tight coupling between plugins and prevent independent development and testing.
+
+```
+❌ Plugin A → Plugin B → Plugin C → Plugin A
+```
+
+**Resolution**: Extract shared functionality into a common package that all plugins can depend on.
+
+### 2. Plugin Public API Boundaries
+
+Plugins must only import from other plugins through their designated public API entry points:
+- `public/index.ts` for browser-side code
+- `server/index.ts` for server-side code
+- `common/index.ts` for shared code
+
+```typescript
+// ✅ Correct - importing from public API
+import { DashboardStart } from '@kbn/dashboard-plugin/public';
+
+// ❌ Wrong - importing internal files
+import { DashboardContainer } from '@kbn/dashboard-plugin/public/dashboard_container';
+```
+
+**Resolution**: Export needed functionality through the plugin's public API.
+
+### 3. Private Plugin Isolation
+
+Plugins in `src/platform/plugins/private/` are internal implementation details and should not be directly imported by other plugins outside the platform.
+
+### 4. No Cross-Solution Dependencies
+
+Solution-specific plugins (observability, security, search) should not directly depend on plugins from other solutions.
+
+```
+❌ x-pack/solutions/security/plugins/... → x-pack/solutions/observability/plugins/...
+```
+
+**Resolution**: Extract shared functionality to a platform plugin or shared package.
+
+### 5. Server/Browser Code Separation
+
+Server-side code (`/server/`) cannot import browser-specific modules (`/public/`), and vice versa. Use `/common/` for shared code.
+
+### 6. Declared Dependencies
+
+All external dependencies used must be declared in the appropriate `package.json` file.
+
+## Understanding the Output
+
+### HTML Report
+
+The interactive HTML report provides:
+- **Module list**: All analyzed modules with their dependencies
+- **Dependency graph**: Visual representation of module relationships
+- **Violation summary**: List of all rule violations
+- **Metrics**: Instability, circular dependencies, orphans
+
+### Architecture Diagram (archi)
+
+The architecture diagram collapses individual files into plugin-level nodes, providing a high-level view of inter-plugin dependencies. Different colors indicate:
+- 🟢 Green: Shared platform plugins (`src/platform/plugins/shared`)
+- 🟡 Yellow: Private platform plugins (`src/platform/plugins/private`)
+- ⚪ Gray: X-Pack platform plugins (`x-pack/platform/plugins`)
+- 🟣 Purple: Observability plugins
+- 🩷 Pink: Security plugins
+- 🩵 Cyan: Search plugins
+
+Red edges indicate rule violations.
+
+### JSON Output
+
+The JSON format is useful for programmatic analysis:
+
+```bash
+yarn deps:analyze --output-type json --output-to deps.json
+```
+
+You can then process this with tools like `jq`:
+
+```bash
+# Count violations by rule
+cat deps.json | jq '.summary.violations | group_by(.rule.name) | map({rule: .[0].rule.name, count: length})'
+```
+
+## Implicit Dependencies
+
+Some dependencies in Kibana are implicit (runtime-bound) rather than explicit (static imports). The most common patterns are:
+
+### UI Actions Registry
+
+The `uiActions` plugin allows registering and triggering actions by string ID, creating dependencies that are invisible to static analysis:
+
+```typescript
+// Plugin A registers a trigger
+plugins.uiActions.registerTrigger({ id: 'MY_TRIGGER' });
+
+// Plugin B attaches an action (implicit dependency on Plugin A)
+plugins.uiActions.attachAction('MY_TRIGGER', myAction);
+```
+
+The dependency analysis detects usage of `uiActions` and flags it for review.
+
+### Expressions Plugin
+
+Similar to `uiActions`, the `expressions` plugin provides a registry for functions and renderers:
+
+```typescript
+// Plugin A registers an expression function
+expressions.registerFunction(myFunction);
+
+// Plugin B uses it in an expression (implicit dependency)
+expressions.execute('myFunction | render');
+```
+
+**Recommendation**: Document these implicit dependencies in your plugin's `kibana.jsonc` manifest.
+
+## Configuration
+
+The dependency-cruiser configuration is located at `.dependency-cruiser.cjs`. To customize rules for your team:
+
+1. Review the existing rules in the configuration file
+2. Modify severity levels (`error`, `warn`, `info`) as needed
+3. Add new rules specific to your plugin's requirements
+4. Test changes with `yarn deps:validate`
+
+### Adding Custom Rules
+
+Example of adding a rule to prevent a specific dependency:
+
+```javascript
+{
+  name: 'no-lodash-in-common',
+  severity: 'error',
+  comment: 'Do not use lodash in common/ code to reduce bundle size',
+  from: {
+    path: '/common/',
+  },
+  to: {
+    path: 'node_modules/lodash',
+  },
+}
+```
+
+## Integration with Development Workflow
+
+### Local Development
+
+Run validation before committing:
+
+```bash
+yarn deps:validate
+```
+
+### Analyzing Your Changes
+
+After making changes, analyze the affected plugin:
+
+```bash
+yarn deps:analyze --focus "^src/platform/plugins/shared/YOUR_PLUGIN" --output-type html
+```
+
+## Troubleshooting
+
+### Analysis is slow
+
+For faster analysis, focus on specific directories:
+
+```bash
+yarn deps:analyze --preset platform  # Only platform plugins
+yarn deps:analyze --paths src/platform/plugins/shared/YOUR_PLUGIN  # Single plugin
+```
+
+### Out of memory errors
+
+Increase Node.js memory limit:
+
+```bash
+NODE_OPTIONS="--max-old-space-size=8192" yarn deps:analyze
+```
+
+### False positives
+
+If a rule is incorrectly flagging valid code:
+1. Check if the import pattern is correct
+2. Consider if the rule should be adjusted
+3. File an issue with the Kibana Architecture team
+
+## Related Resources
+
+- [Kibana Plugin Architecture](./plugin_architecture.mdx)
+- [TypeScript Project References](./typescript_project_references.mdx)
+- [dependency-cruiser Documentation](https://github.com/sverweij/dependency-cruiser/blob/develop/doc/options-reference.md)

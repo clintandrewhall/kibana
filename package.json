@@ -66,7 +66,11 @@
     "test:ftr:server": "node --no-experimental-require-module scripts/functional_tests_server",
     "test:jest": "node --no-experimental-require-module scripts/jest",
     "test:jest_integration": "node --no-experimental-require-module scripts/jest_integration",
-    "test:type_check": "node --no-experimental-require-module scripts/type_check"
+    "test:type_check": "node --no-experimental-require-module scripts/type_check",
+    "deps:validate": "node --no-experimental-require-module scripts/dependency_graph --validate",
+    "deps:graph": "node --no-experimental-require-module scripts/dependency_graph --output-type html",
+    "deps:graph:archi": "node --no-experimental-require-module scripts/dependency_graph --output-type archi",
+    "deps:analyze": "node --no-experimental-require-module scripts/dependency_graph"
   },
   "repository": {
     "type": "git",
