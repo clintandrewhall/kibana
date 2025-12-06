@@ -8,6 +8,7 @@
  */
 
 import type { UserContentCommonSchema } from '@kbn/content-management-table-list-view-common';
+import type { ContentStatus } from './types';
 
 /**
  * Mock dashboard item matching the real DashboardSavedObjectUserContent type from
@@ -22,6 +23,7 @@ export interface DashboardMockItem extends UserContentCommonSchema {
     timeRestore: boolean;
   };
   managed?: boolean;
+  status?: ContentStatus;
   /** Dashboards can be favorited */
   canFavorite: true;
 }
