@@ -33,7 +33,7 @@ const getWrapperStyles = (euiThemeContext: UseEuiTheme) => css`
   position: relative;
   display: flex;
   flex-direction: column;
-  width: ${SIDE_PANEL_WIDTH}px;
+  width: ${SIDE_PANEL_WIDTH - 8}px; // 8px is the gap between the side panel and the popover
   margin-bottom: ${layoutVar('sidebar.marginBottom', '0px')};
   background-color: ${euiThemeContext.euiTheme.colors.backgroundBasePlain};
   border-radius: ${euiThemeContext.euiTheme.border.radius.medium};
