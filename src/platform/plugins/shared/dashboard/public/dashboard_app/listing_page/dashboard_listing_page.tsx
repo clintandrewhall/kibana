@@ -22,6 +22,7 @@ import {
 import { getDashboardListItemLink } from './get_dashboard_list_item_link';
 import type { DashboardRedirect } from '../types';
 import { findService } from '../../dashboard_client';
+import DashboardContentList from '../../dashboard_listing/dashboard_content_list';
 
 export interface DashboardListingPageProps {
   kbnUrlStateStorage: IKbnUrlStateStorage;
@@ -101,16 +102,26 @@ export const DashboardListingPage = ({
         <DashboardAppNoDataPage onDataViewCreated={() => setShowNoDataPage(false)} />
       )}
       {!showNoDataPage && (
-        <DashboardListing
-          useSessionStorageIntegration={true}
-          initialFilter={initialFilter ?? titleFilter}
-          goToDashboard={(id, viewMode) => {
-            redirectTo({ destination: 'dashboard', id, editMode: viewMode === 'edit' });
-          }}
-          getDashboardUrl={(id, timeRestore) => {
-            return getDashboardListItemLink(kbnUrlStateStorage, id, timeRestore);
-          }}
-        />
+        <>
+          <DashboardContentList
+            kbnUrlStateStorage={kbnUrlStateStorage}
+            goToDashboard={(id, viewMode) => {
+              redirectTo({ destination: 'dashboard', id, editMode: viewMode === 'edit' });
+            }}
+            initialFilter={initialFilter ?? titleFilter}
+            useSessionStorageIntegration={true}
+          />
+          <DashboardListing
+            useSessionStorageIntegration={true}
+            initialFilter={initialFilter ?? titleFilter}
+            goToDashboard={(id, viewMode) => {
+              redirectTo({ destination: 'dashboard', id, editMode: viewMode === 'edit' });
+            }}
+            getDashboardUrl={(id, timeRestore) => {
+              return getDashboardListItemLink(kbnUrlStateStorage, id, timeRestore);
+            }}
+          />
+        </>
       )}
     </>
   );
