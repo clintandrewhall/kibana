@@ -128,6 +128,9 @@ export interface IReturnAReactComponent {
 //     line 71 - CrazyClass
 //     line 94 - foo
 //     line 117 - component
+//   missing complex type info (2):
+//     line 50 - component
+//     line 117 - component
 //   no references (23):
 //     line 28 - WithGen
 //     line 32 - t

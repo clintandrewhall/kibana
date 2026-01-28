@@ -87,6 +87,8 @@ export const literalString = 'HI';
 //   missing comments (2):
 //     line 32 - a
 //     line 45 - foo
+//   missing complex type info (1):
+//     line 32 - a
 //   no references (14):
 //     line 18 - aPretendNamespaceObj
 //     line 19 - notAnArrowFn
