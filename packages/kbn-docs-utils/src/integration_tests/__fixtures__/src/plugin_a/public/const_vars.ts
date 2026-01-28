@@ -87,6 +87,11 @@ export const literalString = 'HI';
 //   missing comments (2):
 //     line 32 - a
 //     line 45 - foo
+//   missing returns (4):
+//     line 19 - notAnArrowFn
+//     line 24 - aPropertyMisdirection
+//     line 29 - aPropertyInlineFn
+//     line 59 - aUnionProperty
 //   no references (14):
 //     line 18 - aPretendNamespaceObj
 //     line 19 - notAnArrowFn
