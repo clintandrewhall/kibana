@@ -26,6 +26,7 @@ export function collectApiStatsForPlugin(doc: PluginApi, issues: IssuesByPlugin)
     missingComments: [],
     isAnyType: [],
     noReferences: [],
+    missingComplexTypeInfo: [],
     deprecatedAPIsReferencedCount: 0,
     unreferencedDeprecatedApisCount: 0,
     adoptionTrackedAPIs: [],
@@ -73,6 +74,8 @@ function collectStatsForApi(doc: ApiDeclaration, stats: ApiStats, pluginApi: Plu
     stats.missingComments.push(doc);
   }
 
+  trackMissingComplexTypeInfo(doc, stats);
+
   if (doc.type === TypeKind.AnyKind) {
     stats.isAnyType.push(doc);
   }
@@ -85,6 +88,22 @@ function collectStatsForApi(doc: ApiDeclaration, stats: ApiStats, pluginApi: Plu
     stats.noReferences.push(doc);
   }
 }
+
+/**
+ * Tracks complex types (objects, interfaces, compound types) missing descriptions.
+ */
+const trackMissingComplexTypeInfo = (doc: ApiDeclaration, stats: ApiStats): void => {
+  const complexKinds = new Set<TypeKind>([
+    TypeKind.ObjectKind,
+    TypeKind.InterfaceKind,
+    TypeKind.CompoundTypeKind,
+  ]);
+  if (!complexKinds.has(doc.type)) return;
+  const hasDescription = doc.description !== undefined && doc.description.length > 0;
+  if (!hasDescription) {
+    stats.missingComplexTypeInfo.push(doc);
+  }
+};
 
 function countApiForPlugin(doc: PluginApi) {
   return (
