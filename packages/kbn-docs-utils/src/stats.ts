@@ -26,6 +26,7 @@ export function collectApiStatsForPlugin(doc: PluginApi, issues: IssuesByPlugin)
     missingComments: [],
     isAnyType: [],
     noReferences: [],
+    missingReturns: [],
     deprecatedAPIsReferencedCount: 0,
     unreferencedDeprecatedApisCount: 0,
     adoptionTrackedAPIs: [],
@@ -73,6 +74,8 @@ function collectStatsForApi(doc: ApiDeclaration, stats: ApiStats, pluginApi: Plu
     stats.missingComments.push(doc);
   }
 
+  trackMissingReturns(doc, stats);
+
   if (doc.type === TypeKind.AnyKind) {
     stats.isAnyType.push(doc);
   }
@@ -85,6 +88,74 @@ function collectStatsForApi(doc: ApiDeclaration, stats: ApiStats, pluginApi: Plu
     stats.noReferences.push(doc);
   }
 }
+
+/**
+ * Returns true if a declaration represents a function-like construct.
+ */
+const isFunctionLike = (doc: ApiDeclaration): boolean => {
+  if (doc.type === TypeKind.FunctionKind) {
+    return true;
+  }
+
+  if (doc.signature) {
+    const sig = doc.signature.map((part) => (typeof part === 'string' ? part : part.text)).join('');
+    return sig.includes('=>');
+  }
+
+  return false;
+};
+
+/**
+ * Checks if a function signature indicates a void return type.
+ * This includes:
+ * - Explicit `=> void` or `: void`
+ * - Explicit `=> undefined`
+ * - Promise<void> or Promise<undefined>
+ */
+const isVoidReturn = (signature: ApiDeclaration['signature']): boolean => {
+  if (!signature) {
+    return false;
+  }
+
+  const sig = signature.map((part) => (typeof part === 'string' ? part : part.text)).join('');
+
+  // Explicit void or undefined return.
+  if (/=>\s*void\b|:\s*void\b/.test(sig)) {
+    return true;
+  }
+
+  if (/=>\s*undefined\b/.test(sig)) {
+    return true;
+  }
+
+  // Promise<void> or Promise<undefined>.
+  if (/(?:=>|:)\s*Promise<void>/.test(sig)) {
+    return true;
+  }
+
+  if (/(?:=>|:)\s*Promise<undefined>/.test(sig)) {
+    return true;
+  }
+
+  return false;
+};
+
+/**
+ * Tracks functions missing @returns documentation.
+ */
+const trackMissingReturns = (doc: ApiDeclaration, stats: ApiStats): void => {
+  if (!isFunctionLike(doc)) {
+    return;
+  }
+  if (isVoidReturn(doc.signature)) {
+    return;
+  }
+  const hasReturnComment = doc.returnComment !== undefined && doc.returnComment.length > 0;
+
+  if (!hasReturnComment) {
+    stats.missingReturns.push(doc);
+  }
+};
 
 function countApiForPlugin(doc: PluginApi) {
   return (
@@ -101,12 +172,14 @@ function countApiForPlugin(doc: PluginApi) {
 }
 
 function countApi(doc: ApiDeclaration): number {
-  if (!doc.children) return 1;
-  else
+  if (!doc.children) {
+    return 1;
+  } else {
     return (
       1 +
       doc.children.reduce((sum, child) => {
         return sum + countApi(child);
       }, 0)
     );
+  }
 }
