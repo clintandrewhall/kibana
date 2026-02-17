@@ -13,7 +13,7 @@ import { CONTENT_LIST_ACTIONS } from './types';
 /**
  * State reducer for client-controlled state.
  *
- * Handles only user-driven state mutations (filters, sort).
+ * Handles user-driven state mutations (filters, sort).
  * Query data (items, loading, error) is managed by React Query directly.
  *
  * @param state - Current client state.
@@ -25,6 +25,12 @@ export const reducer = (
   action: ContentListAction
 ): ContentListClientState => {
   switch (action.type) {
+    case CONTENT_LIST_ACTIONS.SET_FILTERS:
+      return {
+        ...state,
+        filters: action.payload,
+      };
+
     case CONTENT_LIST_ACTIONS.SET_SORT:
       return {
         ...state,

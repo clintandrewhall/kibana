@@ -14,3 +14,7 @@ export { isSortingConfig } from './types';
 // Sorting feature.
 export type { SortField, SortOption, SortingConfig, UseContentListSortReturn } from './sorting';
 export { useContentListSort } from './sorting';
+
+// User profile filtering feature.
+export type { UseContentListUserFilterReturn } from './filtering/user_profile';
+export { useContentListUserFilter } from './filtering/user_profile';

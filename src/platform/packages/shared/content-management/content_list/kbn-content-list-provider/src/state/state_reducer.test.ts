@@ -68,6 +68,60 @@ describe('state_reducer', () => {
     });
   });
 
+  describe('SET_FILTERS', () => {
+    it('sets filters', () => {
+      const initialState = createInitialState();
+      const action: ContentListAction = {
+        type: CONTENT_LIST_ACTIONS.SET_FILTERS,
+        payload: { search: 'hello', users: ['user-1'] },
+      };
+
+      const newState = reducer(initialState, action);
+
+      expect(newState.filters).toEqual({ search: 'hello', users: ['user-1'] });
+    });
+
+    it('replaces existing filters', () => {
+      const initialState = createInitialState({
+        filters: { search: 'old', users: ['user-1'] },
+      });
+      const action: ContentListAction = {
+        type: CONTENT_LIST_ACTIONS.SET_FILTERS,
+        payload: { search: 'new' },
+      };
+
+      const newState = reducer(initialState, action);
+
+      expect(newState.filters).toEqual({ search: 'new' });
+    });
+
+    it('preserves sort when setting filters', () => {
+      const initialState = createInitialState({
+        sort: { field: 'title', direction: 'asc' },
+      });
+      const action: ContentListAction = {
+        type: CONTENT_LIST_ACTIONS.SET_FILTERS,
+        payload: { users: ['user-1'] },
+      };
+
+      const newState = reducer(initialState, action);
+
+      expect(newState.sort).toEqual({ field: 'title', direction: 'asc' });
+    });
+
+    it('returns a new state object', () => {
+      const initialState = createInitialState();
+      const action: ContentListAction = {
+        type: CONTENT_LIST_ACTIONS.SET_FILTERS,
+        payload: { users: ['user-1'] },
+      };
+
+      const newState = reducer(initialState, action);
+
+      expect(newState).not.toBe(initialState);
+    });
+  });
+
   describe('unknown action', () => {
     it('returns current state for unknown action types', () => {
       const initialState = createInitialState();

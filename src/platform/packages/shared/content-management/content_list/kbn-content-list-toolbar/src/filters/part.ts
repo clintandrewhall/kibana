@@ -25,6 +25,7 @@ export interface SortFilterProps {}
 /** Preset-to-props mapping for toolbar filters. */
 export interface FilterPresets {
   sort: SortFilterProps;
+  createdBy: import('./created_by').CreatedByFilterProps;
 }
 
 /**
@@ -36,6 +37,8 @@ export interface FilterPresets {
 export interface FilterContext {
   /** Whether sorting is available from the provider. */
   hasSorting: boolean;
+  /** Whether created-by filtering is available from the provider. */
+  hasCreatedBy: boolean;
 }
 
 /** Part factory for toolbar filters. */

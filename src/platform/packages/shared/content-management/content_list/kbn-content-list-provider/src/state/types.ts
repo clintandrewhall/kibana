@@ -13,10 +13,11 @@ import type { ActiveFilters } from '../datasource';
 
 /**
  * Action type constants for state reducer.
- *
- * @internal
  */
 export const CONTENT_LIST_ACTIONS = {
+  /** Update the active filters (parsed from query text by the toolbar). */
+  SET_FILTERS: 'SET_FILTERS',
+  /** Set sort field and direction. */
   SET_SORT: 'SET_SORT',
 } as const;
 
@@ -25,6 +26,7 @@ export const CONTENT_LIST_ACTIONS = {
  */
 export const DEFAULT_FILTERS: ActiveFilters = {
   search: undefined,
+  users: undefined,
 };
 
 /**
@@ -68,15 +70,24 @@ export interface ContentListQueryData {
  */
 export type ContentListState = ContentListClientState & ContentListQueryData;
 
+/** Update the active filters. */
+interface SetFiltersAction {
+  type: typeof CONTENT_LIST_ACTIONS.SET_FILTERS;
+  payload: ActiveFilters;
+}
+
+/** Set sort field and direction. */
+interface SetSortAction {
+  type: typeof CONTENT_LIST_ACTIONS.SET_SORT;
+  payload: { field: string; direction: 'asc' | 'desc' };
+}
+
 /**
  * Union type of all possible state actions.
  *
  * @internal Used by the state reducer and dispatch function.
  */
-export interface ContentListAction {
-  type: typeof CONTENT_LIST_ACTIONS.SET_SORT;
-  payload: { field: string; direction: 'asc' | 'desc' };
-}
+export type ContentListAction = SetFiltersAction | SetSortAction;
 
 /**
  * Context value provided by `ContentListStateProvider`.

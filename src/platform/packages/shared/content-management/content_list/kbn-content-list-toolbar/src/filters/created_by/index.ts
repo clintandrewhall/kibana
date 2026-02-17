@@ -7,15 +7,5 @@
  * License v3.0 only", or the "Server Side Public License, v 1".
  */
 
-// Declarative components and props.
-export { Column, type ColumnProps } from './part';
-export { NameColumn, type NameColumnProps, NameCell, type NameCellProps } from './name';
-export {
-  CreatedByColumn,
-  type CreatedByColumnProps,
-  CreatedByCell,
-  type CreatedByCellProps,
-} from './created_by';
-
-// Namespace type for TypeScript typing of `Column`.
-export type { ColumnNamespace } from './part';
+export { CreatedByFilter, type CreatedByFilterProps } from './created_by';
+export { CreatedByRenderer, type CreatedByRendererProps } from './created_by_renderer';

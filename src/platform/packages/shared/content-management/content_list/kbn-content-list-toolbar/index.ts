@@ -17,4 +17,14 @@
 export { ContentListToolbar, type ContentListToolbarProps } from './src/content_list_toolbar';
 
 // Filter declarative components for direct imports.
-export { Filters, SortFilter, type FiltersProps, type SortFilterProps } from './src/filters';
+export {
+  Filters,
+  SortFilter,
+  CreatedByFilter,
+  type FiltersProps,
+  type SortFilterProps,
+  type CreatedByFilterProps,
+} from './src/filters';
+
+// Reusable filter popover components.
+export { FilterPopover, useFilterPopover, type FilterPopoverProps } from './src/filters';

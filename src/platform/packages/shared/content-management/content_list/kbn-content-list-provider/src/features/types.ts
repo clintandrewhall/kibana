@@ -15,6 +15,13 @@ import type { SortingConfig } from './sorting';
 export interface ContentListFeatures {
   /** Sorting configuration. */
   sorting?: SortingConfig | boolean;
+  /**
+   * CreatedBy feature configuration.
+   *
+   * - `true` or `undefined`: Auto-enabled when `services.userProfile` is provided.
+   * - `false`: Explicitly disables created-by column and filter even if the service is present.
+   */
+  createdBy?: boolean;
 }
 
 /**
@@ -52,4 +59,6 @@ export const isSortingConfig = (
 export interface ContentListSupports {
   /** Whether sorting is supported. */
   sorting: boolean;
+  /** Whether created-by column and user filtering is supported. */
+  createdBy: boolean;
 }

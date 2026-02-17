@@ -8,6 +8,7 @@
  */
 
 import React, { useMemo, createContext, useContext, type ReactNode } from 'react';
+import { UserProfilesProvider } from '@kbn/content-management-user-profiles';
 import type { ContentListCoreConfig, ContentListConfig, ContentListServices } from './types';
 import type { ContentListFeatures, ContentListSupports } from '../features';
 import type { DataSourceConfig } from '../datasource';
@@ -31,6 +32,8 @@ export type ContentListProviderContextValue = Omit<
   features: ContentListFeatures;
   /** Resolved feature support flags. */
   supports: ContentListSupports;
+  /** Services provided to the provider. */
+  services?: ContentListServices;
 };
 
 /**
@@ -54,11 +57,15 @@ export type ContentListProviderProps = ContentListConfig & {
 
 /**
  * Main provider component for content list functionality, including data fetching
- * (via React Query) and sorting.
+ * (via React Query), sorting, and user profile resolution.
  *
- * Props like `dataSource` and `features` should be stable references to avoid
+ * Props like `dataSource`, `features`, and `services` should be stable references to avoid
  * unnecessary re-renders. Configuration from `features.sorting` is read once at
  * mount; use a `key` prop to remount if you need to change initial sort dynamically.
+ *
+ * When `services.userProfile` is provided (and `features.createdBy` is not `false`), the
+ * provider automatically wraps children with the user profiles context, enabling avatar
+ * display and user filtering in child components.
  */
 export const ContentListProvider = ({
   children,
@@ -69,17 +76,24 @@ export const ContentListProvider = ({
   id,
   queryKeyScope: queryKeyScopeProp,
   features = {},
+  services,
 }: ContentListProviderProps): JSX.Element => {
   // Derive queryKeyScope: explicit prop takes priority, otherwise derive from id.
   // At least one of id or queryKeyScope is guaranteed by ContentListIdentity type.
   const queryKeyScope = queryKeyScopeProp ?? `${id}-listing`;
 
+  const { userProfile: userProfileService } = services ?? {};
+
+  // Service-dependent features: enabled by default when service exists, unless explicitly disabled.
+  const supportsCreatedBy = features.createdBy !== false && !!userProfileService;
+
   // Resolve feature support flags.
   const supports: ContentListSupports = useMemo(
     () => ({
       sorting: features.sorting !== false,
+      createdBy: supportsCreatedBy,
     }),
-    [features.sorting]
+    [features.sorting, supportsCreatedBy]
   );
 
   // Create context value.
@@ -93,17 +107,31 @@ export const ContentListProvider = ({
       dataSource,
       features,
       supports,
+      services,
     }),
-    [labels, item, isReadOnly, id, queryKeyScope, dataSource, features, supports]
+    [labels, item, isReadOnly, id, queryKeyScope, dataSource, features, supports, services]
   );
 
-  return (
-    <QueryClientProvider client={contentListQueryClient}>
-      <ContentListContext.Provider value={value}>
-        <ContentListStateProvider>{children}</ContentListStateProvider>
-      </ContentListContext.Provider>
-    </QueryClientProvider>
+  // Build provider tree conditionally based on service availability.
+  let content: React.ReactNode = (
+    <ContentListContext.Provider value={value}>
+      <ContentListStateProvider>{children}</ContentListStateProvider>
+    </ContentListContext.Provider>
   );
+
+  // Wrap with user profiles provider when user profile service is available.
+  if (supportsCreatedBy && userProfileService) {
+    content = (
+      <UserProfilesProvider
+        getUserProfile={userProfileService.getUserProfile}
+        bulkGetUserProfiles={userProfileService.bulkGetUserProfiles}
+      >
+        {content}
+      </UserProfilesProvider>
+    );
+  }
+
+  return <QueryClientProvider client={contentListQueryClient}>{content}</QueryClientProvider>;
 };
 
 /**

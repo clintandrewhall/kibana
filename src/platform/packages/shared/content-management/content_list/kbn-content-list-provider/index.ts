@@ -21,14 +21,14 @@ export type {
   ContentListLabels,
   ContentListCoreConfig,
   ContentListConfig,
+  ContentListServices,
 } from './src/context';
 
 // Hooks.
 export { useContentListItems } from './src/state';
-export { useContentListSort } from './src/features';
+export { useContentListSort, useContentListUserFilter } from './src/features';
 
-// Types.
-export type { ContentListItem, ContentListItemConfig } from './src/item';
+// Types — features.
 export type {
   ContentListFeatures,
   ContentListSupports,
@@ -36,13 +36,26 @@ export type {
   SortOption,
   SortingConfig,
   UseContentListSortReturn,
+  UseContentListUserFilterReturn,
 } from './src/features';
+
+// Types — datasource.
 export type {
   FindItemsFn,
   FindItemsParams,
   FindItemsResult,
   DataSourceConfig,
+  ActiveFilters,
 } from './src/datasource';
+
+// Types — item.
+export type { ContentListItem, ContentListItemConfig } from './src/item';
+
+// Types — services.
+export type { UserProfileService } from './src/services';
+
+// Types — state.
+export type { ContentListQueryData } from './src/state';
 
 // Utilities.
 export { contentListKeys } from './src/query';

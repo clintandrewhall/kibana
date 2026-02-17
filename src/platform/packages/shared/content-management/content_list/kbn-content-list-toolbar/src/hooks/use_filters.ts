@@ -11,7 +11,7 @@ import { Children, Fragment, isValidElement, useMemo } from 'react';
 import type { ReactElement, ReactNode } from 'react';
 import type { SearchFilterConfig } from '@elastic/eui';
 import type { ParsedPart } from '@kbn/content-list-assembly';
-import { useContentListSort } from '@kbn/content-list-provider';
+import { useContentListSort, useContentListUserFilter } from '@kbn/content-list-provider';
 import { filter } from '../filters/part';
 import { Filters, type FiltersProps } from '../filters/filters';
 import type { FilterContext } from '../filters/part';
@@ -76,6 +76,7 @@ const parseFilterParts = (children: ReactNode): ParsedPart[] => {
  */
 export const useFilters = (children: ReactNode): SearchFilterConfig[] => {
   const { isSupported: hasSorting } = useContentListSort();
+  const { isSupported: hasCreatedBy } = useContentListUserFilter();
 
   // Note: `children` is used as a memo dependency. React children are often
   // unstable references (new JSX objects each render), so this memo may
@@ -84,10 +85,10 @@ export const useFilters = (children: ReactNode): SearchFilterConfig[] => {
   // consider keying on a more stable signal.
   return useMemo(() => {
     const parts = parseFilterParts(children);
-    const context: FilterContext = { hasSorting };
+    const context: FilterContext = { hasSorting, hasCreatedBy };
 
     return parts
       .map((part) => filter.resolve(part, context))
       .filter((f): f is SearchFilterConfig => f !== undefined);
-  }, [children, hasSorting]);
+  }, [children, hasSorting, hasCreatedBy]);
 };

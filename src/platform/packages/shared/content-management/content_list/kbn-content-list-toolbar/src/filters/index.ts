@@ -10,6 +10,19 @@
 // Filter container and declarative components.
 export { Filters, type FiltersProps } from './filters';
 export { SortFilter, type SortFilterProps, SortRenderer, type SortRendererProps } from './sort';
+export {
+  CreatedByFilter,
+  type CreatedByFilterProps,
+  CreatedByRenderer,
+  type CreatedByRendererProps,
+} from './created_by';
 
 // Part factory and context (used by `useFilters` hook).
 export { filter, type FilterPresets, type FilterContext } from './part';
+
+// Reusable popover components.
+export {
+  FilterPopover,
+  useFilterPopover,
+  type FilterPopoverProps,
+} from './filter_popover';

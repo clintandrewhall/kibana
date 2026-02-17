@@ -7,12 +7,22 @@
  * License v3.0 only", or the "Server Side Public License, v 1".
  */
 
-/**
- * Services skeleton for content list provider.
- *
- * This file establishes the pattern for service adapters that will
- * integrate Kibana services with the content list provider.
- */
+import type { UserProfileService } from './user_profile';
 
-// Placeholder export to establish the module.
-export {};
+/**
+ * Services provided to the content list provider to enable additional capabilities.
+ *
+ * Each service follows a pattern where providing the service enables the corresponding
+ * feature by default. Features can be explicitly disabled via the `features` prop
+ * even when the service is present.
+ */
+export interface ContentListServices {
+  /**
+   * User profile service for resolving creator avatars and filtering by user.
+   *
+   * Provides `getUserProfile` for single lookups and `bulkGetUserProfiles` for
+   * batch resolution. When present, enables the `createdBy` column and filter
+   * automatically (unless `features.createdBy` is `false`).
+   */
+  userProfile?: UserProfileService;
+}

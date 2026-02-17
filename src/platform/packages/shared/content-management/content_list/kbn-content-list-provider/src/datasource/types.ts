@@ -15,6 +15,8 @@ import type { ContentListItem } from '../item';
 export interface ActiveFilters {
   /** Search text extracted from the search bar, without filter syntax. */
   search?: string;
+  /** Selected user IDs for creator filtering. */
+  users?: string[];
 }
 
 /**

@@ -23,6 +23,12 @@ export {
 
 // Column components.
 export { NameColumn, NameCell, type NameColumnProps, type NameCellProps } from './src/column';
+export {
+  CreatedByColumn,
+  CreatedByCell,
+  type CreatedByColumnProps,
+  type CreatedByCellProps,
+} from './src/column';
 export type { ColumnNamespace, ColumnProps } from './src/column';
 
 // Empty state.

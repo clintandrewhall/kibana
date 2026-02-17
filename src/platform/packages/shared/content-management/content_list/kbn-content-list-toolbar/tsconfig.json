@@ -27,6 +27,7 @@
     "@kbn/content-list-assembly",
     "@kbn/content-list-provider",
     "@kbn/content-list-mock-data",
+    "@kbn/content-management-user-profiles",
     "@kbn/i18n",
   ]
 }
