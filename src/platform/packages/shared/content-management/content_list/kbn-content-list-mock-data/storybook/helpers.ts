@@ -16,6 +16,19 @@ import { MOCK_USER_PROFILES } from './user_profiles';
 import { mockFavoritesClient } from './services';
 
 /**
+ * Extracts tag IDs from a `UserContentCommonSchema` item's `references` array.
+ *
+ * Mock items store tags as `{ type: 'tag', id: 'tag-id' }` references. This
+ * helper converts them into a flat `string[]` suitable for `ContentListItem.tags`.
+ */
+export const extractTagIds = (
+  references: UserContentCommonSchema['references']
+): string[] | undefined => {
+  const tagIds = references?.filter((ref) => ref.type === 'tag').map((ref) => ref.id);
+  return tagIds && tagIds.length > 0 ? tagIds : undefined;
+};
+
+/**
  * Generic mock item type
  */
 export type MockContentItem =

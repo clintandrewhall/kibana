@@ -29,6 +29,71 @@ describe('state_reducer', () => {
     ...overrides,
   });
 
+  describe('SET_FILTERS', () => {
+    it('sets the active filters', () => {
+      const initialState = createInitialState();
+      const action: ContentListAction = {
+        type: CONTENT_LIST_ACTIONS.SET_FILTERS,
+        payload: {
+          search: 'dashboard',
+          tags: { include: ['tag-1'], exclude: ['tag-2'] },
+        },
+      };
+
+      const newState = reducer(initialState, action);
+
+      expect(newState.filters).toEqual({
+        search: 'dashboard',
+        tags: { include: ['tag-1'], exclude: ['tag-2'] },
+      });
+    });
+
+    it('replaces existing filters', () => {
+      const initialState = createInitialState({
+        filters: { search: 'old', tags: { include: ['tag-old'] } },
+      });
+      const action: ContentListAction = {
+        type: CONTENT_LIST_ACTIONS.SET_FILTERS,
+        payload: { search: 'new', tags: undefined },
+      };
+
+      const newState = reducer(initialState, action);
+
+      expect(newState.filters).toEqual({ search: 'new', tags: undefined });
+    });
+
+    it('preserves sort and search query text when setting filters', () => {
+      const initialState = createInitialState({
+        search: { queryText: 'some query' },
+        sort: { field: 'title', direction: 'asc' },
+      });
+      const action: ContentListAction = {
+        type: CONTENT_LIST_ACTIONS.SET_FILTERS,
+        payload: { search: 'new', tags: { include: ['tag-1'] } },
+      };
+
+      const newState = reducer(initialState, action);
+
+      expect(newState.search.queryText).toBe('some query');
+      expect(newState.sort).toEqual({ field: 'title', direction: 'asc' });
+    });
+
+    it('resets page index to 0 when filters change', () => {
+      const initialState = createInitialState({
+        page: { index: 3, size: 20 },
+      });
+      const action: ContentListAction = {
+        type: CONTENT_LIST_ACTIONS.SET_FILTERS,
+        payload: { search: 'new filter' },
+      };
+
+      const newState = reducer(initialState, action);
+
+      expect(newState.page.index).toBe(0);
+      expect(newState.page.size).toBe(20);
+    });
+  });
+
   describe('SET_SORT', () => {
     it('sets sort field and direction', () => {
       const initialState = createInitialState();
@@ -56,8 +121,9 @@ describe('state_reducer', () => {
       expect(newState.sort).toEqual({ field: 'updatedAt', direction: 'desc' });
     });
 
-    it('preserves filters when setting sort', () => {
+    it('preserves filters and search when setting sort', () => {
       const initialState = createInitialState({
+        search: { queryText: 'my query' },
         filters: { search: 'test query' },
       });
       const action: ContentListAction = {
@@ -68,6 +134,7 @@ describe('state_reducer', () => {
       const newState = reducer(initialState, action);
 
       expect(newState.filters).toEqual({ search: 'test query' });
+      expect(newState.search.queryText).toBe('my query');
     });
 
     it('clears selection when sort changes', () => {
@@ -463,6 +530,18 @@ describe('state_reducer', () => {
       const action: ContentListAction = {
         type: CONTENT_LIST_ACTIONS.SET_SORT,
         payload: { field: 'title', direction: 'asc' },
+      };
+
+      const newState = reducer(initialState, action);
+
+      expect(newState).not.toBe(initialState);
+    });
+
+    it('returns a new state object for SET_FILTERS', () => {
+      const initialState = createInitialState();
+      const action: ContentListAction = {
+        type: CONTENT_LIST_ACTIONS.SET_FILTERS,
+        payload: { search: 'test' },
       };
 
       const newState = reducer(initialState, action);

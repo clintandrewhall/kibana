@@ -14,7 +14,7 @@ import { SortRenderer } from './sort';
 // Ensure the sort preset's resolve callback is registered.
 import './sort/sort';
 
-const createContext = (hasSorting: boolean): FilterContext => ({ hasSorting });
+const createContext = (hasSorting: boolean): FilterContext => ({ hasSorting, hasTags: false });
 
 const createSortPart = (): ParsedPart => ({
   type: 'part',
