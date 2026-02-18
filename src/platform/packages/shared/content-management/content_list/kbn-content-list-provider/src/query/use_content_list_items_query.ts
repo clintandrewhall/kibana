@@ -28,7 +28,7 @@ const DEFAULT_PAGE = { index: 0, size: 20 };
  * Note: Items are expected to already be in `ContentListItem` format.
  * Transformation should happen in the `findItems` implementation.
  *
- * @param clientState - Client-controlled state (filters, sort).
+ * @param clientState - Client-controlled state (search, filters, sort).
  * @returns Query data and refetch function.
  */
 export const useContentListItemsQuery = (

@@ -39,6 +39,12 @@ export interface UseContentListSearchReturn {
  * used for data fetching. When search is disabled via `features.search: false`,
  * `setSearch` becomes a no-op and `isSupported` returns `false`.
  *
+ * When tag services are available, the toolbar parses tag filter syntax
+ * (e.g., `tag:production`) from the query text and passes the full
+ * {@link ActiveFilters} object to `setSearch`. For independent filter
+ * changes (e.g., toggling a tag from a popover), use `setFilters` from
+ * {@link useContentListFilters} instead.
+ *
  * @throws Error if used outside `ContentListProvider`.
  * @returns Object containing `search` text, `setSearch` function, and `isSupported` flag.
  *

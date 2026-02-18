@@ -12,6 +12,7 @@ import type { ReactNode } from 'react';
 import { EuiSearchBar } from '@elastic/eui';
 import type { EuiSearchBarOnChangeArgs } from '@elastic/eui';
 import { useContentListConfig, useContentListSearch } from '@kbn/content-list-provider';
+import { useTagServices } from '@kbn/content-management-tags';
 import { i18n } from '@kbn/i18n';
 import { Filters } from './filters';
 import { useFilters } from './hooks';
@@ -36,7 +37,11 @@ const defaultPlaceholder = i18n.translate(
  * `ContentListToolbar` component.
  *
  * Provides a toolbar with search and filter controls for content lists using `EuiSearchBar`.
- * Currently supports search and the Sort filter; additional filters will be added in subsequent PRs.
+ * Uses the atomic `setSearch(queryText, filters)` call to update both the displayed query
+ * text and the parsed filters in a single dispatch.
+ *
+ * When tag services are available, the toolbar parses tag filter syntax
+ * (e.g., `tag:production`) from the query text using `parseSearchQuery`.
  *
  * When items are selected in the table, a "Delete N entities" button appears in the
  * toolbar's left tools area (via `EuiSearchBar`'s `toolsLeft`), matching the existing
@@ -61,6 +66,7 @@ const defaultPlaceholder = i18n.translate(
  * // Custom filter order.
  * <ContentListToolbar>
  *   <Filters>
+ *     <Filters.Tags />
  *     <Filters.Sort />
  *   </Filters>
  * </ContentListToolbar>
@@ -72,6 +78,7 @@ const ContentListToolbarComponent = ({
 }: ContentListToolbarProps) => {
   const { labels, supports } = useContentListConfig();
   const { search, setSearch, isSupported: searchIsSupported } = useContentListSearch();
+  const tagServices = useTagServices();
   const filters = useFilters(children);
 
   const handleSearchChange = useCallback(
@@ -79,11 +86,27 @@ const ContentListToolbarComponent = ({
       if (error) {
         return;
       }
-      // `queryText` preserves the raw input (including whitespace) for display fidelity.
-      // `filters.search` is trimmed so data fetching ignores leading/trailing spaces.
-      setSearch(queryText, { search: queryText.trim() || undefined });
+
+      if (tagServices?.parseSearchQuery) {
+        try {
+          const { searchQuery, tagIds, tagIdsToExclude } = tagServices.parseSearchQuery(queryText);
+          const hasTags =
+            (tagIds && tagIds.length > 0) || (tagIdsToExclude && tagIdsToExclude.length > 0);
+
+          setSearch(queryText, {
+            search: searchQuery?.trim() || undefined,
+            tags: hasTags ? { include: tagIds ?? [], exclude: tagIdsToExclude ?? [] } : undefined,
+          });
+        } catch {
+          setSearch(queryText, { search: queryText?.trim() || undefined });
+        }
+      } else {
+        // `queryText` preserves the raw input (including whitespace) for display fidelity.
+        // `filters.search` is trimmed so data fetching ignores leading/trailing spaces.
+        setSearch(queryText, { search: queryText.trim() || undefined });
+      }
     },
-    [setSearch]
+    [setSearch, tagServices]
   );
 
   // Only include the selection bar when selection is supported to avoid

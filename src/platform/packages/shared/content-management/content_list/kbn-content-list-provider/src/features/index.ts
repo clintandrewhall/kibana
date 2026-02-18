@@ -26,3 +26,7 @@ export { useContentListSearch } from './search';
 // Selection feature.
 export type { UseContentListSelectionReturn } from './selection';
 export { useContentListSelection } from './selection';
+
+// Filtering feature.
+export type { FilterDisplayState, UseContentListFiltersReturn } from './filtering';
+export { useFilterDisplay, useContentListFilters, useTagFilterToggle } from './filtering';

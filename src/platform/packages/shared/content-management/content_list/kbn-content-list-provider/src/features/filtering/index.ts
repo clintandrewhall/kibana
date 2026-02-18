@@ -7,11 +7,7 @@
  * License v3.0 only", or the "Server Side Public License, v 1".
  */
 
-export type {
-  TagFilters,
-  ActiveFilters,
-  FindItemsParams,
-  FindItemsResult,
-  FindItemsFn,
-  DataSourceConfig,
-} from './types';
+export type { FilterDisplayState, UseContentListFiltersReturn } from './types';
+export { useFilterDisplay } from './use_filter_display';
+export { useContentListFilters } from './use_content_list_filters';
+export { useTagFilterToggle } from './use_tag_filter_toggle';

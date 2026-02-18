@@ -44,6 +44,14 @@ export const reducer = (
         selection: { ...DEFAULT_SELECTION },
       };
 
+    case CONTENT_LIST_ACTIONS.SET_FILTERS:
+      return {
+        ...state,
+        filters: action.payload,
+        page: { ...state.page, index: 0 },
+        selection: { ...DEFAULT_SELECTION },
+      };
+
     case CONTENT_LIST_ACTIONS.CLEAR_FILTERS:
       return {
         ...state,

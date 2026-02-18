@@ -17,6 +17,8 @@ import type { ContentListItem } from '../item';
 export const CONTENT_LIST_ACTIONS = {
   /** Atomically update the search query text and parsed filters. */
   SET_SEARCH: 'SET_SEARCH',
+  /** Update the active filters independently (e.g., tag filter UI changes). */
+  SET_FILTERS: 'SET_FILTERS',
   /** Clear all filters and reset query text. */
   CLEAR_FILTERS: 'CLEAR_FILTERS',
   /** Set sort field and direction. */
@@ -34,6 +36,7 @@ export const CONTENT_LIST_ACTIONS = {
  */
 export const DEFAULT_FILTERS: ActiveFilters = {
   search: undefined,
+  tags: undefined,
 };
 
 /**
@@ -54,7 +57,8 @@ export interface ContentListClientState {
   /**
    * Parsed filter state used to drive data fetching.
    *
-   * Updated atomically with `search.queryText` via `SET_SEARCH`.
+   * Updated atomically with `search.queryText` via `SET_SEARCH`, or
+   * independently via `SET_FILTERS` (e.g., tag filter UI toggles).
    * When no tag service is configured, `filters.search` equals `search.queryText`.
    * When tag parsing is available, `filters.search` contains only the free-text
    * portion and `filters.tags` holds the structured tag filters.
@@ -127,6 +131,12 @@ interface SetSearchAction {
   payload: { queryText: string; filters: ActiveFilters };
 }
 
+/** Update the active filters independently (e.g., tag filter UI changes). */
+interface SetFiltersAction {
+  type: typeof CONTENT_LIST_ACTIONS.SET_FILTERS;
+  payload: ActiveFilters;
+}
+
 /** Clear all filters and search text. */
 interface ClearFiltersAction {
   type: typeof CONTENT_LIST_ACTIONS.CLEAR_FILTERS;
@@ -145,6 +155,7 @@ interface SetSortAction {
  */
 export type ContentListAction =
   | SetSearchAction
+  | SetFiltersAction
   | ClearFiltersAction
   | SetSortAction
   | { type: typeof CONTENT_LIST_ACTIONS.SET_PAGE_INDEX; payload: { index: number } }

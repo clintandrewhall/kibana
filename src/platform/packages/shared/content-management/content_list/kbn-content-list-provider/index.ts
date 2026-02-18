@@ -21,13 +21,21 @@ export type {
   ContentListLabels,
   ContentListCoreConfig,
   ContentListConfig,
+  ContentListServices,
 } from './src/context';
 
 // Hooks.
 export { useContentListItems, useContentListState } from './src/state';
 export type { ContentListQueryData } from './src/state';
-export { useContentListSort, useContentListSearch, useContentListSelection } from './src/features';
-export { useContentListPagination } from './src/features';
+export {
+  useContentListSort,
+  useContentListSearch,
+  useContentListPagination,
+  useContentListSelection,
+  useFilterDisplay,
+  useContentListFilters,
+  useTagFilterToggle,
+} from './src/features';
 
 // State.
 export { CONTENT_LIST_ACTIONS, DEFAULT_FILTERS } from './src/state';
@@ -47,9 +55,12 @@ export type {
   SearchConfig,
   UseContentListSearchReturn,
   UseContentListSelectionReturn,
+  FilterDisplayState,
+  UseContentListFiltersReturn,
 } from './src/features';
 export type {
   ActiveFilters,
+  TagFilters,
   FindItemsFn,
   FindItemsParams,
   FindItemsResult,

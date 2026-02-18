@@ -10,11 +10,23 @@
 import type { ContentListItem } from '../item';
 
 /**
+ * Tag filter state with include/exclude semantics.
+ */
+export interface TagFilters {
+  /** Tag IDs that items must match (include filter). */
+  include?: string[];
+  /** Tag IDs that items must not match (exclude filter). */
+  exclude?: string[];
+}
+
+/**
  * Active filters applied to the content list.
  */
 export interface ActiveFilters {
   /** Search text extracted from the search bar, without filter syntax. */
   search?: string;
+  /** Tag filters with include/exclude semantics. */
+  tags?: TagFilters;
 }
 
 /**

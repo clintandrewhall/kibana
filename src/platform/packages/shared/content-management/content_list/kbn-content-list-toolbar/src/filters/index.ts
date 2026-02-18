@@ -10,6 +10,46 @@
 // Filter container and declarative components.
 export { Filters, type FiltersProps } from './filters';
 export { SortFilter, type SortFilterProps, SortRenderer, type SortRendererProps } from './sort';
+export {
+  TagFilter,
+  type TagFilterProps,
+  TagFilterRenderer,
+  type TagFilterRendererProps,
+} from './tags';
+
+// Common popover components.
+export {
+  FilterPopover,
+  FilterPopoverHeader,
+  FilterSelectionHeader,
+  useFilterPopover,
+  useFilterStyles,
+  type FilterPopoverProps,
+  type FilterPopoverHeaderProps,
+  type FilterSelectionHeaderProps,
+} from './filter_popover';
+export {
+  SelectableFilterPopover,
+  StandardFilterOption,
+  type SelectableFilterPopoverProps,
+  type SelectableFilterOption,
+  type StandardOptionRenderProps,
+} from './selectable_filter_popover';
+
+// Filter utilities.
+export {
+  useFieldQueryFilter,
+  isExcludeModifier,
+  getCheckedState,
+  ModifierKeyTip,
+  FilterCountBadge,
+  type FilterType,
+  type FilterSelection,
+  type UseFieldQueryFilterOptions,
+  type UseFieldQueryFilterResult,
+  type ModifierKeyTipProps,
+  type FilterCountBadgeProps,
+} from './filter_utils';
 
 // Part factory and context (used by `useFilters` hook).
 export { filter, type FilterPresets, type FilterContext } from './part';

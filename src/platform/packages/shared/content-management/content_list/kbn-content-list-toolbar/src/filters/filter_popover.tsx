@@ -7,14 +7,22 @@
  * License v3.0 only", or the "Server Side Public License, v 1".
  */
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import {
   EuiPopover,
   EuiPopoverTitle,
   EuiFilterButton,
+  EuiPanel,
+  EuiFlexGroup,
+  EuiFlexItem,
+  EuiText,
+  EuiButtonEmpty,
+  useEuiTheme,
   useGeneratedHtmlId,
   type EuiFilterButtonProps,
 } from '@elastic/eui';
+import { css } from '@emotion/react';
+import { i18n } from '@kbn/i18n';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Hook: useFilterPopover
@@ -31,6 +39,86 @@ export const useFilterPopover = () => {
   const toggle = useCallback(() => setIsOpen((prev) => !prev), []);
   const close = useCallback(() => setIsOpen(false), []);
   return { isOpen, toggle, close };
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Hook: useFilterStyles
+// Common CSS styles for filter popovers.
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Hook for common CSS styles used in filter popovers.
+ */
+export const useFilterStyles = () => {
+  const { euiTheme } = useEuiTheme();
+
+  return useMemo(
+    () => ({
+      /** CSS for adding margin-top to selection header when search is present. */
+      selectionHeaderMarginCSS: css`
+        margin-top: ${euiTheme.size.s};
+      `,
+    }),
+    [euiTheme]
+  );
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Component: FilterSelectionHeader
+// Displays "X selected" count and "Clear filter" button.
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Props for the {@link FilterSelectionHeader} component.
+ */
+export interface FilterSelectionHeaderProps {
+  /** Number of active filter selections. */
+  activeCount: number;
+  /** Callback to clear all selections. */
+  onClear: () => void;
+  /** `data-test-subj` attribute for the clear button. */
+  'data-test-subj'?: string;
+}
+
+/**
+ * Displays the selection count and clear filter button.
+ * Used in multi-select filter popovers.
+ */
+export const FilterSelectionHeader = ({
+  activeCount,
+  onClear,
+  'data-test-subj': dataTestSubj,
+}: FilterSelectionHeaderProps) => {
+  const styles = useFilterStyles();
+  const hasActiveFilters = activeCount > 0;
+
+  return (
+    <EuiFlexGroup
+      alignItems="center"
+      justifyContent="spaceBetween"
+      gutterSize="s"
+      responsive={false}
+      css={styles.selectionHeaderMarginCSS}
+    >
+      <EuiFlexItem grow={false}>
+        <EuiText size="xs" color="subdued">
+          {i18n.translate('contentManagement.contentList.filter.selectedCount', {
+            defaultMessage: '{count, plural, =0 {0 selected} one {# selected} other {# selected}}',
+            values: { count: activeCount },
+          })}
+        </EuiText>
+      </EuiFlexItem>
+      <EuiFlexItem grow={false}>
+        {hasActiveFilters && (
+          <EuiButtonEmpty size="xs" flush="right" onClick={onClear} data-test-subj={dataTestSubj}>
+            {i18n.translate('contentManagement.contentList.filter.clearFilter', {
+              defaultMessage: 'Clear filter',
+            })}
+          </EuiButtonEmpty>
+        )}
+      </EuiFlexItem>
+    </EuiFlexGroup>
+  );
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -108,15 +196,16 @@ export const FilterPopover = ({
 
   const hasActiveFilters = activeCount > 0;
 
-  // Build panel CSS from width props. Intentionally not memoized—the object
-  // construction is trivial and `EuiPopover` does not rely on referential equality.
-  const panelCSS =
-    panelWidth || panelMinWidth
-      ? {
-          ...(panelWidth && { width: panelWidth }),
-          ...(panelMinWidth && { minWidth: panelMinWidth }),
-        }
-      : undefined;
+  // Build panel CSS from width props.
+  const panelCSS = useMemo(() => {
+    if (!panelWidth && !panelMinWidth) {
+      return undefined;
+    }
+    return {
+      ...(panelWidth && { width: panelWidth }),
+      ...(panelMinWidth && { minWidth: panelMinWidth }),
+    };
+  }, [panelWidth, panelMinWidth]);
 
   return (
     <EuiPopover
@@ -147,5 +236,67 @@ export const FilterPopover = ({
       </EuiPopoverTitle>
       {children}
     </EuiPopover>
+  );
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Component: FilterPopoverHeader
+// Header section with optional search and selection controls.
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Props for the {@link FilterPopoverHeader} component.
+ */
+export interface FilterPopoverHeaderProps {
+  /** Search element from `EuiSelectable`. */
+  search?: React.ReactNode;
+  /** Number of active filter selections. */
+  activeCount: number;
+  /** Callback to clear all selections. */
+  onClear: () => void;
+  /** `data-test-subj` attribute for the clear button. */
+  'data-test-subj'?: string;
+}
+
+/**
+ * Header section for filter popovers with search and selection controls.
+ *
+ * Includes:
+ * - Optional search box (from `EuiSelectable`).
+ * - "X selected" count.
+ * - "Clear filter" button.
+ *
+ * @example
+ * ```tsx
+ * <EuiSelectable searchable>
+ *   {(list, search) => (
+ *     <>
+ *       <FilterPopoverHeader
+ *         search={search}
+ *         activeCount={selectedCount}
+ *         onClear={clearAll}
+ *       />
+ *       <EuiHorizontalRule margin="none" />
+ *       {list}
+ *     </>
+ *   )}
+ * </EuiSelectable>
+ * ```
+ */
+export const FilterPopoverHeader = ({
+  search,
+  activeCount,
+  onClear,
+  'data-test-subj': dataTestSubj,
+}: FilterPopoverHeaderProps) => {
+  return (
+    <EuiPanel hasShadow={false} paddingSize="s">
+      {search}
+      <FilterSelectionHeader
+        activeCount={activeCount}
+        onClear={onClear}
+        data-test-subj={dataTestSubj}
+      />
+    </EuiPanel>
   );
 };
