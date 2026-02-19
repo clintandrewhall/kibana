@@ -86,7 +86,9 @@ export const getValidationResults = (
       const hasAnyIssues = shouldCheckAny && pluginStats.isAnyType.length > 0;
       const hasCommentIssues =
         shouldCheckComments &&
-        (pluginStats.missingComments.length > 0 || pluginStats.paramDocMismatches.length > 0);
+        (pluginStats.missingComments.length > 0 ||
+          pluginStats.paramDocMismatches.length > 0 ||
+          pluginStats.missingComplexTypeInfo.length > 0);
       const hasExportIssues = shouldCheckExports && missingExports > 0;
       const hasUnnamedIssues = shouldCheckUnnamed && pluginStats.unnamedExports.length > 0;
 
