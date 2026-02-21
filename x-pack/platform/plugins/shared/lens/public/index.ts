@@ -5,7 +5,11 @@
  * 2.0.
  */
 
-import { LensPlugin } from './plugin';
+import { ContainerModule } from 'inversify';
+import { Global } from '@kbn/core-di-internal';
+import { EmbeddableFactoryRegistration } from '@kbn/embeddable-factory-types';
+import { LensPlugin, getLensEmbeddableServicesGetter } from './plugin';
+import { LENS_EMBEDDABLE_TYPE } from '../common/constants';
 
 // Embeddable types
 export { isLensApi } from './react_embeddable/type_guards';
@@ -133,3 +137,28 @@ export type { EditorFrameServiceProviderProps } from './editor_frame_service/edi
 export type { LensPublicStart, LensPublicSetup, LensSuggestionsApi } from './plugin';
 
 export const plugin = () => new LensPlugin();
+
+/**
+ * DI module that registers the Lens embeddable factory globally.
+ *
+ * The `getFactory` callback defers to `getStartServicesForEmbeddable`,
+ * which is set during `setup()` and resolves at render time when all
+ * start services are available.
+ */
+export const module = new ContainerModule(({ bind }) => {
+  bind(EmbeddableFactoryRegistration).toConstantValue({
+    type: LENS_EMBEDDABLE_TYPE,
+    getFactory: async () => {
+      const getter = getLensEmbeddableServicesGetter();
+      if (!getter) {
+        throw new Error('Lens embeddable services getter not initialized');
+      }
+      const [deps, { createLensEmbeddableFactory }] = await Promise.all([
+        getter(),
+        import('./async_services'),
+      ]);
+      return createLensEmbeddableFactory(deps);
+    },
+  });
+  bind(Global).toConstantValue(EmbeddableFactoryRegistration);
+});
