@@ -8,11 +8,28 @@
  */
 
 import type { PluginInitializerContext } from '@kbn/core/public';
-
+import { ContainerModule } from 'inversify';
+import { Global } from '@kbn/core-di-internal';
+import { EmbeddableFactoryRegistration } from '@kbn/embeddable-factory-types';
 import { DashboardMarkdownPlugin } from './plugin';
+import { MARKDOWN_EMBEDDABLE_TYPE } from '../common/constants';
 
 export { MARKDOWN_EMBEDDABLE_TYPE } from '../common/constants';
 
 export function plugin(initializerContext: PluginInitializerContext) {
   return new DashboardMarkdownPlugin();
 }
+
+/**
+ * DI module that registers the markdown embeddable factory globally.
+ */
+export const module = new ContainerModule(({ bind }) => {
+  bind(EmbeddableFactoryRegistration).toConstantValue({
+    type: MARKDOWN_EMBEDDABLE_TYPE,
+    getFactory: async () => {
+      const { markdownEmbeddableFactory } = await import('./async_services');
+      return markdownEmbeddableFactory;
+    },
+  });
+  bind(Global).toConstantValue(EmbeddableFactoryRegistration);
+});
