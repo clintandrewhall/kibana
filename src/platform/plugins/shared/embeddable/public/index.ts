@@ -7,8 +7,14 @@
  * License v3.0 only", or the "Server Side Public License, v 1".
  */
 
+import type { Container } from 'inversify';
+import { ContainerModule } from 'inversify';
 import type { PluginInitializerContext } from '@kbn/core/public';
+import { OnStart } from '@kbn/core-di';
+import { EmbeddableFactoryRegistration } from '@kbn/embeddable-factory-types';
 import { EmbeddablePublicPlugin } from './plugin';
+import { registerReactEmbeddableFactory } from './react_embeddable_system';
+import type { EmbeddableFactory } from './react_embeddable_system';
 
 export type { DrilldownDefinition, DrilldownEditorProps } from './drilldowns/types';
 
@@ -44,6 +50,27 @@ export type { SerializedDrilldowns } from '../server';
 export function plugin(initializerContext: PluginInitializerContext) {
   return new EmbeddablePublicPlugin(initializerContext);
 }
+
+/**
+ * DI module that collects globally-published embeddable factory registrations.
+ *
+ * Consumer plugins bind {@link EmbeddableFactoryRegistration} entries globally.
+ * At start time, this module collects all entries and populates the internal
+ * embeddable factory registry via `registerReactEmbeddableFactory`.
+ */
+export const module = new ContainerModule(({ bind }) => {
+  bind(OnStart).toConstantValue((container: Container) => {
+    if (!container.isBound(EmbeddableFactoryRegistration)) {
+      return;
+    }
+    for (const { type, getFactory } of container.getAll(EmbeddableFactoryRegistration)) {
+      // `getFactory` returns `Promise<unknown>` in the neutral token definition to
+      // avoid circular imports with `@kbn/embeddable-plugin`.  The embeddable
+      // registry internally stores factories as `EmbeddableFactory<any, any>`.
+      registerReactEmbeddableFactory(type, getFactory as () => Promise<EmbeddableFactory>);
+    }
+  });
+});
 
 export {
   ADD_PANEL_ANNOTATION_GROUP,
