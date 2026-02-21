@@ -57,6 +57,14 @@
       "kibanaUtils",
       "unifiedSearch",
       "observabilityAgentBuilder"
-    ]
+    ],
+    "globals": {
+      "services": {
+        "provides": [
+          "slo.CreateSLOFormFlyout",
+          "slo.SLODetailsFlyout"
+        ]
+      }
+    }
   }
 }

@@ -153,6 +153,8 @@ dependsOn:
   - '@kbn/kql'
   - '@kbn/slo-plugin'
   - '@kbn/slo-schema'
+  - '@kbn/slo-flyout-types'
+  - '@kbn/core-di'
 tags:
   - plugin
   - prod

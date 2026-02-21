@@ -9,12 +9,16 @@
     "server/**/*",
     "../../../../typings/**/*"
   ],
-  "exclude": ["target/**/*"],
+  "exclude": [
+    "target/**/*"
+  ],
   "kbn_references": [
     "@kbn/i18n",
     "@kbn/i18n-react",
     "@kbn/shared-ux-router",
     "@kbn/core",
+    "@kbn/core-di",
+    "@kbn/plugin-di",
     "@kbn/rule-data-utils",
     "@kbn/triggers-actions-ui-plugin",
     "@kbn/observability-plugin",
@@ -24,6 +28,7 @@
     "@kbn/kibana-utils-plugin",
     "@kbn/slo-schema",
     "@kbn/slo-shared-plugin",
+    "@kbn/slo-flyout-types",
     "@kbn/alerting-plugin",
     "@kbn/rison",
     "@kbn/embeddable-plugin",
