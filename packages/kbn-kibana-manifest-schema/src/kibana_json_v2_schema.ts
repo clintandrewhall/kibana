@@ -204,6 +204,18 @@ export const MANIFEST_V2: JSONSchema = {
                 to be imported by the server and the plugin started by core.
               `,
             },
+            optionalGlobals: {
+              type: 'array',
+              items: {
+                type: 'string',
+                pattern: '^[a-z][a-zA-Z0-9]*\\.[A-Z][a-zA-Z0-9]*$',
+              },
+              description: desc`
+                An optional list of Global DI token names (in \`<pluginId>.<ServiceName>\` format) that this
+                plugin consumes.  The platform uses this for documentation, startup health checks, and
+                future bundle-loading optimisation.
+              `,
+            },
           },
         },
       },

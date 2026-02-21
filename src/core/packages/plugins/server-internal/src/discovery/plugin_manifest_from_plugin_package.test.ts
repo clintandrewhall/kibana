@@ -49,6 +49,7 @@ describe('pluginManifestFromPluginPackage()', () => {
         "enabledOnAnonymousPages": false,
         "id": "someLegacyPluginId",
         "kibanaVersion": "static",
+        "optionalGlobals": Array [],
         "optionalPlugins": Array [
           "someOtherPlugin",
         ],

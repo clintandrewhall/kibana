@@ -31,6 +31,7 @@ function createManifest(
     optionalPlugins: optional,
     requiredBundles: [],
     runtimePluginDependencies: [],
+    optionalGlobals: [],
     owner: {
       name: 'foo',
     },

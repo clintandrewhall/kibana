@@ -17,6 +17,7 @@ const {
   isValidPluginId,
   isValidPkgType,
   isArrOfIds,
+  isArrOfGlobalTokenIds,
   isArrOfStrings,
   PACKAGE_TYPES,
 } = require('./parse_helpers');
@@ -62,6 +63,7 @@ function validatePackageManifestPlugin(plugin, repoRoot, path) {
     configPath,
     requiredPlugins,
     optionalPlugins,
+    optionalGlobals,
     requiredBundles,
     runtimePluginDependencies,
     enabledOnAnonymousPages,
@@ -99,9 +101,17 @@ function validatePackageManifestPlugin(plugin, repoRoot, path) {
 
   if (optionalPlugins !== undefined && !isArrOfIds(optionalPlugins)) {
     throw err(
-      `plugin.requiredPlugins`,
+      `plugin.optionalPlugins`,
       optionalPlugins,
       `must be an array of strings in camel or snake case`
+    );
+  }
+
+  if (optionalGlobals !== undefined && !isArrOfGlobalTokenIds(optionalGlobals)) {
+    throw err(
+      `plugin.optionalGlobals`,
+      optionalGlobals,
+      `must be an array of strings in <pluginId>.<ServiceName> format`
     );
   }
 
@@ -163,6 +173,7 @@ function validatePackageManifestPlugin(plugin, repoRoot, path) {
     configPath,
     requiredPlugins,
     optionalPlugins,
+    optionalGlobals,
     requiredBundles,
     runtimePluginDependencies,
     enabledOnAnonymousPages,

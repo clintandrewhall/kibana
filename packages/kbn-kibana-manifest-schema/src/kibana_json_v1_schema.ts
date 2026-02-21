@@ -142,5 +142,17 @@ export const MANIFEST_V1: JSONSchema = {
       `,
       type: 'boolean',
     },
+    optionalGlobals: {
+      description: desc`
+        An optional list of Global DI token names (in \`<pluginId>.<ServiceName>\` format) that this
+        plugin consumes.  The platform uses this for documentation, startup health checks, and
+        future bundle-loading optimisation.
+      `,
+      type: 'array',
+      items: {
+        type: 'string',
+        pattern: '^[a-z][a-zA-Z0-9]*\\.[A-Z][a-zA-Z0-9]*$',
+      },
+    },
   },
 };

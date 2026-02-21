@@ -32,6 +32,7 @@ const createUiPlugins = (pluginDeps: Record<string, string[]>) => {
       optionalPlugins: [],
       requiredPlugins: [],
       runtimePluginDependencies: [],
+      optionalGlobals: [],
       requiredBundles: deps,
     });
 

@@ -81,6 +81,7 @@ const createPlugin = (
     requiredBundles = [],
     optionalPlugins = [],
     runtimePluginDependencies = [],
+    optionalGlobals = [],
     kibanaVersion = '7.0.0',
     configPath = [path],
     server = true,
@@ -94,6 +95,7 @@ const createPlugin = (
     requiredBundles?: string[];
     optionalPlugins?: string[];
     runtimePluginDependencies?: string[];
+    optionalGlobals?: string[];
     kibanaVersion?: string;
     configPath?: ConfigPath;
     server?: boolean;
@@ -112,6 +114,7 @@ const createPlugin = (
       requiredBundles,
       optionalPlugins,
       runtimePluginDependencies,
+      optionalGlobals,
       server,
       owner: {
         name: 'Core',
@@ -1001,6 +1004,7 @@ describe('PluginsService', () => {
         requiredBundles: [],
         optionalPlugins: [],
         runtimePluginDependencies: [],
+        optionalGlobals: [],
       },
     ];
 

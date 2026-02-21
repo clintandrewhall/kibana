@@ -71,6 +71,7 @@ function createPluginManifest(manifestProps: Partial<PluginManifest> = {}): Plug
     optionalPlugins: ['some-optional-dep'],
     requiredBundles: [],
     runtimePluginDependencies: ['some-runtime-dep'],
+    optionalGlobals: [],
     server: true,
     ui: true,
     owner: { name: 'Core' },

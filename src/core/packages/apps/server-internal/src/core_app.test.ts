@@ -191,6 +191,7 @@ describe('CoreApp', () => {
         requiredBundles: [],
         requiredPlugins: [],
         runtimePluginDependencies: [],
+        optionalGlobals: [],
       });
     });
     it('calls `registerBundleRoutes` with the correct options', async () => {
@@ -302,6 +303,7 @@ describe('CoreApp', () => {
         requiredBundles: [],
         requiredPlugins: [],
         runtimePluginDependencies: [],
+        optionalGlobals: [],
       });
       prebootUIPlugins.internal.set('some-plugin-2', {
         publicAssetsDir: '/foo',
@@ -433,6 +435,7 @@ describe('CoreApp', () => {
       requiredBundles: [],
       requiredPlugins: [],
       runtimePluginDependencies: [],
+      optionalGlobals: [],
     });
     uiPlugins.internal.set('some-plugin', {
       publicAssetsDir: '/foo',
@@ -448,6 +451,7 @@ describe('CoreApp', () => {
       requiredBundles: [],
       requiredPlugins: [],
       runtimePluginDependencies: [],
+      optionalGlobals: [],
     });
     uiPlugins.internal.set('some-plugin-2', {
       publicAssetsDir: '/foo',

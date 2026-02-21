@@ -24,6 +24,7 @@ export function pluginManifestFromPluginPackage(
     serviceFolders: manifest.serviceFolders,
     kibanaVersion,
     optionalPlugins: manifest.plugin.optionalPlugins ?? [],
+    optionalGlobals: manifest.plugin.optionalGlobals ?? [],
     requiredBundles: manifest.plugin.requiredBundles ?? [],
     requiredPlugins: manifest.plugin.requiredPlugins ?? [],
     runtimePluginDependencies: manifest.plugin.runtimePluginDependencies ?? [],

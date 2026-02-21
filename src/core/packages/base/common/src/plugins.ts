@@ -85,6 +85,13 @@ export interface DiscoveredPlugin {
   readonly runtimePluginDependencies: readonly PluginName[];
 
   /**
+   * An optional list of Global DI token names (in `<pluginId>.<ServiceName>` format)
+   * that this plugin consumes.  Used for documentation, startup health checks, and
+   * future bundle-loading optimisation.
+   */
+  readonly optionalGlobals: readonly string[];
+
+  /**
    * Specifies whether this plugin - and its required dependencies - will be enabled for anonymous pages (login page, status page when
    * configured, etc.) Default is false.
    */
