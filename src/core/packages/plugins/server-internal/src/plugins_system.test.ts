@@ -55,6 +55,10 @@ function createPlugin(
       requiredPlugins: required,
       optionalPlugins: optional,
       runtimePluginDependencies: [],
+      globals: {
+        services: { provides: [], consumes: [] },
+        extensionPoints: { hosts: [], contributes: [] },
+      },
       requiredBundles: [],
       server,
       ui,
