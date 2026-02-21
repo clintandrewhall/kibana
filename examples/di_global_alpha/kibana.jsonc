@@ -1,0 +1,17 @@
+{
+  "type": "plugin",
+  "id": "@kbn/di-global-alpha-plugin",
+  "owner": "@elastic/kibana-core",
+  "description": "Example plugin that publishes AlphaService globally and consumes BetaService without requiredPlugins.",
+  "group": "platform",
+  "visibility": "private",
+  "plugin": {
+    "id": "diGlobalAlpha",
+    "server": true,
+    "browser": false,
+    "requiredPlugins": [],
+    "optionalGlobals": [
+      "diGlobalBeta.BetaService"
+    ]
+  }
+}
