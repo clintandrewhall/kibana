@@ -22,7 +22,7 @@ That change is required to resolve most of the challenges related to circular de
 The Dependency Injection Subsystem is not a replacement for the existing plugin API. All the services exposed using InversifyJS are accessible in the classic plugins, or the other way around. A plugin can use both simultaneously and gradually migrate to the declarative DI API.
 
 ## Implementation
-The implementation utilizes the [hierarchical dependency injection](https://inversify.io/docs/fundamentals/di-hierarchy/) provided by InversifyJS. Every plugin has its own container inhertied from the root one. That provides sufficient level of isolation with an option to share common services.
+The implementation utilizes the [hierarchical dependency injection](https://inversify.io/docs/fundamentals/di-hierarchy/) provided by InversifyJS. Every plugin has its own container inherited from the root one. That provides sufficient level of isolation with an option to share common services.
 
 ```mermaid
 graph TD
@@ -435,5 +435,122 @@ In most cases, the underlying problem is either duplicating some functionality o
 With the decoupled container module configuration, it should be easier to detect that.
 But if there is no other option to get away from the services composition, deferred dependency injection via the `onActivation` hook is an acceptable option since it does not break the Inversion of Control principle.
 
+### Global Services
+
+The `Global` token allows a plugin to publish services that are visible to **every** plugin scope and forked (request) context, without requiring consumers to declare the provider in `requiredPlugins`.
+
+#### Publishing a global service
+
+1. Define the interface and token in a **neutral package** (e.g. `@kbn/my-service-types`):
+
+```ts
+import type { ServiceIdentifier } from 'inversify';
+
+export interface IMyService {
+  doWork(): string;
+}
+
+export const MyServiceToken = Symbol.for(
+  'myPlugin.MyService'
+) as ServiceIdentifier<IMyService>;
+```
+
+2. In the provider plugin's module, bind the token and mark it global:
+
+```ts
+import { ContainerModule } from 'inversify';
+// `Global` is not yet part of the public `@kbn/core-di` API; importing from
+// the internal package for demonstration purposes.
+import { Global } from '@kbn/core-di-internal';
+import { MyServiceToken } from '@kbn/my-service-types';
+import { MyService } from './my_service';
+
+export const module = new ContainerModule(({ bind }) => {
+  bind(MyServiceToken).to(MyService);
+  bind(Global).toConstantValue(MyServiceToken);
+});
+```
+
+3. Any consumer plugin can now inject `MyServiceToken` without listing the provider in `requiredPlugins`.
+
+#### Token naming convention
+
+Global tokens **must** follow the `<pluginId>.<ServiceName>` pattern so that ownership is clear from the string alone.  The pattern enforces exactly **one dot**: `pluginId` must be camelCase and `ServiceName` must be PascalCase (e.g., `slo.CreateSLOFormFlyout`, `embeddable.FactoryRegistration`).  Multi-segment names like `my.plugin.Service` are not allowed — use the plugin's camelCase ID as a single segment.
+
+An ESLint rule (`@kbn/eslint/require_di_token_naming`) enforces this for any `Symbol.for()` call cast as `ServiceIdentifier`.
+
+Known core tokens and platform prefixes are allowed without the convention:
+
+- `Global` — marks a token for cross-plugin visibility.
+- `Setup`, `Start` — the plugin's setup/start contract values.
+- `OnSetup`, `OnStart` — lifecycle callbacks.
+- `Scope` — factory that creates or retrieves a plugin's child container.
+- `Fork` — factory that creates a temporary child container for request-scoped operations (HTTP handlers).
+- `plugin.setup.*`, `plugin.start.*` — platform-managed tokens for injecting other plugins' contracts.
+
+#### Declaring consumed globals in `kibana.jsonc`
+
+Plugins that consume global services should list the token names in `optionalGlobals` so the platform can validate availability and, in the future, optimise bundle loading:
+
+```jsonc
+{
+  "plugin": {
+    "optionalGlobals": ["slo.CreateSLOFormFlyout", "slo.SLODetailsFlyout"]
+  }
+}
+```
+
+#### Auto-bridge for hybrid plugins
+
+When a plugin exports **both** a classic `plugin` factory and a DI `module`, the platform automatically rebinds `Start` to the value returned by the classic `start()` method.  This means DI bindings can depend on `Start` to access the classic contract without manual `rebindSync` calls:
+
+```ts
+import { ContainerModule } from 'inversify';
+import { Start } from '@kbn/core-di';
+// `Global` is not yet part of the public `@kbn/core-di` API; importing from
+// the internal package for demonstration purposes.
+import { Global } from '@kbn/core-di-internal';
+import { MyServiceToken, type IMyService } from '@kbn/my-service-types';
+
+export const plugin = () => new MyPlugin();
+
+export const module = new ContainerModule(({ bind }) => {
+  bind(MyServiceToken).toResolvedValue(
+    (start: IMyService) => start,
+    [Start]
+  );
+  bind(Global).toConstantValue(MyServiceToken);
+});
+```
+
+#### Multi-binding with Global tokens
+
+A single token can be bound multiple times across different plugins to build a **collection**.  The collecting plugin uses `container.getAll(Token)` to retrieve all entries.  This is useful for registry patterns where multiple plugins contribute entries to a shared collection.
+
+For example, the embeddable framework defines `EmbeddableFactoryRegistration` in a neutral package.  Each embeddable-providing plugin binds the token with its factory entry and marks it `Global`.  The `embeddable` plugin collects all entries in an `OnStart` hook via `container.getAll(EmbeddableFactoryRegistration)` and populates the internal registry.
+
+```ts
+// In the provider plugin (e.g. lens, image_embeddable):
+bind(EmbeddableFactoryRegistration).toConstantValue({ type: MY_TYPE, getFactory });
+bind(Global).toConstantValue(EmbeddableFactoryRegistration);
+
+// In the collecting plugin (embeddable):
+bind(OnStart).toConstantValue((container: Container) => {
+  for (const entry of container.getAll(EmbeddableFactoryRegistration)) {
+    registerReactEmbeddableFactory(entry.type, entry.getFactory);
+  }
+});
+```
+
+#### Risk: resolution ordering
+
+Global services are resolved lazily.  If a consumer resolves a global token before the provider plugin has started, the binding will contain the initial placeholder value.  To avoid this:
+
+- Never resolve global tokens inside `OnSetup` or `OnStart` callbacks.
+- Resolve them in request scope (route handlers) or after all plugins have started.
+- The `optionalGlobals` manifest field enables future platform checks that warn if a declared global is unresolved at startup.
+
 ## Examples
 There is an [example](https://github.com/elastic/kibana/tree/main/examples/dependency_injection) plugin covering the complete injection flow.
+
+The [Alpha](../../../../../examples/di_global_alpha) and [Beta](../../../../../examples/di_global_beta) plugins demonstrate bidirectional cross-plugin service resolution via `Global`, including the hybrid classic+module pattern (Alpha) and the `optionalGlobals` manifest field.
