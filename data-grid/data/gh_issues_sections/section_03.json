@@ -1,0 +1,1120 @@
+{
+  "section": "3: Kibana OPEN enhancement/Feature",
+  "count": 50,
+  "issues": [
+    {
+      "createdAt": "2026-01-27T10:12:41Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        }
+      ],
+      "number": 250542,
+      "title": "Persist column selection in group by data grid",
+      "url": "https://github.com/elastic/kibana/issues/250542"
+    },
+    {
+      "createdAt": "2025-11-10T14:48:51Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxMzUyMzA2NjA=",
+          "name": "blocker",
+          "description": "",
+          "color": "e11d21"
+        },
+        {
+          "id": "MDU6TGFiZWw0NzAyNDI2NDA=",
+          "name": "Team:QA",
+          "description": "Platform QA t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "MDU6TGFiZWwxMDcyODkyMTEw",
+          "name": "failed-test",
+          "description": "A test failure on a tracked branch, potentially flaky-test",
+          "color": "fbca04"
+        },
+        {
+          "id": "MDU6TGFiZWwxMTg1MjQ0MzE2",
+          "name": "skipped-test",
+          "description": "",
+          "color": "aa2823"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACKd9edQ",
+          "name": "v9.3.0",
+          "description": "",
+          "color": "dddddd"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACNfHjjQ",
+          "name": "scout-playwright",
+          "description": "",
+          "color": "ededed"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACPg0VTQ",
+          "name": "v9.2.2",
+          "description": "",
+          "color": "dddddd"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACW8KQWw",
+          "name": "v8.19.12",
+          "description": "",
+          "color": "dddddd"
+        }
+      ],
+      "number": 242430,
+      "title": "Failing test: EUI testing wrapper: EuiDataGrid - data grid, run",
+      "url": "https://github.com/elastic/kibana/issues/242430"
+    },
+    {
+      "createdAt": "2025-04-23T12:43:24Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        }
+      ],
+      "number": 8615,
+      "title": "[EuiDataGrid] Make `EuiDataGridCellActions` reusable outside `EuiDataGrid`",
+      "url": "https://github.com/elastic/eui/issues/8615"
+    },
+    {
+      "createdAt": "2025-08-01T08:39:59Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNTU5Mjk3MDAw",
+          "name": "\u26a0\ufe0f needs validation",
+          "description": "For bugs that need confirmation as to whether they're reproducible",
+          "color": "FBCA04"
+        },
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        },
+        {
+          "id": "MDU6TGFiZWwyODEwNzQ0Njk4",
+          "name": "stale-issue",
+          "description": "(Don't delete - used for automation)",
+          "color": "ededed"
+        }
+      ],
+      "number": 8936,
+      "title": "[EuiDataGrid] Rows overlap each over",
+      "url": "https://github.com/elastic/eui/issues/8936"
+    },
+    {
+      "createdAt": "2026-02-26T20:11:10Z",
+      "labels": [],
+      "number": 2,
+      "title": "Inventory View: Data Grid",
+      "url": "https://github.com/UMM-CSci-3601-S26/it-1-harley-blake-thatcher-and-gabe/issues/2"
+    },
+    {
+      "createdAt": "2025-04-09T13:34:46Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        }
+      ],
+      "number": 8572,
+      "title": "[EuiDataGrid] Can't reorder columns with DnD while the data grid is scrolled down",
+      "url": "https://github.com/elastic/eui/issues/8572"
+    },
+    {
+      "createdAt": "2025-04-29T11:20:32Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        }
+      ],
+      "number": 8656,
+      "title": "[EuiDataGrid] Investigate implementing smooth scrolling in the data grid",
+      "url": "https://github.com/elastic/eui/issues/8656"
+    },
+    {
+      "createdAt": "2025-11-05T16:30:06Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzE0OTE1ODM2",
+          "name": "tech debt",
+          "description": "",
+          "color": "3B118B"
+        }
+      ],
+      "number": 9182,
+      "title": "[EuiDataGrid] Update to the latest `react-window` version (v2)",
+      "url": "https://github.com/elastic/eui/issues/9182"
+    },
+    {
+      "createdAt": "2020-02-10T14:31:24Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        }
+      ],
+      "number": 2839,
+      "title": "[EuiDataGrid] Allow sticky columns",
+      "url": "https://github.com/elastic/eui/issues/2839"
+    },
+    {
+      "createdAt": "2026-03-01T16:36:43Z",
+      "labels": [
+        {
+          "id": "LA_kwDOOFcIGs8AAAAB7Izecg",
+          "name": "proposal",
+          "description": "",
+          "color": "0e8a16"
+        }
+      ],
+      "number": 88,
+      "title": "data grid clipboard copying and pasting",
+      "url": "https://github.com/andersmelander/better-translation-manager/issues/88"
+    },
+    {
+      "createdAt": "2024-05-17T19:12:03Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        },
+        {
+          "id": "LA_kwDOBmcipc8AAAABn5TQvQ",
+          "name": "known issue",
+          "description": "",
+          "color": "F6E728"
+        }
+      ],
+      "number": 7769,
+      "title": "[EuiDataGrid] Grid grows to infinite height in flex container if `height` not provided",
+      "url": "https://github.com/elastic/eui/issues/7769"
+    },
+    {
+      "createdAt": "2026-02-19T18:11:58Z",
+      "labels": [],
+      "number": 561,
+      "title": "Verify data grid displays correctly",
+      "url": "https://github.com/agrifooddatacanada/OCA_Composer/issues/561"
+    },
+    {
+      "createdAt": "2026-02-12T16:46:59Z",
+      "labels": [],
+      "number": 1356,
+      "title": "FEAT: Change data grid font",
+      "url": "https://github.com/dbgate/dbgate/issues/1356"
+    },
+    {
+      "createdAt": "2023-08-29T08:18:35Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        },
+        {
+          "id": "MDU6TGFiZWwyODEwNzQ0Njk4",
+          "name": "stale-issue",
+          "description": "(Don't delete - used for automation)",
+          "color": "ededed"
+        }
+      ],
+      "number": 7138,
+      "title": "[EuiDataGrid] Add column highlighting",
+      "url": "https://github.com/elastic/eui/issues/7138"
+    },
+    {
+      "createdAt": "2026-03-02T07:42:40Z",
+      "labels": [],
+      "number": 2088,
+      "title": "fix(data-grid): component-btn-group overflow",
+      "url": "https://github.com/formio/formio/issues/2088"
+    },
+    {
+      "createdAt": "2025-06-05T09:01:32Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw3MzU0ODU5NjM=",
+          "name": "design decision",
+          "description": "Use this to flag an item that needs input from the design team",
+          "color": "006b75"
+        },
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        },
+        {
+          "id": "LA_kwDOBmcipc8AAAACLAiKYA",
+          "name": "request",
+          "description": "Clear use case, business priority. Requires a clear yes/no answer or coordination.",
+          "color": "b60205"
+        }
+      ],
+      "number": 8745,
+      "title": "[EuiDataGrid] Allow control over column actions in columns popover",
+      "url": "https://github.com/elastic/eui/issues/8745"
+    },
+    {
+      "createdAt": "2025-07-11T12:20:50Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        }
+      ],
+      "number": 8859,
+      "title": "[Epic] EuiDataGrid long-term plan and investigation",
+      "url": "https://github.com/elastic/eui/issues/8859"
+    },
+    {
+      "createdAt": "2025-03-18T09:36:14Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw3Mzg5MDkwMTY=",
+          "name": "meta",
+          "description": "Used to group similar requests or tracking. Not an Epic.",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        },
+        {
+          "id": "LA_kwDOBmcipc8AAAAB728rDw",
+          "name": "beta",
+          "description": "Issues for tracking beta functionalities",
+          "color": "006b75"
+        }
+      ],
+      "number": 8454,
+      "title": "[Beta] EuiDataGrid canDragAndDropColumns functionality",
+      "url": "https://github.com/elastic/eui/issues/8454"
+    },
+    {
+      "createdAt": "2026-02-09T10:25:42Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyMjM0NzExNDY0",
+          "name": "scope: data grid",
+          "description": "Changes related to the data grid.",
+          "color": "ffffff"
+        },
+        {
+          "id": "MDU6TGFiZWwyMjYzMjM4Njk4",
+          "name": "type: new feature",
+          "description": "Expand the scope of the product to solve a new problem.",
+          "color": "c7def8"
+        },
+        {
+          "id": "MDU6TGFiZWwyNDI1NDQwNjc2",
+          "name": "status: waiting for author",
+          "description": "Issue with insufficient information.",
+          "color": "cccccc"
+        },
+        {
+          "id": "LA_kwDOD4Lzcc8AAAABc-oCvw",
+          "name": "support: premium standard",
+          "description": "Support request from a Premium standard plan user. https://mui.com/legal/technical-support-sla.",
+          "color": "0052CC"
+        }
+      ],
+      "number": 21256,
+      "title": "[data grid] Virtualization without fixed height",
+      "url": "https://github.com/mui/mui-x/issues/21256"
+    },
+    {
+      "createdAt": "2026-02-13T14:54:40Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyMjM0NzExNDY0",
+          "name": "scope: data grid",
+          "description": "Changes related to the data grid.",
+          "color": "ffffff"
+        },
+        {
+          "id": "MDU6TGFiZWwyMjk5ODEyMTc3",
+          "name": "status: waiting for maintainer",
+          "description": "These issues haven't been looked at yet by a maintainer.",
+          "color": "c2e0c6"
+        },
+        {
+          "id": "LA_kwDOD4Lzcc8AAAABc-oCvw",
+          "name": "support: premium standard",
+          "description": "Support request from a Premium standard plan user. https://mui.com/legal/technical-support-sla.",
+          "color": "0052CC"
+        }
+      ],
+      "number": 21329,
+      "title": "[data grid] Group row at bottom?",
+      "url": "https://github.com/mui/mui-x/issues/21329"
+    },
+    {
+      "createdAt": "2025-12-02T17:24:06Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyMjM0NzExNDY0",
+          "name": "scope: data grid",
+          "description": "Changes related to the data grid.",
+          "color": "ffffff"
+        },
+        {
+          "id": "LA_kwDOD4Lzcc8AAAABc-oCvw",
+          "name": "support: premium standard",
+          "description": "Support request from a Premium standard plan user. https://mui.com/legal/technical-support-sla.",
+          "color": "0052CC"
+        }
+      ],
+      "number": 20539,
+      "title": "[data grid] Scrollbar flickering",
+      "url": "https://github.com/mui/mui-x/issues/20539"
+    },
+    {
+      "createdAt": "2025-04-08T00:43:21Z",
+      "labels": [
+        {
+          "id": "LA_kwDOORtYes8AAAAB9KfzBw",
+          "name": "Content layout",
+          "description": "",
+          "color": "184C59"
+        }
+      ],
+      "number": 44,
+      "title": "Data grid",
+      "url": "https://github.com/GovAlta/design-system-backlog/issues/44"
+    },
+    {
+      "createdAt": "2026-03-02T19:59:47Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyNjY1MzE4MzAw",
+          "name": "enhancement",
+          "description": "New feature or request",
+          "color": "a2eeef"
+        },
+        {
+          "id": "LA_kwDOE7KXes8AAAACZZUCOw",
+          "name": "priority: medium",
+          "description": "Address after high priority items",
+          "color": "e99d38"
+        },
+        {
+          "id": "LA_kwDOE7KXes8AAAACZZUFIw",
+          "name": "complexity: medium",
+          "description": "Moderate effort required",
+          "color": "fbca04"
+        },
+        {
+          "id": "LA_kwDOE7KXes8AAAACZZULZg",
+          "name": "area: ui-ux",
+          "description": "User interface and experience",
+          "color": "e4e669"
+        }
+      ],
+      "number": 437,
+      "title": "Pok\u00e9dex Editor \u2014 Phase 2: Virtualized Per-Species Data Grid",
+      "url": "https://github.com/codemonkey85/PKMDS-Blazor/issues/437"
+    },
+    {
+      "createdAt": "2024-09-06T16:50:33Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        },
+        {
+          "id": "MDU6TGFiZWwyODEwNzQ0Njk4",
+          "name": "stale-issue",
+          "description": "(Don't delete - used for automation)",
+          "color": "ededed"
+        }
+      ],
+      "number": 8008,
+      "title": "[EuiDataGrid] Grids wrapped in a container with no set height & `defaultHeight: 'auto'` will render with 0 height in webkit browsers",
+      "url": "https://github.com/elastic/eui/issues/8008"
+    },
+    {
+      "createdAt": "2025-10-14T14:31:36Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        },
+        {
+          "id": "LA_kwDOBmcipc8AAAACLAiKYA",
+          "name": "request",
+          "description": "Clear use case, business priority. Requires a clear yes/no answer or coordination.",
+          "color": "b60205"
+        }
+      ],
+      "number": 9104,
+      "title": "[EuiDataGrid] Avoid changing column header height on hover",
+      "url": "https://github.com/elastic/eui/issues/9104"
+    },
+    {
+      "createdAt": "2026-02-18T07:08:18Z",
+      "labels": [
+        {
+          "id": "LA_kwDORSUXj88AAAACYfYWEg",
+          "name": "Epic 16: Export & Reporting",
+          "description": "Excel exports, assessment and playbook reports",
+          "color": "fef2c0"
+        }
+      ],
+      "number": 134,
+      "title": "16.1 User: Export data grid to Excel",
+      "url": "https://github.com/hanpieter1/AppFactory/issues/134"
+    },
+    {
+      "createdAt": "2024-10-01T11:31:19Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxMTM0NjgxODk5",
+          "name": "Type: Epic",
+          "description": "",
+          "color": "006B75"
+        },
+        {
+          "id": "MDU6TGFiZWwyMjQ1MDY1Mjcz",
+          "name": "web-components",
+          "description": "",
+          "color": "80f7b8"
+        },
+        {
+          "id": "MDU6TGFiZWwyOTMxNTg0NTUz",
+          "name": "Resolution: Soft Close",
+          "description": "Soft closing inactive issues over a certain period",
+          "color": "ef699f"
+        },
+        {
+          "id": "LA_kwDOA5u5OM8AAAABLjdIvQ",
+          "name": "Component: DataGrid",
+          "description": "",
+          "color": "0E8A16"
+        },
+        {
+          "id": "LA_kwDOA5u5OM8AAAABME64EQ",
+          "name": "Fluent UI WC (v3)",
+          "description": "Fluent UI Web Component V3",
+          "color": "B29ECB"
+        }
+      ],
+      "number": 32957,
+      "title": "Component: Data Grid",
+      "url": "https://github.com/microsoft/fluentui/issues/32957"
+    },
+    {
+      "createdAt": "2025-10-24T10:09:05Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxMTk1NzYyNDkx",
+          "name": "scope: system",
+          "description": "The system, the design tokens / styling foundations used across components. eg. @mui/system with MUI",
+          "color": "ffffff"
+        },
+        {
+          "id": "MDU6TGFiZWwxNjA0OTI4NjEx",
+          "name": "scope: data grid",
+          "description": "Changes related to the data grid.",
+          "color": "ffffff"
+        },
+        {
+          "id": "LA_kwDOAWA4lM7qoc3_",
+          "name": "customization: theme",
+          "description": "Higher level theming customizability.",
+          "color": "0465d6"
+        },
+        {
+          "id": "LA_kwDOAWA4lM8AAAABCdbtOg",
+          "name": "type: enhancement",
+          "description": "It\u2019s an improvement, but we can\u2019t make up our mind whether it's a bug fix or a new feature.",
+          "color": "c7def8"
+        },
+        {
+          "id": "LA_kwDOAWA4lM8AAAACH-dqxw",
+          "name": "design: ui",
+          "description": "Visual design.",
+          "color": "5319e7"
+        }
+      ],
+      "number": 47119,
+      "title": "[data grid] Unify spacing",
+      "url": "https://github.com/mui/material-ui/issues/47119"
+    },
+    {
+      "createdAt": "2025-10-24T10:02:50Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxMTk1NzYyNDkx",
+          "name": "scope: system",
+          "description": "The system, the design tokens / styling foundations used across components. eg. @mui/system with MUI",
+          "color": "ffffff"
+        },
+        {
+          "id": "MDU6TGFiZWwxNjA0OTI4NjEx",
+          "name": "scope: data grid",
+          "description": "Changes related to the data grid.",
+          "color": "ffffff"
+        },
+        {
+          "id": "LA_kwDOAWA4lM7qoc3_",
+          "name": "customization: theme",
+          "description": "Higher level theming customizability.",
+          "color": "0465d6"
+        },
+        {
+          "id": "LA_kwDOAWA4lM8AAAABCdbtOg",
+          "name": "type: enhancement",
+          "description": "It\u2019s an improvement, but we can\u2019t make up our mind whether it's a bug fix or a new feature.",
+          "color": "c7def8"
+        },
+        {
+          "id": "LA_kwDOAWA4lM8AAAACH-dqxw",
+          "name": "design: ui",
+          "description": "Visual design.",
+          "color": "5319e7"
+        }
+      ],
+      "number": 47116,
+      "title": "[data grid] unify palette usage",
+      "url": "https://github.com/mui/material-ui/issues/47116"
+    },
+    {
+      "createdAt": "2023-01-27T21:07:06Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        }
+      ],
+      "number": 6561,
+      "title": "[EuiDataGrid] Add support for copying the focused cell's value with keyboard shortcut only",
+      "url": "https://github.com/elastic/eui/issues/6561"
+    },
+    {
+      "createdAt": "2025-06-27T21:45:51Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw3MzU0ODU5NjM=",
+          "name": "design decision",
+          "description": "Use this to flag an item that needs input from the design team",
+          "color": "006b75"
+        },
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        },
+        {
+          "id": "LA_kwDOBmcipc8AAAACLAiKYA",
+          "name": "request",
+          "description": "Clear use case, business priority. Requires a clear yes/no answer or coordination.",
+          "color": "b60205"
+        }
+      ],
+      "number": 8830,
+      "title": "[EuiDataGrid] Support single cell editing",
+      "url": "https://github.com/elastic/eui/issues/8830"
+    },
+    {
+      "createdAt": "2026-02-18T07:46:50Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyMjM0NzExNDY0",
+          "name": "scope: data grid",
+          "description": "Changes related to the data grid.",
+          "color": "ffffff"
+        },
+        {
+          "id": "LA_kwDOD4Lzcc8AAAABCdbo6g",
+          "name": "type: enhancement",
+          "description": "It\u2019s an improvement, but we can\u2019t make up our mind whether it's a bug fix or a new feature.",
+          "color": "c7def8"
+        },
+        {
+          "id": "LA_kwDOD4Lzcc8AAAACH-dtmw",
+          "name": "design: ux",
+          "description": "Related to End-users' experience.",
+          "color": "5319e7"
+        }
+      ],
+      "number": 21370,
+      "title": "[data grid] overscroll should be disabled when pinning columns",
+      "url": "https://github.com/mui/mui-x/issues/21370"
+    },
+    {
+      "createdAt": "2026-03-02T09:32:46Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyMjM0NzExNDY0",
+          "name": "scope: data grid",
+          "description": "Changes related to the data grid.",
+          "color": "ffffff"
+        },
+        {
+          "id": "MDU6TGFiZWwyMjk5ODEyMTc3",
+          "name": "status: waiting for maintainer",
+          "description": "These issues haven't been looked at yet by a maintainer.",
+          "color": "c2e0c6"
+        }
+      ],
+      "number": 21536,
+      "title": "[data grid] autosizing incorrect when providing custom icon with different size",
+      "url": "https://github.com/mui/mui-x/issues/21536"
+    },
+    {
+      "createdAt": "2025-12-28T18:56:16Z",
+      "labels": [],
+      "number": 238,
+      "title": "[bug]: Data Grid: Unwanted horizontal scrollbar in data grid with no apparent overflow",
+      "url": "https://github.com/sadmann7/diceui/issues/238"
+    },
+    {
+      "createdAt": "2026-01-08T16:28:07Z",
+      "labels": [
+        {
+          "id": "LA_kwDOAHeGUM8AAAABmLneYQ",
+          "name": "Project:OneDiscover",
+          "description": "Enrich Discover with contextual awareness",
+          "color": "C12D70"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACNFaynw",
+          "name": "Feature:Traces in Discover",
+          "description": "",
+          "color": "0e8a16"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACO5tyeA",
+          "name": "Team:obs-exploration",
+          "description": "Observability Exploration team",
+          "color": "FEF2C0"
+        }
+      ],
+      "number": 248314,
+      "title": "[Discover][Flyout] Update overview fields table with new prop headerVisibility set to false",
+      "url": "https://github.com/elastic/kibana/issues/248314"
+    },
+    {
+      "createdAt": "2026-03-02T13:53:11Z",
+      "labels": [
+        {
+          "id": "LA_kwDOGN1dNc7NrL__",
+          "name": "figma",
+          "description": "",
+          "color": "8F37FE"
+        },
+        {
+          "id": "LA_kwDOGN1dNc8AAAABiqoXCg",
+          "name": "scope: data grid",
+          "description": "Changes related to the data grid.",
+          "color": "ffffff"
+        }
+      ],
+      "number": 544,
+      "title": "[Figma] Improve discoverability and simplify Row Grouping/Subgroups in Data Grid components",
+      "url": "https://github.com/mui/mui-design-kits/issues/544"
+    },
+    {
+      "createdAt": "2025-10-24T10:08:29Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxMTk1NzYyNDkx",
+          "name": "scope: system",
+          "description": "The system, the design tokens / styling foundations used across components. eg. @mui/system with MUI",
+          "color": "ffffff"
+        },
+        {
+          "id": "MDU6TGFiZWwxNjA0OTI4NjEx",
+          "name": "scope: data grid",
+          "description": "Changes related to the data grid.",
+          "color": "ffffff"
+        },
+        {
+          "id": "LA_kwDOAWA4lM7qoc3_",
+          "name": "customization: theme",
+          "description": "Higher level theming customizability.",
+          "color": "0465d6"
+        },
+        {
+          "id": "LA_kwDOAWA4lM8AAAABCdbtOg",
+          "name": "type: enhancement",
+          "description": "It\u2019s an improvement, but we can\u2019t make up our mind whether it's a bug fix or a new feature.",
+          "color": "c7def8"
+        },
+        {
+          "id": "LA_kwDOAWA4lM8AAAACH-dqxw",
+          "name": "design: ui",
+          "description": "Visual design.",
+          "color": "5319e7"
+        }
+      ],
+      "number": 47118,
+      "title": "[data grid] Improve font usage",
+      "url": "https://github.com/mui/material-ui/issues/47118"
+    },
+    {
+      "createdAt": "2025-10-24T10:07:38Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxMTk1NzYyNDkx",
+          "name": "scope: system",
+          "description": "The system, the design tokens / styling foundations used across components. eg. @mui/system with MUI",
+          "color": "ffffff"
+        },
+        {
+          "id": "MDU6TGFiZWwxNjA0OTI4NjEx",
+          "name": "scope: data grid",
+          "description": "Changes related to the data grid.",
+          "color": "ffffff"
+        },
+        {
+          "id": "LA_kwDOAWA4lM7qoc3_",
+          "name": "customization: theme",
+          "description": "Higher level theming customizability.",
+          "color": "0465d6"
+        },
+        {
+          "id": "LA_kwDOAWA4lM8AAAABCdbtOg",
+          "name": "type: enhancement",
+          "description": "It\u2019s an improvement, but we can\u2019t make up our mind whether it's a bug fix or a new feature.",
+          "color": "c7def8"
+        },
+        {
+          "id": "LA_kwDOAWA4lM8AAAACH-dqxw",
+          "name": "design: ui",
+          "description": "Visual design.",
+          "color": "5319e7"
+        }
+      ],
+      "number": 47117,
+      "title": "[data grid] Icon usage enhancements",
+      "url": "https://github.com/mui/material-ui/issues/47117"
+    },
+    {
+      "createdAt": "2021-04-05T11:44:22Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw3NDY1Mjg5ODU=",
+          "name": "enhancement",
+          "description": "",
+          "color": "84b6eb"
+        },
+        {
+          "id": "MDU6TGFiZWw4NTI3ODk3NjU=",
+          "name": "status: in-review",
+          "description": "",
+          "color": "c5def5"
+        },
+        {
+          "id": "MDU6TGFiZWw5MTIzMTY4NTM=",
+          "name": "grid",
+          "description": "",
+          "color": "95f9d5"
+        }
+      ],
+      "number": 2575,
+      "title": "Update complex data grid sampl\u0435",
+      "url": "https://github.com/IgniteUI/igniteui-angular-samples/issues/2575"
+    },
+    {
+      "createdAt": "2026-01-26T15:43:48Z",
+      "labels": [
+        {
+          "id": "LA_kwDOAHeGUM7i5tos",
+          "name": "Team:Cloud Security",
+          "description": "Cloud Security team related",
+          "color": "fef2c0"
+        }
+      ],
+      "number": 250431,
+      "title": "Adopt Entity Resolution for Entity Analytics entity data grid",
+      "url": "https://github.com/elastic/kibana/issues/250431"
+    },
+    {
+      "createdAt": "2020-09-02T13:58:26Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyMjM0NzExNDY0",
+          "name": "scope: data grid",
+          "description": "Changes related to the data grid.",
+          "color": "ffffff"
+        },
+        {
+          "id": "MDU6TGFiZWwyMjYzMjM4Njk4",
+          "name": "type: new feature",
+          "description": "Expand the scope of the product to solve a new problem.",
+          "color": "c7def8"
+        },
+        {
+          "id": "MDU6TGFiZWwyMzEwMDMxNjk4",
+          "name": "waiting for \ud83d\udc4d",
+          "description": "Waiting for upvotes. Open for community feedback and needs more interest to be worked on.",
+          "color": "fff5d6"
+        }
+      ],
+      "number": 240,
+      "title": "[data grid] Handle 1m records",
+      "url": "https://github.com/mui/mui-x/issues/240"
+    },
+    {
+      "createdAt": "2023-06-24T12:28:05Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyMjM0NzExNDY0",
+          "name": "scope: data grid",
+          "description": "Changes related to the data grid.",
+          "color": "ffffff"
+        },
+        {
+          "id": "MDU6TGFiZWwyMjYzMjM4Njk4",
+          "name": "type: new feature",
+          "description": "Expand the scope of the product to solve a new problem.",
+          "color": "c7def8"
+        },
+        {
+          "id": "MDU6TGFiZWwyMzEwMDMxNjk4",
+          "name": "waiting for \ud83d\udc4d",
+          "description": "Waiting for upvotes. Open for community feedback and needs more interest to be worked on.",
+          "color": "fff5d6"
+        },
+        {
+          "id": "MDU6TGFiZWwyNTQ1MjIzODM0",
+          "name": "linked in docs",
+          "description": "The issue is linked in the docs, so completely skew the upvotes.",
+          "color": "fef2c0"
+        },
+        {
+          "id": "MDU6TGFiZWwyNzQxNTUxNjA1",
+          "name": "plan: Pro",
+          "description": "Impact at least one Pro user.",
+          "color": "6CDDFF"
+        }
+      ],
+      "number": 9448,
+      "title": "[data grid] Column group ordering",
+      "url": "https://github.com/mui/mui-x/issues/9448"
+    },
+    {
+      "createdAt": "2026-02-09T09:13:36Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyMDU4MDA3NDM5",
+          "name": "component/administration",
+          "description": "",
+          "color": "8437F8"
+        },
+        {
+          "id": "LA_kwDOB94YDc8AAAAB-DCpMQ",
+          "name": "domain/framework",
+          "description": "Responsible for the framework-level code includes core, administration, storefront, and frontends",
+          "color": "fbca04"
+        }
+      ],
+      "number": 14824,
+      "title": "Investigate and migrate sw-data-grid to mt-data-table",
+      "url": "https://github.com/shopware/shopware/issues/14824"
+    },
+    {
+      "createdAt": "2026-02-11T09:59:04Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNDY1NTU1MTAw",
+          "name": "bug",
+          "description": "Something isn't working",
+          "color": "d73a4a"
+        },
+        {
+          "id": "MDU6TGFiZWwyMDg1NTA1MjAz",
+          "name": "accepted :+1:",
+          "description": "",
+          "color": "c2e0c6"
+        }
+      ],
+      "number": 3865,
+      "title": "BUG: stop focusing first column row in table data grid",
+      "url": "https://github.com/beekeeper-studio/beekeeper-studio/issues/3865"
+    },
+    {
+      "createdAt": "2023-01-21T01:37:58Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyMjM0NzExNDY0",
+          "name": "scope: data grid",
+          "description": "Changes related to the data grid.",
+          "color": "ffffff"
+        },
+        {
+          "id": "MDU6TGFiZWwyMzEwMDMxNjk4",
+          "name": "waiting for \ud83d\udc4d",
+          "description": "Waiting for upvotes. Open for community feedback and needs more interest to be worked on.",
+          "color": "fff5d6"
+        },
+        {
+          "id": "LA_kwDOD4Lzcc7XXtQx",
+          "name": "plan: Premium",
+          "description": "Impact at least one Premium user.",
+          "color": "519EFF"
+        },
+        {
+          "id": "LA_kwDOD4Lzcc7ga9SN",
+          "name": "feature: Editing",
+          "description": "Related to the data grid Editing feature",
+          "color": "ECB272"
+        },
+        {
+          "id": "LA_kwDOD4Lzcc7hP007",
+          "name": "support: commercial",
+          "description": "Support request from paid users.",
+          "color": "cccccc"
+        },
+        {
+          "id": "LA_kwDOD4Lzcc7rg1Cz",
+          "name": "feature: Row grouping",
+          "description": "Related to the data grid Row grouping feature",
+          "color": "ECB272"
+        },
+        {
+          "id": "LA_kwDOD4Lzcc8AAAABCdbo6g",
+          "name": "type: enhancement",
+          "description": "It\u2019s an improvement, but we can\u2019t make up our mind whether it's a bug fix or a new feature.",
+          "color": "c7def8"
+        }
+      ],
+      "number": 7643,
+      "title": "[data grid] Grouping cells editing",
+      "url": "https://github.com/mui/mui-x/issues/7643"
+    },
+    {
+      "createdAt": "2025-12-04T14:55:36Z",
+      "labels": [
+        {
+          "id": "LA_kwDOML8T5c8AAAABp4zK6g",
+          "name": "enhancement",
+          "description": "New feature or request",
+          "color": "a2eeef"
+        },
+        {
+          "id": "LA_kwDOML8T5c8AAAAB1y4g9Q",
+          "name": "Medium Priority",
+          "description": "",
+          "color": "FBCA04"
+        }
+      ],
+      "number": 2353,
+      "title": "Refactor Data Grid Column readability",
+      "url": "https://github.com/SEMOSS/semoss-ui/issues/2353"
+    },
+    {
+      "createdAt": "2025-11-19T01:36:48Z",
+      "labels": [],
+      "number": 593,
+      "title": "Data grid is blank",
+      "url": "https://github.com/microsoft/vscode-data-wrangler/issues/593"
+    },
+    {
+      "createdAt": "2026-01-31T03:26:44Z",
+      "labels": [
+        {
+          "id": "LA_kwDORAJjec8AAAACWaT1oA",
+          "name": "screenshot",
+          "description": "Screenshot needed for manual",
+          "color": "1D76DB"
+        }
+      ],
+      "number": 1155,
+      "title": "[Visual] Section 3.3: Data Grid Sorting Example Screenshot",
+      "url": "https://github.com/ErikEvenson/aurora-manual/issues/1155"
+    },
+    {
+      "createdAt": "2021-01-15T15:33:17Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwzNTcwMTA4MTM=",
+          "name": "Feature:Dashboard",
+          "description": "Dashboard related features",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWwxMDE5NzI0NjU0",
+          "name": "loe:needs-research",
+          "description": "This issue requires some research before it can be worked on or estimated",
+          "color": "4d2793"
+        },
+        {
+          "id": "MDU6TGFiZWwxMDU1ODQyNzI0",
+          "name": "Team:Visualizations",
+          "description": "Team label for Lens, elastic-charts, Graph, legacy editors (TSVB, Visualize, Timelion) t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3NjI4",
+          "name": "impact:low",
+          "description": "Addressing this issue will have a low level of impact on the quality/strength of our product.",
+          "color": "4fed00"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        }
+      ],
+      "number": 88482,
+      "title": "[Dashboard] Improve the handling of panels with data grid content",
+      "url": "https://github.com/elastic/kibana/issues/88482"
+    },
+    {
+      "createdAt": "2024-09-04T20:26:21Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        }
+      ],
+      "number": 8002,
+      "title": "[EuiDataGrid] Add Row Summary",
+      "url": "https://github.com/elastic/eui/issues/8002"
+    }
+  ]
+}

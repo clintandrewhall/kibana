@@ -1,0 +1,288 @@
+{
+  "section": "2. Kibana CLOSED (since 2024)",
+  "count": 8,
+  "issues": [
+    {
+      "closedAt": null,
+      "createdAt": "2026-01-27T10:12:41Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        }
+      ],
+      "number": 250542,
+      "title": "Persist column selection in group by data grid",
+      "url": "https://github.com/elastic/kibana/issues/250542"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2025-11-10T14:48:51Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxMzUyMzA2NjA=",
+          "name": "blocker",
+          "description": "",
+          "color": "e11d21"
+        },
+        {
+          "id": "MDU6TGFiZWw0NzAyNDI2NDA=",
+          "name": "Team:QA",
+          "description": "Platform QA t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "MDU6TGFiZWwxMDcyODkyMTEw",
+          "name": "failed-test",
+          "description": "A test failure on a tracked branch, potentially flaky-test",
+          "color": "fbca04"
+        },
+        {
+          "id": "MDU6TGFiZWwxMTg1MjQ0MzE2",
+          "name": "skipped-test",
+          "description": "",
+          "color": "aa2823"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACKd9edQ",
+          "name": "v9.3.0",
+          "description": "",
+          "color": "dddddd"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACNfHjjQ",
+          "name": "scout-playwright",
+          "description": "",
+          "color": "ededed"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACPg0VTQ",
+          "name": "v9.2.2",
+          "description": "",
+          "color": "dddddd"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACW8KQWw",
+          "name": "v8.19.12",
+          "description": "",
+          "color": "dddddd"
+        }
+      ],
+      "number": 242430,
+      "title": "Failing test: EUI testing wrapper: EuiDataGrid - data grid, run",
+      "url": "https://github.com/elastic/kibana/issues/242430"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2026-01-08T16:28:07Z",
+      "labels": [
+        {
+          "id": "LA_kwDOAHeGUM8AAAABmLneYQ",
+          "name": "Project:OneDiscover",
+          "description": "Enrich Discover with contextual awareness",
+          "color": "C12D70"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACNFaynw",
+          "name": "Feature:Traces in Discover",
+          "description": "",
+          "color": "0e8a16"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACO5tyeA",
+          "name": "Team:obs-exploration",
+          "description": "Observability Exploration team",
+          "color": "FEF2C0"
+        }
+      ],
+      "number": 248314,
+      "title": "[Discover][Flyout] Update overview fields table with new prop headerVisibility set to false",
+      "url": "https://github.com/elastic/kibana/issues/248314"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2026-01-26T15:43:48Z",
+      "labels": [
+        {
+          "id": "LA_kwDOAHeGUM7i5tos",
+          "name": "Team:Cloud Security",
+          "description": "Cloud Security team related",
+          "color": "fef2c0"
+        }
+      ],
+      "number": 250431,
+      "title": "Adopt Entity Resolution for Entity Analytics entity data grid",
+      "url": "https://github.com/elastic/kibana/issues/250431"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2021-01-15T15:33:17Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwzNTcwMTA4MTM=",
+          "name": "Feature:Dashboard",
+          "description": "Dashboard related features",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWwxMDE5NzI0NjU0",
+          "name": "loe:needs-research",
+          "description": "This issue requires some research before it can be worked on or estimated",
+          "color": "4d2793"
+        },
+        {
+          "id": "MDU6TGFiZWwxMDU1ODQyNzI0",
+          "name": "Team:Visualizations",
+          "description": "Team label for Lens, elastic-charts, Graph, legacy editors (TSVB, Visualize, Timelion) t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3NjI4",
+          "name": "impact:low",
+          "description": "Addressing this issue will have a low level of impact on the quality/strength of our product.",
+          "color": "4fed00"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        }
+      ],
+      "number": 88482,
+      "title": "[Dashboard] Improve the handling of panels with data grid content",
+      "url": "https://github.com/elastic/kibana/issues/88482"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2025-05-28T11:20:46Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyNjE5ODIzNA==",
+          "name": "bug",
+          "description": "Fixes for quality problems that affect the customer experience",
+          "color": "9e2c2c"
+        },
+        {
+          "id": "MDU6TGFiZWwyMjYyNjcyMTg=",
+          "name": "blocked",
+          "description": "",
+          "color": "fbca04"
+        },
+        {
+          "id": "MDU6TGFiZWwyNTI1MjQwNjU=",
+          "name": "upstream",
+          "description": "",
+          "color": "d4c5f9"
+        },
+        {
+          "id": "MDU6TGFiZWwxNDQzNzEyMTIx",
+          "name": "EUI",
+          "description": "",
+          "color": "006DE4"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABXsNNmA",
+          "name": "Feature:UnifiedDataTable",
+          "description": "",
+          "color": "0E8A16"
+        }
+      ],
+      "number": 221768,
+      "title": "[Discover] Data grid renders data incorrectly and rows overlap each over",
+      "url": "https://github.com/elastic/kibana/issues/221768"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2024-02-08T22:07:57Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw2MDcxNTczMDY=",
+          "name": "Project:Accessibility",
+          "description": "",
+          "color": "0052cc"
+        },
+        {
+          "id": "MDU6TGFiZWw5NTA0Njc5NzU=",
+          "name": "WCAG A",
+          "description": "",
+          "color": "d49ce5"
+        },
+        {
+          "id": "MDU6TGFiZWwyNDI4NDQ2NDU4",
+          "name": "Team: SecuritySolution",
+          "description": "Security Solutions Team working on SIEM, Endpoint, Timeline, Resolver, etc.",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM7KwgQ3",
+          "name": "Team:Threat Hunting:Investigations",
+          "description": "Security Solution Threat Hunting Investigations Team",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABhxpEow",
+          "name": "defect-level-2",
+          "description": "Serious UX disruption with workaround a11y",
+          "color": "1C6A92"
+        }
+      ],
+      "number": 195082,
+      "title": "[Alerts > Landing][KEYBOARD]: Keyboard focus should be returned to the parent element when a menu or modal is closed",
+      "url": "https://github.com/elastic/kibana/issues/195082"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2026-02-12T12:20:53Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyNjE5ODIzNA==",
+          "name": "bug",
+          "description": "Fixes for quality problems that affect the customer experience",
+          "color": "9e2c2c"
+        },
+        {
+          "id": "MDU6TGFiZWw4MzI2MzgwMDM=",
+          "name": "triage_needed",
+          "description": "",
+          "color": "d4c5f9"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3NjI4",
+          "name": "impact:low",
+          "description": "Addressing this issue will have a low level of impact on the quality/strength of our product.",
+          "color": "4fed00"
+        },
+        {
+          "id": "MDU6TGFiZWwyNDI4NDQ2NDU4",
+          "name": "Team: SecuritySolution",
+          "description": "Security Solutions Team working on SIEM, Endpoint, Timeline, Resolver, etc.",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACCDIl5g",
+          "name": "Team:Cases",
+          "description": "Security Solution Cases team",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACQBmNww",
+          "name": "v9.4.0",
+          "description": "",
+          "color": "ffffff"
+        }
+      ],
+      "number": 252851,
+      "title": "[Security Solution][Bug] The Alerts and Events table breaks when exiting full-screen mode under Cases.",
+      "url": "https://github.com/elastic/kibana/issues/252851"
+    }
+  ]
+}

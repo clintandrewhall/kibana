@@ -1,0 +1,1794 @@
+{
+  "section": "7. Kibana UnifiedDataTable",
+  "count": 50,
+  "issues": [
+    {
+      "createdAt": "2026-01-30T08:50:56Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyNjE5ODIzNA==",
+          "name": "bug",
+          "description": "Fixes for quality problems that affect the customer experience",
+          "color": "9e2c2c"
+        },
+        {
+          "id": "MDU6TGFiZWw1MTYyNTY0MTk=",
+          "name": "Feature:Discover",
+          "description": "Discover Application",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWwxMDE5Njc5MTA2",
+          "name": "loe:small",
+          "description": "Small Level of Effort",
+          "color": "00B3A4"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3NjI4",
+          "name": "impact:low",
+          "description": "Addressing this issue will have a low level of impact on the quality/strength of our product.",
+          "color": "4fed00"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABXsNNmA",
+          "name": "Feature:UnifiedDataTable",
+          "description": "",
+          "color": "0E8A16"
+        }
+      ],
+      "number": 251014,
+      "state": "OPEN",
+      "title": "[Discover][UnifiedDataTable] Don't show filter icons when the cell violates the `ignore_above` mappings setting",
+      "url": "https://github.com/elastic/kibana/issues/251014"
+    },
+    {
+      "createdAt": "2023-10-11T15:20:32Z",
+      "labels": [
+        {
+          "id": "LA_kwDOAHeGUM7i5tos",
+          "name": "Team:Cloud Security",
+          "description": "Cloud Security team related",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABSOx-Eg",
+          "name": "Feature:Cloud-Security",
+          "description": "Cloud Security related features",
+          "color": "0b8a17"
+        }
+      ],
+      "number": 168619,
+      "state": "OPEN",
+      "title": "[UnifiedDataTable] Add support to Flyout Pagination in the UnifiedDataTable component",
+      "url": "https://github.com/elastic/kibana/issues/168619"
+    },
+    {
+      "createdAt": "2025-09-15T12:45:42Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw4MzY1NTM5ODc=",
+          "name": "enhancement",
+          "description": "New value added to drive a business result",
+          "color": "6C9B87"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3NjI4",
+          "name": "impact:low",
+          "description": "Addressing this issue will have a low level of impact on the quality/strength of our product.",
+          "color": "4fed00"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABW03lAQ",
+          "name": "Feature:ES|QL",
+          "description": "ES|QL related features in Kibana",
+          "color": "BF0071"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABkf5T-w",
+          "name": "Team:ESQL",
+          "description": "ES|QL related features in Kibana t//",
+          "color": "fef2c0"
+        }
+      ],
+      "number": 235070,
+      "state": "OPEN",
+      "title": "[ES|QL] Support sort in Lookup index editor",
+      "url": "https://github.com/elastic/kibana/issues/235070"
+    },
+    {
+      "createdAt": "2023-11-16T11:51:44Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyMjYyNjcyMTg=",
+          "name": "blocked",
+          "description": "",
+          "color": "fbca04"
+        },
+        {
+          "id": "MDU6TGFiZWw1MTYyNTY0MTk=",
+          "name": "Feature:Discover",
+          "description": "Discover Application",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWwxMDE5Njc5MzQ2",
+          "name": "loe:medium",
+          "description": "Medium Level of Effort",
+          "color": "E6C220"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3MTU1",
+          "name": "impact:medium",
+          "description": "Addressing this issue will have a medium level of impact on the quality/strength of our product.",
+          "color": "fff53a"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        }
+      ],
+      "number": 171393,
+      "state": "OPEN",
+      "title": "[UnifiedDataTable] Add breakdown by colors",
+      "url": "https://github.com/elastic/kibana/issues/171393"
+    },
+    {
+      "createdAt": "2025-03-06T16:30:23Z",
+      "labels": [
+        {
+          "id": "LA_kwDOAHeGUM7i5tos",
+          "name": "Team:Cloud Security",
+          "description": "Cloud Security team related",
+          "color": "fef2c0"
+        }
+      ],
+      "number": 213427,
+      "state": "OPEN",
+      "title": "[Tech Debt] Implement custom criticality sorting",
+      "url": "https://github.com/elastic/kibana/issues/213427"
+    },
+    {
+      "createdAt": "2024-07-26T14:27:17Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyNDI4NDQ2NDU4",
+          "name": "Team: SecuritySolution",
+          "description": "Security Solutions Team working on SIEM, Endpoint, Timeline, Resolver, etc.",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM7KwgQ3",
+          "name": "Team:Threat Hunting:Investigations",
+          "description": "Security Solution Threat Hunting Investigations Team",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABmLneYQ",
+          "name": "Project:OneDiscover",
+          "description": "Enrich Discover with contextual awareness",
+          "color": "C12D70"
+        }
+      ],
+      "number": 189294,
+      "state": "OPEN",
+      "title": "[OneDiscover][Security Solution] Refactor Security components to use `rowAdditionalLeadingControls` prop for UnifiedDataTable",
+      "url": "https://github.com/elastic/kibana/issues/189294"
+    },
+    {
+      "createdAt": "2026-01-14T20:51:19Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw1MTYyNTY0MTk=",
+          "name": "Feature:Discover",
+          "description": "Discover Application",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWw5MTI5NDQzOTA=",
+          "name": "usability",
+          "description": "",
+          "color": "bfd4f2"
+        },
+        {
+          "id": "MDU6TGFiZWwxMDE5NzI0NjU0",
+          "name": "loe:needs-research",
+          "description": "This issue requires some research before it can be worked on or estimated",
+          "color": "4d2793"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3MTU1",
+          "name": "impact:medium",
+          "description": "Addressing this issue will have a medium level of impact on the quality/strength of our product.",
+          "color": "fff53a"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABTvav8A",
+          "name": "Feature:Embeddables",
+          "description": "Relating to the Embeddable system",
+          "color": "0e8a16"
+        }
+      ],
+      "number": 249099,
+      "state": "OPEN",
+      "title": "[Discover][Dashboard] Allow to add Discover's table By Value to Dashboard",
+      "url": "https://github.com/elastic/kibana/issues/249099"
+    },
+    {
+      "createdAt": "2025-04-02T09:07:30Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw2MDcxNTczMDY=",
+          "name": "Project:Accessibility",
+          "description": "",
+          "color": "0052cc"
+        },
+        {
+          "id": "MDU6TGFiZWw5NTA0Njc5NzU=",
+          "name": "WCAG A",
+          "description": "",
+          "color": "d49ce5"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM7aViV4",
+          "name": "Team:SharedUX",
+          "description": "Platform AppEx-SharedUX (formerly Global Experience) t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABhxpEow",
+          "name": "defect-level-2",
+          "description": "Serious UX disruption with workaround a11y",
+          "color": "1C6A92"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAAB7_d2zA",
+          "name": "platform-accessibility",
+          "description": "Use to identify Platform a11y issues.  Do not remove when an area team is assigned.",
+          "color": "FEF2C0"
+        }
+      ],
+      "number": 216771,
+      "state": "OPEN",
+      "title": "[Analytics:Discover page] Incorrect navigation when escaping the Fullscreen mode of the UnifiedDataTable",
+      "url": "https://github.com/elastic/kibana/issues/216771"
+    },
+    {
+      "createdAt": "2025-02-10T21:16:01Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw1MTYyNTY0MTk=",
+          "name": "Feature:Discover",
+          "description": "Discover Application",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWw4MzY1NTM5ODc=",
+          "name": "enhancement",
+          "description": "New value added to drive a business result",
+          "color": "6C9B87"
+        },
+        {
+          "id": "MDU6TGFiZWwxMDE5NzI0NjU0",
+          "name": "loe:needs-research",
+          "description": "This issue requires some research before it can be worked on or estimated",
+          "color": "4d2793"
+        },
+        {
+          "id": "MDU6TGFiZWwxMTA2NTgxNDYy",
+          "name": "Feature:Data Views",
+          "description": "Data Views code and UI - index patterns before 8.0",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3MTU1",
+          "name": "impact:medium",
+          "description": "Addressing this issue will have a medium level of impact on the quality/strength of our product.",
+          "color": "fff53a"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABW03lAQ",
+          "name": "Feature:ES|QL",
+          "description": "ES|QL related features in Kibana",
+          "color": "BF0071"
+        }
+      ],
+      "number": 210464,
+      "state": "OPEN",
+      "title": "[ES|QL] [Data Views] [Discover] Optimize data views for ES|QL mode",
+      "url": "https://github.com/elastic/kibana/issues/210464"
+    },
+    {
+      "createdAt": "2024-11-05T14:35:48Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw4MzY1NTM5ODc=",
+          "name": "enhancement",
+          "description": "New value added to drive a business result",
+          "color": "6C9B87"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3NjI4",
+          "name": "impact:low",
+          "description": "Addressing this issue will have a low level of impact on the quality/strength of our product.",
+          "color": "4fed00"
+        },
+        {
+          "id": "LA_kwDOAHeGUM7KwgQ3",
+          "name": "Team:Threat Hunting:Investigations",
+          "description": "Security Solution Threat Hunting Investigations Team",
+          "color": "fef2c0"
+        }
+      ],
+      "number": 198955,
+      "state": "OPEN",
+      "title": "[Security Solution] Enable draggable headers in Timeline Unified Data table.",
+      "url": "https://github.com/elastic/kibana/issues/198955"
+    },
+    {
+      "createdAt": "2025-02-07T18:09:21Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyNjE5ODIzNA==",
+          "name": "bug",
+          "description": "Fixes for quality problems that affect the customer experience",
+          "color": "9e2c2c"
+        },
+        {
+          "id": "MDU6TGFiZWw1MTYyNTY0MTk=",
+          "name": "Feature:Discover",
+          "description": "Discover Application",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3MTU1",
+          "name": "impact:medium",
+          "description": "Addressing this issue will have a medium level of impact on the quality/strength of our product.",
+          "color": "fff53a"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABXsNNmA",
+          "name": "Feature:UnifiedDataTable",
+          "description": "",
+          "color": "0E8A16"
+        }
+      ],
+      "number": 210234,
+      "state": "OPEN",
+      "title": "[Discover] Aggregate metric field columns display oddly in Discover",
+      "url": "https://github.com/elastic/kibana/issues/210234"
+    },
+    {
+      "createdAt": "2025-12-17T16:15:37Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxMDcyODkyMTEw",
+          "name": "failed-test",
+          "description": "A test failure on a tracked branch, potentially flaky-test",
+          "color": "fbca04"
+        },
+        {
+          "id": "LA_kwDOAHeGUM7KwgQ3",
+          "name": "Team:Threat Hunting:Investigations",
+          "description": "Security Solution Threat Hunting Investigations Team",
+          "color": "fef2c0"
+        }
+      ],
+      "number": 246751,
+      "state": "OPEN",
+      "title": "Failing test: Security Solution Cypress.x-pack/solutions/security/test/security_solution_cypress/cypress/e2e/investigations/timelines/timelines_table\u00b7cy\u00b7ts - timeline overview search should show all timelines when no search term was entered should show all timelines when no search term was entered",
+      "url": "https://github.com/elastic/kibana/issues/246751"
+    },
+    {
+      "createdAt": "2026-02-24T11:40:02Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyNjE5ODIzNA==",
+          "name": "bug",
+          "description": "Fixes for quality problems that affect the customer experience",
+          "color": "9e2c2c"
+        },
+        {
+          "id": "LA_kwDOAHeGUM7i5tos",
+          "name": "Team:Cloud Security",
+          "description": "Cloud Security team related",
+          "color": "fef2c0"
+        }
+      ],
+      "number": 254691,
+      "state": "CLOSED",
+      "title": "[CSP] Grouping control is not right-aligned in Findings data grid toolbar",
+      "url": "https://github.com/elastic/kibana/issues/254691"
+    },
+    {
+      "createdAt": "2025-12-26T21:34:58Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyNjE5ODIzNA==",
+          "name": "bug",
+          "description": "Fixes for quality problems that affect the customer experience",
+          "color": "9e2c2c"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACNFaynw",
+          "name": "Feature:Traces in Discover",
+          "description": "",
+          "color": "0e8a16"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACO5tyeA",
+          "name": "Team:obs-exploration",
+          "description": "Observability Exploration team",
+          "color": "FEF2C0"
+        }
+      ],
+      "number": 247512,
+      "state": "OPEN",
+      "title": "[Discover] No user feedback when navigation to Document is blocked while histogram is loading",
+      "url": "https://github.com/elastic/kibana/issues/247512"
+    },
+    {
+      "createdAt": "2024-01-08T19:58:38Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw1MTYyNTY0MTk=",
+          "name": "Feature:Discover",
+          "description": "Discover Application",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWw4MzY1NTM5ODc=",
+          "name": "enhancement",
+          "description": "New value added to drive a business result",
+          "color": "6C9B87"
+        },
+        {
+          "id": "MDU6TGFiZWwxMDE5Njc5MTA2",
+          "name": "loe:small",
+          "description": "Small Level of Effort",
+          "color": "00B3A4"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3NjI4",
+          "name": "impact:low",
+          "description": "Addressing this issue will have a low level of impact on the quality/strength of our product.",
+          "color": "4fed00"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM77ZJU5",
+          "name": "papercut",
+          "description": "Small \"burr\" in the product that we should fix.",
+          "color": "5319e7"
+        }
+      ],
+      "number": 174486,
+      "state": "OPEN",
+      "title": "[Discover] In Context view, Row Height widget is missing",
+      "url": "https://github.com/elastic/kibana/issues/174486"
+    },
+    {
+      "createdAt": "2026-02-11T15:56:55Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyNjE5ODIzNA==",
+          "name": "bug",
+          "description": "Fixes for quality problems that affect the customer experience",
+          "color": "9e2c2c"
+        },
+        {
+          "id": "MDU6TGFiZWw0NzIzNzQ0MzI=",
+          "name": "Feature:Data Table",
+          "description": "Data table visualization feature",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWw1MTYyNTY0MTk=",
+          "name": "Feature:Discover",
+          "description": "Discover Application",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWwxMDE5Njc5MTA2",
+          "name": "loe:small",
+          "description": "Small Level of Effort",
+          "color": "00B3A4"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3NjI4",
+          "name": "impact:low",
+          "description": "Addressing this issue will have a low level of impact on the quality/strength of our product.",
+          "color": "4fed00"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM77ZJU5",
+          "name": "papercut",
+          "description": "Small \"burr\" in the product that we should fix.",
+          "color": "5319e7"
+        }
+      ],
+      "number": 252744,
+      "state": "CLOSED",
+      "title": "[Discover] `word-break: break-all` on data table cells causes confusing mid-word line breaks at a fixed character boundary",
+      "url": "https://github.com/elastic/kibana/issues/252744"
+    },
+    {
+      "createdAt": "2026-02-06T14:29:00Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyNjE5ODIzNA==",
+          "name": "bug",
+          "description": "Fixes for quality problems that affect the customer experience",
+          "color": "9e2c2c"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABLXAqaQ",
+          "name": "Feature:ObsHosts",
+          "description": "Hosts feature within Observability",
+          "color": "0e8a16"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACQaOEpA",
+          "name": "Team:obs-presentation",
+          "description": "Focus: APM UI, Infra UI, Hosts UI, Universal Profiling, Obs Overview and left Navigation",
+          "color": "fef2c0"
+        }
+      ],
+      "number": 252094,
+      "state": "CLOSED",
+      "title": "[Hosts] Logs tab performance issues",
+      "url": "https://github.com/elastic/kibana/issues/252094"
+    },
+    {
+      "createdAt": "2024-09-10T14:38:19Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyMjI4ODk0MjQ=",
+          "name": "chore",
+          "description": "",
+          "color": "7949fa"
+        },
+        {
+          "id": "MDU6TGFiZWwxMDE5Njc5MTA2",
+          "name": "loe:small",
+          "description": "Small Level of Effort",
+          "color": "00B3A4"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3NjI4",
+          "name": "impact:low",
+          "description": "Addressing this issue will have a low level of impact on the quality/strength of our product.",
+          "color": "4fed00"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABNkORig",
+          "name": "Feature:UnifiedDocViewer",
+          "description": "Issues relating to the unified doc viewer component",
+          "color": "0e8a16"
+        }
+      ],
+      "number": 192485,
+      "state": "CLOSED",
+      "title": "[UnifiedDocViewer] Don't show filter icons when filtering is not possible",
+      "url": "https://github.com/elastic/kibana/issues/192485"
+    },
+    {
+      "createdAt": "2025-09-10T15:21:52Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyNjE5ODIzNA==",
+          "name": "bug",
+          "description": "Fixes for quality problems that affect the customer experience",
+          "color": "9e2c2c"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3MTU1",
+          "name": "impact:medium",
+          "description": "Addressing this issue will have a medium level of impact on the quality/strength of our product.",
+          "color": "fff53a"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABXsNNmA",
+          "name": "Feature:UnifiedDataTable",
+          "description": "",
+          "color": "0E8A16"
+        }
+      ],
+      "number": 234647,
+      "state": "CLOSED",
+      "title": "[Discover][UnifiedDataTable] Fix heading cell for Actions column",
+      "url": "https://github.com/elastic/kibana/issues/234647"
+    },
+    {
+      "createdAt": "2025-01-23T22:18:05Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw2MDcxNTczMDY=",
+          "name": "Project:Accessibility",
+          "description": "",
+          "color": "0052cc"
+        },
+        {
+          "id": "MDU6TGFiZWw5NTA0Njc5NzU=",
+          "name": "WCAG A",
+          "description": "",
+          "color": "d49ce5"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA1OTc5",
+          "name": "impact:critical",
+          "description": "This issue should be addressed immediately  due to a critical level of impact on the product.",
+          "color": "e00606"
+        },
+        {
+          "id": "MDU6TGFiZWwyNDI4NDQ2NDU4",
+          "name": "Team: SecuritySolution",
+          "description": "Security Solutions Team working on SIEM, Endpoint, Timeline, Resolver, etc.",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM7i5tos",
+          "name": "Team:Cloud Security",
+          "description": "Cloud Security team related",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM79jr6W",
+          "name": "verified",
+          "description": "",
+          "color": "158630"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABhxpBeQ",
+          "name": "defect-level-1",
+          "description": "Critical UX disruption a11y",
+          "color": "921C41"
+        }
+      ],
+      "number": 208127,
+      "state": "CLOSED",
+      "title": "[Security:Findings:Misconfigurations]  Total number of findings is not announced",
+      "url": "https://github.com/elastic/kibana/issues/208127"
+    },
+    {
+      "createdAt": "2025-10-27T21:44:42Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxMDcyODkyMTEw",
+          "name": "failed-test",
+          "description": "A test failure on a tracked branch, potentially flaky-test",
+          "color": "fbca04"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM7KwgQ3",
+          "name": "Team:Threat Hunting:Investigations",
+          "description": "Security Solution Threat Hunting Investigations Team",
+          "color": "fef2c0"
+        }
+      ],
+      "number": 240904,
+      "state": "CLOSED",
+      "title": "Failing test: Jest Tests.src/platform/packages/shared/kbn-unified-data-table/src/components - UnifiedDataTable columns should reset the last column to auto width if only absolute width columns remain",
+      "url": "https://github.com/elastic/kibana/issues/240904"
+    },
+    {
+      "createdAt": "2025-10-27T21:44:42Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxMDcyODkyMTEw",
+          "name": "failed-test",
+          "description": "A test failure on a tracked branch, potentially flaky-test",
+          "color": "fbca04"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM7KwgQ3",
+          "name": "Team:Threat Hunting:Investigations",
+          "description": "Security Solution Threat Hunting Investigations Team",
+          "color": "fef2c0"
+        }
+      ],
+      "number": 240905,
+      "state": "CLOSED",
+      "title": "Failing test: Jest Tests.src/platform/packages/shared/kbn-unified-data-table/src/components - UnifiedDataTable columns should not reset the last column to auto width when there are remaining auto width columns",
+      "url": "https://github.com/elastic/kibana/issues/240905"
+    },
+    {
+      "createdAt": "2025-09-11T22:21:20Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxMDcyODkyMTEw",
+          "name": "failed-test",
+          "description": "A test failure on a tracked branch, potentially flaky-test",
+          "color": "fbca04"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM7KwgQ3",
+          "name": "Team:Threat Hunting:Investigations",
+          "description": "Security Solution Threat Hunting Investigations Team",
+          "color": "fef2c0"
+        }
+      ],
+      "number": 234829,
+      "state": "CLOSED",
+      "title": "Failing test: Jest Tests.src/platform/packages/shared/kbn-unified-data-table/src/components - UnifiedDataTable columns should show the reset width button only for absolute width columns, and allow resetting to default width",
+      "url": "https://github.com/elastic/kibana/issues/234829"
+    },
+    {
+      "createdAt": "2025-08-11T11:34:39Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyNjE5ODIzNA==",
+          "name": "bug",
+          "description": "Fixes for quality problems that affect the customer experience",
+          "color": "9e2c2c"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3MTU1",
+          "name": "impact:medium",
+          "description": "Addressing this issue will have a medium level of impact on the quality/strength of our product.",
+          "color": "fff53a"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABXsNNmA",
+          "name": "Feature:UnifiedDataTable",
+          "description": "",
+          "color": "0E8A16"
+        }
+      ],
+      "number": 231280,
+      "state": "CLOSED",
+      "title": "[UnifiedDataTable] Disable sorting for some ES|QL columns like geo fields",
+      "url": "https://github.com/elastic/kibana/issues/231280"
+    },
+    {
+      "createdAt": "2025-04-15T08:47:14Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxMDcyODkyMTEw",
+          "name": "failed-test",
+          "description": "A test failure on a tracked branch, potentially flaky-test",
+          "color": "fbca04"
+        },
+        {
+          "id": "MDU6TGFiZWwyNDI4NDQ2NDU4",
+          "name": "Team: SecuritySolution",
+          "description": "Security Solutions Team working on SIEM, Endpoint, Timeline, Resolver, etc.",
+          "color": "fef2c0"
+        },
+        {
+          "id": "MDU6TGFiZWwyNDI5NDE0ODUz",
+          "name": "Team:Defend Workflows",
+          "description": "\u201cEDR Workflows\u201d sub-team of Security Solution",
+          "color": "fef2c0"
+        },
+        {
+          "id": "MDU6TGFiZWwyNzkyMjQ5MDM2",
+          "name": "OLM Sprint",
+          "description": "",
+          "color": "65E0D3"
+        }
+      ],
+      "number": 218208,
+      "state": "CLOSED",
+      "title": "Failing test: can visit discover from response action results - Alert Flyout Automated Action Results can visit discover from response action results",
+      "url": "https://github.com/elastic/kibana/issues/218208"
+    },
+    {
+      "createdAt": "2025-07-23T15:26:54Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyNjE5ODIzNA==",
+          "name": "bug",
+          "description": "Fixes for quality problems that affect the customer experience",
+          "color": "9e2c2c"
+        },
+        {
+          "id": "MDU6TGFiZWw1MTYyNTY0MTk=",
+          "name": "Feature:Discover",
+          "description": "Discover Application",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWwxMDE5Njc5MTA2",
+          "name": "loe:small",
+          "description": "Small Level of Effort",
+          "color": "00B3A4"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3NjI4",
+          "name": "impact:low",
+          "description": "Addressing this issue will have a low level of impact on the quality/strength of our product.",
+          "color": "4fed00"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        }
+      ],
+      "number": 229178,
+      "state": "CLOSED",
+      "title": "Ellipsis in summary column missing",
+      "url": "https://github.com/elastic/kibana/issues/229178"
+    },
+    {
+      "createdAt": "2024-07-30T10:38:03Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw1MTYyNTY0MTk=",
+          "name": "Feature:Discover",
+          "description": "Discover Application",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWw4MzY1NTM5ODc=",
+          "name": "enhancement",
+          "description": "New value added to drive a business result",
+          "color": "6C9B87"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3MTU1",
+          "name": "impact:medium",
+          "description": "Addressing this issue will have a medium level of impact on the quality/strength of our product.",
+          "color": "fff53a"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABW03lAQ",
+          "name": "Feature:ES|QL",
+          "description": "ES|QL related features in Kibana",
+          "color": "BF0071"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABmLneYQ",
+          "name": "Project:OneDiscover",
+          "description": "Enrich Discover with contextual awareness",
+          "color": "C12D70"
+        }
+      ],
+      "number": 189489,
+      "state": "CLOSED",
+      "title": "[Discover] Deactivate pagination for ES|QL provided results ",
+      "url": "https://github.com/elastic/kibana/issues/189489"
+    },
+    {
+      "createdAt": "2024-07-26T14:30:22Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyNDI4NDQ2NDU4",
+          "name": "Team: SecuritySolution",
+          "description": "Security Solutions Team working on SIEM, Endpoint, Timeline, Resolver, etc.",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM7KwgQ3",
+          "name": "Team:Threat Hunting:Investigations",
+          "description": "Security Solution Threat Hunting Investigations Team",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABmLneYQ",
+          "name": "Project:OneDiscover",
+          "description": "Enrich Discover with contextual awareness",
+          "color": "C12D70"
+        }
+      ],
+      "number": 189295,
+      "state": "CLOSED",
+      "title": "[OneDiscover][Security Solution] Refactor Security components to use getRowIndicator prop for UnifiedDataTable",
+      "url": "https://github.com/elastic/kibana/issues/189295"
+    },
+    {
+      "createdAt": "2024-12-09T09:47:12Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw1MTYyNTY0MTk=",
+          "name": "Feature:Discover",
+          "description": "Discover Application",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3MTU1",
+          "name": "impact:medium",
+          "description": "Addressing this issue will have a medium level of impact on the quality/strength of our product.",
+          "color": "fff53a"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABmLneYQ",
+          "name": "Project:OneDiscover",
+          "description": "Enrich Discover with contextual awareness",
+          "color": "C12D70"
+        }
+      ],
+      "number": 203377,
+      "state": "CLOSED",
+      "title": "[OneDiscover][UnifiedDataTable] Apply compact Display options Popover layout",
+      "url": "https://github.com/elastic/kibana/issues/203377"
+    },
+    {
+      "createdAt": "2024-12-09T09:47:27Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw1MTYyNTY0MTk=",
+          "name": "Feature:Discover",
+          "description": "Discover Application",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3MTU1",
+          "name": "impact:medium",
+          "description": "Addressing this issue will have a medium level of impact on the quality/strength of our product.",
+          "color": "fff53a"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABmLneYQ",
+          "name": "Project:OneDiscover",
+          "description": "Enrich Discover with contextual awareness",
+          "color": "C12D70"
+        }
+      ],
+      "number": 203378,
+      "state": "CLOSED",
+      "title": "[OneDiscover][UnifiedDataTable] Change RowHeightSettings design to align with EUI",
+      "url": "https://github.com/elastic/kibana/issues/203378"
+    },
+    {
+      "createdAt": "2024-07-11T09:37:46Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw1MTYyNTY0MTk=",
+          "name": "Feature:Discover",
+          "description": "Discover Application",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3MTU1",
+          "name": "impact:medium",
+          "description": "Addressing this issue will have a medium level of impact on the quality/strength of our product.",
+          "color": "fff53a"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABmLneYQ",
+          "name": "Project:OneDiscover",
+          "description": "Enrich Discover with contextual awareness",
+          "color": "C12D70"
+        }
+      ],
+      "number": 188066,
+      "state": "CLOSED",
+      "title": "[OneDiscover] Change layout of Display Options Popover",
+      "url": "https://github.com/elastic/kibana/issues/188066"
+    },
+    {
+      "createdAt": "2023-09-26T12:58:26Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNTM4MzQ5NTk=",
+          "name": "good first issue",
+          "description": "low hanging fruit",
+          "color": "07569b"
+        },
+        {
+          "id": "MDU6TGFiZWw1MTYyNTY0MTk=",
+          "name": "Feature:Discover",
+          "description": "Discover Application",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWw4MzY1NTM5ODc=",
+          "name": "enhancement",
+          "description": "New value added to drive a business result",
+          "color": "6C9B87"
+        },
+        {
+          "id": "MDU6TGFiZWw5MTI5NDQzOTA=",
+          "name": "usability",
+          "description": "",
+          "color": "bfd4f2"
+        },
+        {
+          "id": "MDU6TGFiZWwxMDE5Njc5MTA2",
+          "name": "loe:small",
+          "description": "Small Level of Effort",
+          "color": "00B3A4"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3MTU1",
+          "name": "impact:medium",
+          "description": "Addressing this issue will have a medium level of impact on the quality/strength of our product.",
+          "color": "fff53a"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM77ZJU5",
+          "name": "papercut",
+          "description": "Small \"burr\" in the product that we should fix.",
+          "color": "5319e7"
+        }
+      ],
+      "number": 167271,
+      "state": "CLOSED",
+      "title": "[Discover] Add a warning and tooltip for _score column in the grid",
+      "url": "https://github.com/elastic/kibana/issues/167271"
+    },
+    {
+      "createdAt": "2024-12-09T09:45:17Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw1MTYyNTY0MTk=",
+          "name": "Feature:Discover",
+          "description": "Discover Application",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3MTU1",
+          "name": "impact:medium",
+          "description": "Addressing this issue will have a medium level of impact on the quality/strength of our product.",
+          "color": "fff53a"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABmLneYQ",
+          "name": "Project:OneDiscover",
+          "description": "Enrich Discover with contextual awareness",
+          "color": "C12D70"
+        }
+      ],
+      "number": 203376,
+      "state": "CLOSED",
+      "title": "[OneDiscover][UnifiedDataTable] Change RowHeightSettings design to align with EUI",
+      "url": "https://github.com/elastic/kibana/issues/203376"
+    },
+    {
+      "createdAt": "2025-01-16T10:53:48Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        }
+      ],
+      "number": 206920,
+      "state": "CLOSED",
+      "title": "Raw text output from Discover for copy+paste",
+      "url": "https://github.com/elastic/kibana/issues/206920"
+    },
+    {
+      "createdAt": "2024-12-10T12:05:29Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw1MTYyNTY0MTk=",
+          "name": "Feature:Discover",
+          "description": "Discover Application",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWw4MzY1NTM5ODc=",
+          "name": "enhancement",
+          "description": "New value added to drive a business result",
+          "color": "6C9B87"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3NjI4",
+          "name": "impact:low",
+          "description": "Addressing this issue will have a low level of impact on the quality/strength of our product.",
+          "color": "4fed00"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM77ZJU5",
+          "name": "papercut",
+          "description": "Small \"burr\" in the product that we should fix.",
+          "color": "5319e7"
+        }
+      ],
+      "number": 203550,
+      "state": "CLOSED",
+      "title": "[Discover] - Add \"Copy\" action/button for field values once fields are selected in Discover.",
+      "url": "https://github.com/elastic/kibana/issues/203550"
+    },
+    {
+      "createdAt": "2023-08-23T19:07:48Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyMjYyNjcyMTg=",
+          "name": "blocked",
+          "description": "",
+          "color": "fbca04"
+        },
+        {
+          "id": "MDU6TGFiZWw1MTYyNTY0MTk=",
+          "name": "Feature:Discover",
+          "description": "Discover Application",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWwxMDE5Njc5MTA2",
+          "name": "loe:small",
+          "description": "Small Level of Effort",
+          "color": "00B3A4"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3NjI4",
+          "name": "impact:low",
+          "description": "Addressing this issue will have a low level of impact on the quality/strength of our product.",
+          "color": "4fed00"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABQD4eDw",
+          "name": "Icebox",
+          "description": "",
+          "color": "0052CC"
+        }
+      ],
+      "number": 164634,
+      "state": "CLOSED",
+      "title": "[UnifiedDataTable] Redesign Document column",
+      "url": "https://github.com/elastic/kibana/issues/164634"
+    },
+    {
+      "createdAt": "2024-06-20T20:46:47Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxMDE5Njc5MTA2",
+          "name": "loe:small",
+          "description": "Small Level of Effort",
+          "color": "00B3A4"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA2NzQ4",
+          "name": "impact:high",
+          "description": "Addressing this issue will have a high level of impact on the quality/strength of our product.",
+          "color": "ff9000"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABmLneYQ",
+          "name": "Project:OneDiscover",
+          "description": "Enrich Discover with contextual awareness",
+          "color": "C12D70"
+        }
+      ],
+      "number": 186567,
+      "state": "CLOSED",
+      "title": "[OneDiscover] DataTable log.level colored badge cell renderer",
+      "url": "https://github.com/elastic/kibana/issues/186567"
+    },
+    {
+      "createdAt": "2023-12-12T13:37:46Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw1MTYyNTY0MTk=",
+          "name": "Feature:Discover",
+          "description": "Discover Application",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWw4MzY1NTM5ODc=",
+          "name": "enhancement",
+          "description": "New value added to drive a business result",
+          "color": "6C9B87"
+        },
+        {
+          "id": "MDU6TGFiZWwxMDE5Njc5MzQ2",
+          "name": "loe:medium",
+          "description": "Medium Level of Effort",
+          "color": "E6C220"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3MTU1",
+          "name": "impact:medium",
+          "description": "Addressing this issue will have a medium level of impact on the quality/strength of our product.",
+          "color": "fff53a"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABQD4eDw",
+          "name": "Icebox",
+          "description": "",
+          "color": "0052CC"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABXsNNmA",
+          "name": "Feature:UnifiedDataTable",
+          "description": "",
+          "color": "0E8A16"
+        }
+      ],
+      "number": 173155,
+      "state": "CLOSED",
+      "title": "[UnifiedDataTable] Add display option to hide / show field token in header cells",
+      "url": "https://github.com/elastic/kibana/issues/173155"
+    },
+    {
+      "createdAt": "2024-11-29T12:19:34Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyNjE5ODIzNA==",
+          "name": "bug",
+          "description": "Fixes for quality problems that affect the customer experience",
+          "color": "9e2c2c"
+        },
+        {
+          "id": "MDU6TGFiZWw1MTYyNTY0MTk=",
+          "name": "Feature:Discover",
+          "description": "Discover Application",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA2NzQ4",
+          "name": "impact:high",
+          "description": "Addressing this issue will have a high level of impact on the quality/strength of our product.",
+          "color": "ff9000"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        }
+      ],
+      "number": 202287,
+      "state": "CLOSED",
+      "title": "[Discover] JS warnings when opening the document flyout in Discover",
+      "url": "https://github.com/elastic/kibana/issues/202287"
+    },
+    {
+      "createdAt": "2024-03-12T08:17:44Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw4MzY1NTM5ODc=",
+          "name": "enhancement",
+          "description": "New value added to drive a business result",
+          "color": "6C9B87"
+        },
+        {
+          "id": "MDU6TGFiZWwxMDU1ODQyNzI0",
+          "name": "Team:Visualizations",
+          "description": "Team label for Lens, elastic-charts, Graph, legacy editors (TSVB, Visualize, Timelion) t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzUwMjQ1OTA5",
+          "name": "Feature:Lens",
+          "description": "",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3MTU1",
+          "name": "impact:medium",
+          "description": "Addressing this issue will have a medium level of impact on the quality/strength of our product.",
+          "color": "fff53a"
+        }
+      ],
+      "number": 178472,
+      "state": "CLOSED",
+      "title": "[Lens] Discover drilldown improvements",
+      "url": "https://github.com/elastic/kibana/issues/178472"
+    },
+    {
+      "createdAt": "2024-10-15T22:14:04Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxMDE5Njc5MTA2",
+          "name": "loe:small",
+          "description": "Small Level of Effort",
+          "color": "00B3A4"
+        },
+        {
+          "id": "MDU6TGFiZWwxMDcyODkyMTEw",
+          "name": "failed-test",
+          "description": "A test failure on a tracked branch, potentially flaky-test",
+          "color": "fbca04"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3MTU1",
+          "name": "impact:medium",
+          "description": "Addressing this issue will have a medium level of impact on the quality/strength of our product.",
+          "color": "fff53a"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        }
+      ],
+      "number": 196453,
+      "state": "CLOSED",
+      "title": "Failing test: Jest Tests.packages/kbn-unified-data-table/src/components - UnifiedDataTable columns should show the reset width button only for absolute width columns, and allow resetting to default width",
+      "url": "https://github.com/elastic/kibana/issues/196453"
+    },
+    {
+      "createdAt": "2024-06-11T16:44:26Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw1MTYyNTY0MTk=",
+          "name": "Feature:Discover",
+          "description": "Discover Application",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWw4MzY1NTM5ODc=",
+          "name": "enhancement",
+          "description": "New value added to drive a business result",
+          "color": "6C9B87"
+        },
+        {
+          "id": "MDU6TGFiZWwxMDE5Njc5MzQ2",
+          "name": "loe:medium",
+          "description": "Medium Level of Effort",
+          "color": "E6C220"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA2NzQ4",
+          "name": "impact:high",
+          "description": "Addressing this issue will have a high level of impact on the quality/strength of our product.",
+          "color": "ff9000"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABXsNNmA",
+          "name": "Feature:UnifiedDataTable",
+          "description": "",
+          "color": "0E8A16"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABmLneYQ",
+          "name": "Project:OneDiscover",
+          "description": "Enrich Discover with contextual awareness",
+          "color": "C12D70"
+        }
+      ],
+      "number": 186007,
+      "state": "CLOSED",
+      "title": "[OneDiscover] Add density configuration to unified data table",
+      "url": "https://github.com/elastic/kibana/issues/186007"
+    },
+    {
+      "createdAt": "2024-06-24T11:28:09Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyMjYyNjcyMTg=",
+          "name": "blocked",
+          "description": "",
+          "color": "fbca04"
+        },
+        {
+          "id": "MDU6TGFiZWw1MTYyNTY0MTk=",
+          "name": "Feature:Discover",
+          "description": "Discover Application",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA2NzQ4",
+          "name": "impact:high",
+          "description": "Addressing this issue will have a high level of impact on the quality/strength of our product.",
+          "color": "ff9000"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABmLneYQ",
+          "name": "Project:OneDiscover",
+          "description": "Enrich Discover with contextual awareness",
+          "color": "C12D70"
+        }
+      ],
+      "number": 186808,
+      "state": "CLOSED",
+      "title": "[OneDiscover][UnifiedDataTable] Change expand document/row button",
+      "url": "https://github.com/elastic/kibana/issues/186808"
+    },
+    {
+      "createdAt": "2024-08-27T17:37:29Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw1MTYyNTY0MTk=",
+          "name": "Feature:Discover",
+          "description": "Discover Application",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWw4MzY1NTM5ODc=",
+          "name": "enhancement",
+          "description": "New value added to drive a business result",
+          "color": "6C9B87"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3MTU1",
+          "name": "impact:medium",
+          "description": "Addressing this issue will have a medium level of impact on the quality/strength of our product.",
+          "color": "fff53a"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABmLneYQ",
+          "name": "Project:OneDiscover",
+          "description": "Enrich Discover with contextual awareness",
+          "color": "C12D70"
+        }
+      ],
+      "number": 191536,
+      "state": "CLOSED",
+      "title": "[OneDiscover][UnifiedDocViewer] Add filtering for selected fields",
+      "url": "https://github.com/elastic/kibana/issues/191536"
+    },
+    {
+      "createdAt": "2024-05-23T02:41:22Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxMDQwMzIwMzE0",
+          "name": "technical debt",
+          "description": "Improvement of the software architecture and operational architecture",
+          "color": "7949fa"
+        },
+        {
+          "id": "LA_kwDOAHeGUM7i5tos",
+          "name": "Team:Cloud Security",
+          "description": "Cloud Security team related",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABkyqoiA",
+          "name": "8.15 candidate",
+          "description": "",
+          "color": "92AE07"
+        }
+      ],
+      "number": 184078,
+      "state": "CLOSED",
+      "title": "[Cloud Security] Add custom column naming support to the UnifiedDataTable component.",
+      "url": "https://github.com/elastic/kibana/issues/184078"
+    },
+    {
+      "createdAt": "2024-09-05T06:53:13Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyNjE5ODIzNA==",
+          "name": "bug",
+          "description": "Fixes for quality problems that affect the customer experience",
+          "color": "9e2c2c"
+        },
+        {
+          "id": "MDU6TGFiZWwxMDE5NzI0NjU0",
+          "name": "loe:needs-research",
+          "description": "This issue requires some research before it can be worked on or estimated",
+          "color": "4d2793"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA2NzQ4",
+          "name": "impact:high",
+          "description": "Addressing this issue will have a high level of impact on the quality/strength of our product.",
+          "color": "ff9000"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        }
+      ],
+      "number": 192147,
+      "state": "CLOSED",
+      "title": "[Discover][UnifiedDataTable] Display options popover does not open if configured sampleSize value is not a step of 10",
+      "url": "https://github.com/elastic/kibana/issues/192147"
+    },
+    {
+      "createdAt": "2024-07-16T18:02:24Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyNjE5ODIzNA==",
+          "name": "bug",
+          "description": "Fixes for quality problems that affect the customer experience",
+          "color": "9e2c2c"
+        },
+        {
+          "id": "MDU6TGFiZWwxMDE5Njc5MTA2",
+          "name": "loe:small",
+          "description": "Small Level of Effort",
+          "color": "00B3A4"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3NjI4",
+          "name": "impact:low",
+          "description": "Addressing this issue will have a low level of impact on the quality/strength of our product.",
+          "color": "4fed00"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzE3MDUyMjAy",
+          "name": ":DataDiscovery/fix-it-week",
+          "description": "",
+          "color": "ee789d"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABXsNNmA",
+          "name": "Feature:UnifiedDataTable",
+          "description": "",
+          "color": "0E8A16"
+        }
+      ],
+      "number": 188472,
+      "state": "CLOSED",
+      "title": "[UnifiedDataTable] Header row height config doesn't work",
+      "url": "https://github.com/elastic/kibana/issues/188472"
+    },
+    {
+      "createdAt": "2024-07-11T09:24:43Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw1MTYyNTY0MTk=",
+          "name": "Feature:Discover",
+          "description": "Discover Application",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA2NzQ4",
+          "name": "impact:high",
+          "description": "Addressing this issue will have a high level of impact on the quality/strength of our product.",
+          "color": "ff9000"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABmLneYQ",
+          "name": "Project:OneDiscover",
+          "description": "Enrich Discover with contextual awareness",
+          "color": "C12D70"
+        }
+      ],
+      "number": 188063,
+      "state": "CLOSED",
+      "title": "[OneDiscover] Add new switch to `Show row stripes`",
+      "url": "https://github.com/elastic/kibana/issues/188063"
+    },
+    {
+      "createdAt": "2024-06-17T07:32:03Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw4MzY1NTM5ODc=",
+          "name": "enhancement",
+          "description": "New value added to drive a business result",
+          "color": "6C9B87"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA2NzQ4",
+          "name": "impact:high",
+          "description": "Addressing this issue will have a high level of impact on the quality/strength of our product.",
+          "color": "ff9000"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABXsNNmA",
+          "name": "Feature:UnifiedDataTable",
+          "description": "",
+          "color": "0E8A16"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABmLneYQ",
+          "name": "Project:OneDiscover",
+          "description": "Enrich Discover with contextual awareness",
+          "color": "C12D70"
+        }
+      ],
+      "number": 186264,
+      "state": "CLOSED",
+      "title": "[OneDiscover] Add data table row `log.level` severity indication",
+      "url": "https://github.com/elastic/kibana/issues/186264"
+    },
+    {
+      "createdAt": "2021-03-04T09:16:47Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw1MTYyNTY0MTk=",
+          "name": "Feature:Discover",
+          "description": "Discover Application",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWw4MzY1NTM5ODc=",
+          "name": "enhancement",
+          "description": "New value added to drive a business result",
+          "color": "6C9B87"
+        },
+        {
+          "id": "MDU6TGFiZWwxMDE5Njc5NzMy",
+          "name": "loe:large",
+          "description": "Large Level of Effort",
+          "color": "F98510"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3MTU1",
+          "name": "impact:medium",
+          "description": "Addressing this issue will have a medium level of impact on the quality/strength of our product.",
+          "color": "fff53a"
+        },
+        {
+          "id": "MDU6TGFiZWwyNTk0ODI0ODI4",
+          "name": "epic",
+          "description": "",
+          "color": "7110C3"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        }
+      ],
+      "number": 93567,
+      "state": "CLOSED",
+      "title": "[UnifiedDataTable] Add document/field diffing",
+      "url": "https://github.com/elastic/kibana/issues/93567"
+    }
+  ]
+}

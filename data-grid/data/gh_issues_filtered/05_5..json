@@ -1,0 +1,393 @@
+{
+  "section": "5. EUI CLOSED (since 2024)",
+  "count": 19,
+  "issues": [
+    {
+      "closedAt": null,
+      "createdAt": "2025-04-23T12:43:24Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        }
+      ],
+      "number": 8615,
+      "title": "[EuiDataGrid] Make `EuiDataGridCellActions` reusable outside `EuiDataGrid`",
+      "url": "https://github.com/elastic/eui/issues/8615"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2025-08-01T08:39:59Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNTU5Mjk3MDAw",
+          "name": "\u26a0\ufe0f needs validation",
+          "description": "For bugs that need confirmation as to whether they're reproducible",
+          "color": "FBCA04"
+        },
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        },
+        {
+          "id": "MDU6TGFiZWwyODEwNzQ0Njk4",
+          "name": "stale-issue",
+          "description": "(Don't delete - used for automation)",
+          "color": "ededed"
+        }
+      ],
+      "number": 8936,
+      "title": "[EuiDataGrid] Rows overlap each over",
+      "url": "https://github.com/elastic/eui/issues/8936"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2025-04-09T13:34:46Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        }
+      ],
+      "number": 8572,
+      "title": "[EuiDataGrid] Can't reorder columns with DnD while the data grid is scrolled down",
+      "url": "https://github.com/elastic/eui/issues/8572"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2025-04-29T11:20:32Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        }
+      ],
+      "number": 8656,
+      "title": "[EuiDataGrid] Investigate implementing smooth scrolling in the data grid",
+      "url": "https://github.com/elastic/eui/issues/8656"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2025-11-05T16:30:06Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzE0OTE1ODM2",
+          "name": "tech debt",
+          "description": "",
+          "color": "3B118B"
+        }
+      ],
+      "number": 9182,
+      "title": "[EuiDataGrid] Update to the latest `react-window` version (v2)",
+      "url": "https://github.com/elastic/eui/issues/9182"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2020-02-10T14:31:24Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        }
+      ],
+      "number": 2839,
+      "title": "[EuiDataGrid] Allow sticky columns",
+      "url": "https://github.com/elastic/eui/issues/2839"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2024-05-17T19:12:03Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        },
+        {
+          "id": "LA_kwDOBmcipc8AAAABn5TQvQ",
+          "name": "known issue",
+          "description": "",
+          "color": "F6E728"
+        }
+      ],
+      "number": 7769,
+      "title": "[EuiDataGrid] Grid grows to infinite height in flex container if `height` not provided",
+      "url": "https://github.com/elastic/eui/issues/7769"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2023-08-29T08:18:35Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        },
+        {
+          "id": "MDU6TGFiZWwyODEwNzQ0Njk4",
+          "name": "stale-issue",
+          "description": "(Don't delete - used for automation)",
+          "color": "ededed"
+        }
+      ],
+      "number": 7138,
+      "title": "[EuiDataGrid] Add column highlighting",
+      "url": "https://github.com/elastic/eui/issues/7138"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2025-06-05T09:01:32Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw3MzU0ODU5NjM=",
+          "name": "design decision",
+          "description": "Use this to flag an item that needs input from the design team",
+          "color": "006b75"
+        },
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        },
+        {
+          "id": "LA_kwDOBmcipc8AAAACLAiKYA",
+          "name": "request",
+          "description": "Clear use case, business priority. Requires a clear yes/no answer or coordination.",
+          "color": "b60205"
+        }
+      ],
+      "number": 8745,
+      "title": "[EuiDataGrid] Allow control over column actions in columns popover",
+      "url": "https://github.com/elastic/eui/issues/8745"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2025-07-11T12:20:50Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        }
+      ],
+      "number": 8859,
+      "title": "[Epic] EuiDataGrid long-term plan and investigation",
+      "url": "https://github.com/elastic/eui/issues/8859"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2025-03-18T09:36:14Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw3Mzg5MDkwMTY=",
+          "name": "meta",
+          "description": "Used to group similar requests or tracking. Not an Epic.",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        },
+        {
+          "id": "LA_kwDOBmcipc8AAAAB728rDw",
+          "name": "beta",
+          "description": "Issues for tracking beta functionalities",
+          "color": "006b75"
+        }
+      ],
+      "number": 8454,
+      "title": "[Beta] EuiDataGrid canDragAndDropColumns functionality",
+      "url": "https://github.com/elastic/eui/issues/8454"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2024-09-06T16:50:33Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        },
+        {
+          "id": "MDU6TGFiZWwyODEwNzQ0Njk4",
+          "name": "stale-issue",
+          "description": "(Don't delete - used for automation)",
+          "color": "ededed"
+        }
+      ],
+      "number": 8008,
+      "title": "[EuiDataGrid] Grids wrapped in a container with no set height & `defaultHeight: 'auto'` will render with 0 height in webkit browsers",
+      "url": "https://github.com/elastic/eui/issues/8008"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2025-10-14T14:31:36Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        },
+        {
+          "id": "LA_kwDOBmcipc8AAAACLAiKYA",
+          "name": "request",
+          "description": "Clear use case, business priority. Requires a clear yes/no answer or coordination.",
+          "color": "b60205"
+        }
+      ],
+      "number": 9104,
+      "title": "[EuiDataGrid] Avoid changing column header height on hover",
+      "url": "https://github.com/elastic/eui/issues/9104"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2023-01-27T21:07:06Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        }
+      ],
+      "number": 6561,
+      "title": "[EuiDataGrid] Add support for copying the focused cell's value with keyboard shortcut only",
+      "url": "https://github.com/elastic/eui/issues/6561"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2025-06-27T21:45:51Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw3MzU0ODU5NjM=",
+          "name": "design decision",
+          "description": "Use this to flag an item that needs input from the design team",
+          "color": "006b75"
+        },
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        },
+        {
+          "id": "LA_kwDOBmcipc8AAAACLAiKYA",
+          "name": "request",
+          "description": "Clear use case, business priority. Requires a clear yes/no answer or coordination.",
+          "color": "b60205"
+        }
+      ],
+      "number": 8830,
+      "title": "[EuiDataGrid] Support single cell editing",
+      "url": "https://github.com/elastic/eui/issues/8830"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2024-09-04T20:26:21Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        }
+      ],
+      "number": 8002,
+      "title": "[EuiDataGrid] Add Row Summary",
+      "url": "https://github.com/elastic/eui/issues/8002"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2025-07-30T07:52:48Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNTU5Mjk3MDAw",
+          "name": "\u26a0\ufe0f needs validation",
+          "description": "For bugs that need confirmation as to whether they're reproducible",
+          "color": "FBCA04"
+        },
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        },
+        {
+          "id": "MDU6TGFiZWwyODEwNzQ0Njk4",
+          "name": "stale-issue",
+          "description": "(Don't delete - used for automation)",
+          "color": "ededed"
+        }
+      ],
+      "number": 8927,
+      "title": "[EuiDataGrid] Downsizing columns does not fill the available container",
+      "url": "https://github.com/elastic/eui/issues/8927"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2025-04-29T11:22:42Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        },
+        {
+          "id": "LA_kwDOBmcipc8AAAABRp77GQ",
+          "name": "low hanging fruit",
+          "description": "An issue, often a bug, that is lower effort and clearly ought to be fixed",
+          "color": "F8CBF3"
+        }
+      ],
+      "number": 8657,
+      "title": "[EuiDataGrid] Actions menu and header overlap for the first row",
+      "url": "https://github.com/elastic/eui/issues/8657"
+    },
+    {
+      "closedAt": null,
+      "createdAt": "2025-03-31T14:08:56Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw4MTMxODA0NTQ=",
+          "name": "accessibility",
+          "description": "",
+          "color": "b7f41a"
+        },
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        }
+      ],
+      "number": 8520,
+      "title": "[EuiDataGrid][A11y] Column selector dragging accessibility improvements",
+      "url": "https://github.com/elastic/eui/issues/8520"
+    }
+  ]
+}

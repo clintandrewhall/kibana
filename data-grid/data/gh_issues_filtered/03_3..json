@@ -1,0 +1,154 @@
+{
+  "section": "3. Kibana OPEN enhancement/Feature",
+  "count": 5,
+  "issues": [
+    {
+      "createdAt": "2026-01-27T10:12:41Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        }
+      ],
+      "number": 250542,
+      "title": "Persist column selection in group by data grid",
+      "url": "https://github.com/elastic/kibana/issues/250542"
+    },
+    {
+      "createdAt": "2025-11-10T14:48:51Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxMzUyMzA2NjA=",
+          "name": "blocker",
+          "description": "",
+          "color": "e11d21"
+        },
+        {
+          "id": "MDU6TGFiZWw0NzAyNDI2NDA=",
+          "name": "Team:QA",
+          "description": "Platform QA t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "MDU6TGFiZWwxMDcyODkyMTEw",
+          "name": "failed-test",
+          "description": "A test failure on a tracked branch, potentially flaky-test",
+          "color": "fbca04"
+        },
+        {
+          "id": "MDU6TGFiZWwxMTg1MjQ0MzE2",
+          "name": "skipped-test",
+          "description": "",
+          "color": "aa2823"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACKd9edQ",
+          "name": "v9.3.0",
+          "description": "",
+          "color": "dddddd"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACNfHjjQ",
+          "name": "scout-playwright",
+          "description": "",
+          "color": "ededed"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACPg0VTQ",
+          "name": "v9.2.2",
+          "description": "",
+          "color": "dddddd"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACW8KQWw",
+          "name": "v8.19.12",
+          "description": "",
+          "color": "dddddd"
+        }
+      ],
+      "number": 242430,
+      "title": "Failing test: EUI testing wrapper: EuiDataGrid - data grid, run",
+      "url": "https://github.com/elastic/kibana/issues/242430"
+    },
+    {
+      "createdAt": "2026-01-08T16:28:07Z",
+      "labels": [
+        {
+          "id": "LA_kwDOAHeGUM8AAAABmLneYQ",
+          "name": "Project:OneDiscover",
+          "description": "Enrich Discover with contextual awareness",
+          "color": "C12D70"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACNFaynw",
+          "name": "Feature:Traces in Discover",
+          "description": "",
+          "color": "0e8a16"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACO5tyeA",
+          "name": "Team:obs-exploration",
+          "description": "Observability Exploration team",
+          "color": "FEF2C0"
+        }
+      ],
+      "number": 248314,
+      "title": "[Discover][Flyout] Update overview fields table with new prop headerVisibility set to false",
+      "url": "https://github.com/elastic/kibana/issues/248314"
+    },
+    {
+      "createdAt": "2026-01-26T15:43:48Z",
+      "labels": [
+        {
+          "id": "LA_kwDOAHeGUM7i5tos",
+          "name": "Team:Cloud Security",
+          "description": "Cloud Security team related",
+          "color": "fef2c0"
+        }
+      ],
+      "number": 250431,
+      "title": "Adopt Entity Resolution for Entity Analytics entity data grid",
+      "url": "https://github.com/elastic/kibana/issues/250431"
+    },
+    {
+      "createdAt": "2021-01-15T15:33:17Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwzNTcwMTA4MTM=",
+          "name": "Feature:Dashboard",
+          "description": "Dashboard related features",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWwxMDE5NzI0NjU0",
+          "name": "loe:needs-research",
+          "description": "This issue requires some research before it can be worked on or estimated",
+          "color": "4d2793"
+        },
+        {
+          "id": "MDU6TGFiZWwxMDU1ODQyNzI0",
+          "name": "Team:Visualizations",
+          "description": "Team label for Lens, elastic-charts, Graph, legacy editors (TSVB, Visualize, Timelion) t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3NjI4",
+          "name": "impact:low",
+          "description": "Addressing this issue will have a low level of impact on the quality/strength of our product.",
+          "color": "4fed00"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        }
+      ],
+      "number": 88482,
+      "title": "[Dashboard] Improve the handling of panels with data grid content",
+      "url": "https://github.com/elastic/kibana/issues/88482"
+    }
+  ]
+}

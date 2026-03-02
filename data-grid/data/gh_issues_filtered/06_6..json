@@ -1,0 +1,402 @@
+{
+  "section": "6. Kibana DataGrid performance",
+  "count": 16,
+  "issues": [
+    {
+      "createdAt": "2026-01-27T10:12:41Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        }
+      ],
+      "number": 250542,
+      "state": "OPEN",
+      "title": "Persist column selection in group by data grid",
+      "url": "https://github.com/elastic/kibana/issues/250542"
+    },
+    {
+      "createdAt": "2025-11-10T14:48:51Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxMzUyMzA2NjA=",
+          "name": "blocker",
+          "description": "",
+          "color": "e11d21"
+        },
+        {
+          "id": "MDU6TGFiZWw0NzAyNDI2NDA=",
+          "name": "Team:QA",
+          "description": "Platform QA t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "MDU6TGFiZWwxMDcyODkyMTEw",
+          "name": "failed-test",
+          "description": "A test failure on a tracked branch, potentially flaky-test",
+          "color": "fbca04"
+        },
+        {
+          "id": "MDU6TGFiZWwxMTg1MjQ0MzE2",
+          "name": "skipped-test",
+          "description": "",
+          "color": "aa2823"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACKd9edQ",
+          "name": "v9.3.0",
+          "description": "",
+          "color": "dddddd"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACNfHjjQ",
+          "name": "scout-playwright",
+          "description": "",
+          "color": "ededed"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACPg0VTQ",
+          "name": "v9.2.2",
+          "description": "",
+          "color": "dddddd"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACW8KQWw",
+          "name": "v8.19.12",
+          "description": "",
+          "color": "dddddd"
+        }
+      ],
+      "number": 242430,
+      "state": "OPEN",
+      "title": "Failing test: EUI testing wrapper: EuiDataGrid - data grid, run",
+      "url": "https://github.com/elastic/kibana/issues/242430"
+    },
+    {
+      "createdAt": "2025-04-23T12:43:24Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        }
+      ],
+      "number": 8615,
+      "state": "OPEN",
+      "title": "[EuiDataGrid] Make `EuiDataGridCellActions` reusable outside `EuiDataGrid`",
+      "url": "https://github.com/elastic/eui/issues/8615"
+    },
+    {
+      "createdAt": "2024-09-04T20:26:21Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        }
+      ],
+      "number": 8002,
+      "state": "OPEN",
+      "title": "[EuiDataGrid] Add Row Summary",
+      "url": "https://github.com/elastic/eui/issues/8002"
+    },
+    {
+      "createdAt": "2025-08-01T08:39:59Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNTU5Mjk3MDAw",
+          "name": "\u26a0\ufe0f needs validation",
+          "description": "For bugs that need confirmation as to whether they're reproducible",
+          "color": "FBCA04"
+        },
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        },
+        {
+          "id": "MDU6TGFiZWwyODEwNzQ0Njk4",
+          "name": "stale-issue",
+          "description": "(Don't delete - used for automation)",
+          "color": "ededed"
+        }
+      ],
+      "number": 8936,
+      "state": "OPEN",
+      "title": "[EuiDataGrid] Rows overlap each over",
+      "url": "https://github.com/elastic/eui/issues/8936"
+    },
+    {
+      "createdAt": "2025-04-09T13:34:46Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        }
+      ],
+      "number": 8572,
+      "state": "OPEN",
+      "title": "[EuiDataGrid] Can't reorder columns with DnD while the data grid is scrolled down",
+      "url": "https://github.com/elastic/eui/issues/8572"
+    },
+    {
+      "createdAt": "2025-04-29T11:20:32Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        }
+      ],
+      "number": 8656,
+      "state": "OPEN",
+      "title": "[EuiDataGrid] Investigate implementing smooth scrolling in the data grid",
+      "url": "https://github.com/elastic/eui/issues/8656"
+    },
+    {
+      "createdAt": "2025-11-05T16:30:06Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzE0OTE1ODM2",
+          "name": "tech debt",
+          "description": "",
+          "color": "3B118B"
+        }
+      ],
+      "number": 9182,
+      "state": "OPEN",
+      "title": "[EuiDataGrid] Update to the latest `react-window` version (v2)",
+      "url": "https://github.com/elastic/eui/issues/9182"
+    },
+    {
+      "createdAt": "2020-02-10T14:31:24Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        }
+      ],
+      "number": 2839,
+      "state": "OPEN",
+      "title": "[EuiDataGrid] Allow sticky columns",
+      "url": "https://github.com/elastic/eui/issues/2839"
+    },
+    {
+      "createdAt": "2025-05-28T11:20:46Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyNjE5ODIzNA==",
+          "name": "bug",
+          "description": "Fixes for quality problems that affect the customer experience",
+          "color": "9e2c2c"
+        },
+        {
+          "id": "MDU6TGFiZWwyMjYyNjcyMTg=",
+          "name": "blocked",
+          "description": "",
+          "color": "fbca04"
+        },
+        {
+          "id": "MDU6TGFiZWwyNTI1MjQwNjU=",
+          "name": "upstream",
+          "description": "",
+          "color": "d4c5f9"
+        },
+        {
+          "id": "MDU6TGFiZWwxNDQzNzEyMTIx",
+          "name": "EUI",
+          "description": "",
+          "color": "006DE4"
+        },
+        {
+          "id": "MDU6TGFiZWwzMzEwMDgyNDAw",
+          "name": "Team:DataDiscovery",
+          "description": "Discover, search (data plugin and KQL), data views, saved searches. For ES|QL, use Team:ES|QL. t//",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAABXsNNmA",
+          "name": "Feature:UnifiedDataTable",
+          "description": "",
+          "color": "0E8A16"
+        }
+      ],
+      "number": 221768,
+      "state": "OPEN",
+      "title": "[Discover] Data grid renders data incorrectly and rows overlap each over",
+      "url": "https://github.com/elastic/kibana/issues/221768"
+    },
+    {
+      "createdAt": "2024-05-17T19:12:03Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        },
+        {
+          "id": "LA_kwDOBmcipc8AAAABn5TQvQ",
+          "name": "known issue",
+          "description": "",
+          "color": "F6E728"
+        }
+      ],
+      "number": 7769,
+      "state": "OPEN",
+      "title": "[EuiDataGrid] Grid grows to infinite height in flex container if `height` not provided",
+      "url": "https://github.com/elastic/eui/issues/7769"
+    },
+    {
+      "createdAt": "2023-08-29T08:18:35Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        },
+        {
+          "id": "MDU6TGFiZWwyODEwNzQ0Njk4",
+          "name": "stale-issue",
+          "description": "(Don't delete - used for automation)",
+          "color": "ededed"
+        }
+      ],
+      "number": 7138,
+      "state": "OPEN",
+      "title": "[EuiDataGrid] Add column highlighting",
+      "url": "https://github.com/elastic/eui/issues/7138"
+    },
+    {
+      "createdAt": "2025-06-05T09:01:32Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw3MzU0ODU5NjM=",
+          "name": "design decision",
+          "description": "Use this to flag an item that needs input from the design team",
+          "color": "006b75"
+        },
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        },
+        {
+          "id": "LA_kwDOBmcipc8AAAACLAiKYA",
+          "name": "request",
+          "description": "Clear use case, business priority. Requires a clear yes/no answer or coordination.",
+          "color": "b60205"
+        }
+      ],
+      "number": 8745,
+      "state": "OPEN",
+      "title": "[EuiDataGrid] Allow control over column actions in columns popover",
+      "url": "https://github.com/elastic/eui/issues/8745"
+    },
+    {
+      "createdAt": "2026-02-12T12:20:53Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwyNjE5ODIzNA==",
+          "name": "bug",
+          "description": "Fixes for quality problems that affect the customer experience",
+          "color": "9e2c2c"
+        },
+        {
+          "id": "MDU6TGFiZWw4MzI2MzgwMDM=",
+          "name": "triage_needed",
+          "description": "",
+          "color": "d4c5f9"
+        },
+        {
+          "id": "MDU6TGFiZWwxMzc2MDA3NjI4",
+          "name": "impact:low",
+          "description": "Addressing this issue will have a low level of impact on the quality/strength of our product.",
+          "color": "4fed00"
+        },
+        {
+          "id": "MDU6TGFiZWwyNDI4NDQ2NDU4",
+          "name": "Team: SecuritySolution",
+          "description": "Security Solutions Team working on SIEM, Endpoint, Timeline, Resolver, etc.",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACCDIl5g",
+          "name": "Team:Cases",
+          "description": "Security Solution Cases team",
+          "color": "fef2c0"
+        },
+        {
+          "id": "LA_kwDOAHeGUM8AAAACQBmNww",
+          "name": "v9.4.0",
+          "description": "",
+          "color": "ffffff"
+        }
+      ],
+      "number": 252851,
+      "state": "OPEN",
+      "title": "[Security Solution][Bug] The Alerts and Events table breaks when exiting full-screen mode under Cases.",
+      "url": "https://github.com/elastic/kibana/issues/252851"
+    },
+    {
+      "createdAt": "2025-07-11T12:20:50Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        }
+      ],
+      "number": 8859,
+      "state": "OPEN",
+      "title": "[Epic] EuiDataGrid long-term plan and investigation",
+      "url": "https://github.com/elastic/eui/issues/8859"
+    },
+    {
+      "createdAt": "2025-03-18T09:36:14Z",
+      "labels": [
+        {
+          "id": "MDU6TGFiZWw3Mzg5MDkwMTY=",
+          "name": "meta",
+          "description": "Used to group similar requests or tracking. Not an Epic.",
+          "color": "0e8a16"
+        },
+        {
+          "id": "MDU6TGFiZWwxNjMwNDEzNDEz",
+          "name": "data grid",
+          "description": "",
+          "color": "b7420c"
+        },
+        {
+          "id": "LA_kwDOBmcipc8AAAAB728rDw",
+          "name": "beta",
+          "description": "Issues for tracking beta functionalities",
+          "color": "006b75"
+        }
+      ],
+      "number": 8454,
+      "state": "OPEN",
+      "title": "[Beta] EuiDataGrid canDragAndDropColumns functionality",
+      "url": "https://github.com/elastic/eui/issues/8454"
+    }
+  ]
+}
