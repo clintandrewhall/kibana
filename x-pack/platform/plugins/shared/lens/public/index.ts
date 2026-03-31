@@ -73,7 +73,7 @@ export type {
 
 // Chart types
 export type {
-  XYState,
+  XYVisualizationState,
   XYReferenceLineLayerConfig,
   XYLayerConfig,
   ValidLayer,

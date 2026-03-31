@@ -142,9 +142,7 @@ dependsOn:
   - '@kbn/shared-ux-error-boundary'
   - '@kbn/react-kibana-mount'
   - '@kbn/licensing-types'
-  - '@kbn/esql-composer'
   - '@kbn/discover-shared-plugin'
-  - '@kbn/core-chrome-browser'
   - '@kbn/react-query'
   - '@kbn/core-chrome-layout-constants'
   - '@kbn/controls-constants'
@@ -155,6 +153,7 @@ dependsOn:
   - '@kbn/slo-schema'
   - '@kbn/slo-flyout-types'
   - '@kbn/core-di'
+  - '@kbn/shared-ux-column-presets'
 tags:
   - plugin
   - prod
@@ -171,26 +170,6 @@ fileGroups:
     - public/**/*.json
     - server/**/*.json
     - '!target/**/*'
-tasks:
-  jest:
-    command: node
-    args:
-      - '--no-experimental-require-module'
-      - $workspaceRoot/scripts/jest
-      - '--config'
-      - $projectRoot/jest.config.js
-    options:
-      runFromWorkspaceRoot: true
-    inputs:
-      - '@group(src)'
-  jestCI:
-    command: node
-    args:
-      - '--no-experimental-require-module'
-      - $workspaceRoot/scripts/jest
-      - '--config'
-      - $projectRoot/jest.config.js
-    options:
-      runFromWorkspaceRoot: true
-    inputs:
-      - '@group(src)'
+  jest-config:
+    - jest.config.js
+tasks: {}
