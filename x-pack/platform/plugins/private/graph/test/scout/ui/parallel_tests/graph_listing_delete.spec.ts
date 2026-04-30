@@ -14,8 +14,7 @@ const GRAPH_B = { title: 'Graph Beta', description: 'Second test graph' };
 
 const WORKSPACE_ATTRS = { numLinks: 0, numVertices: 0, wsState: '{}', version: 1 };
 
-spaceTest.describe('Graph listing page', { tag: tags.stateful.classic }, () => {
-  // Read and search tests share a stable data set created once per worker.
+spaceTest.describe('Graph listing page - delete flow', { tag: tags.stateful.classic }, () => {
   spaceTest.beforeAll(async ({ kbnClient, scoutSpace }) => {
     await scoutSpace.savedObjects.cleanStandardList();
     await kbnClient.savedObjects.create({
@@ -38,27 +37,13 @@ spaceTest.describe('Graph listing page', { tag: tags.stateful.classic }, () => {
     await browserAuth.loginAsPrivilegedUser();
   });
 
-  spaceTest('renders the page header and saved graphs', async ({ pageObjects }) => {
-    await pageObjects.graphListing.goto();
-    await expect(pageObjects.graphListing.pageHeader).toBeVisible();
-    await expect(pageObjects.graphListing.itemLinks).toHaveCount(2);
-  });
-
-  spaceTest('search filters items by title', async ({ pageObjects }) => {
-    await pageObjects.graphListing.goto();
-    await pageObjects.graphListing.searchFor(GRAPH_A.title);
-    await expect(pageObjects.graphListing.itemLinks).toHaveCount(1);
-    await expect(pageObjects.graphListing.itemLinks.filter({ hasText: GRAPH_A.title })).toHaveCount(
-      1
-    );
-  });
-
   spaceTest(
-    'create graph button navigates to the workspace editor',
-    async ({ pageObjects, page }) => {
+    'select all and delete removes all graphs and shows empty state',
+    async ({ pageObjects }) => {
       await pageObjects.graphListing.goto();
-      await pageObjects.graphListing.createGraphButton.click();
-      await expect(page).toHaveURL(/\/app\/graph#\/workspace\//);
+      await expect(pageObjects.graphListing.itemLinks).toHaveCount(2);
+      await pageObjects.graphListing.selectAllAndDelete();
+      await expect(pageObjects.graphListing.emptyPromptCreateButton).toBeVisible();
     }
   );
 });
