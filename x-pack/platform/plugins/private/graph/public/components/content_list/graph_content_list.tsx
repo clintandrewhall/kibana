@@ -38,7 +38,7 @@ export const GraphContentList = (props: GraphContentListProps) => (
     <ContentListToolbar />
     <ContentListTable title="Graphs">
       <Column.Name showDescription />
-      <Column.UpdatedAt width="9.5em" minWidth="8em" />
+      <Column.UpdatedAt />
       <Column.Actions />
     </ContentListTable>
     <ContentListFooter />
