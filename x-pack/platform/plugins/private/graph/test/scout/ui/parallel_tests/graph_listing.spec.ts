@@ -30,27 +30,27 @@ spaceTest.describe('Graph listing page', { tag: tags.stateful.classic }, () => {
     });
   });
 
-  spaceTest.afterAll(async ({ scoutSpace }) => {
-    await scoutSpace.savedObjects.cleanStandardList();
-  });
-
   spaceTest.beforeEach(async ({ browserAuth }) => {
     await browserAuth.loginAsPrivilegedUser();
   });
 
+  spaceTest.afterAll(async ({ scoutSpace }) => {
+    await scoutSpace.savedObjects.cleanStandardList();
+  });
+
   spaceTest('renders the page header and saved graphs', async ({ pageObjects }) => {
     await pageObjects.graphListing.goto();
-    await expect(pageObjects.graphListing.pageHeader).toBeVisible();
-    await expect(pageObjects.graphListing.itemLinks).toHaveCount(2);
+    await expect(pageObjects.graphListing.contentList.pageHeader).toBeVisible();
+    await expect(pageObjects.graphListing.contentList.itemLinks).toHaveCount(2);
   });
 
   spaceTest('search filters items by title', async ({ pageObjects }) => {
     await pageObjects.graphListing.goto();
-    await pageObjects.graphListing.searchFor(GRAPH_A.title);
-    await expect(pageObjects.graphListing.itemLinks).toHaveCount(1);
-    await expect(pageObjects.graphListing.itemLinks.filter({ hasText: GRAPH_A.title })).toHaveCount(
-      1
-    );
+    await pageObjects.graphListing.contentList.searchFor(GRAPH_A.title);
+    await expect(pageObjects.graphListing.contentList.itemLinks).toHaveCount(1);
+    await expect(
+      pageObjects.graphListing.contentList.itemLinks.filter({ hasText: GRAPH_A.title })
+    ).toHaveCount(1);
   });
 
   spaceTest(

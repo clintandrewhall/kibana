@@ -29,20 +29,20 @@ spaceTest.describe('Graph listing page - delete flow', { tag: tags.stateful.clas
     });
   });
 
-  spaceTest.afterAll(async ({ scoutSpace }) => {
-    await scoutSpace.savedObjects.cleanStandardList();
-  });
-
   spaceTest.beforeEach(async ({ browserAuth }) => {
     await browserAuth.loginAsPrivilegedUser();
+  });
+
+  spaceTest.afterAll(async ({ scoutSpace }) => {
+    await scoutSpace.savedObjects.cleanStandardList();
   });
 
   spaceTest(
     'select all and delete removes all graphs and shows empty state',
     async ({ pageObjects }) => {
       await pageObjects.graphListing.goto();
-      await expect(pageObjects.graphListing.itemLinks).toHaveCount(2);
-      await pageObjects.graphListing.selectAllAndDelete();
+      await expect(pageObjects.graphListing.contentList.itemLinks).toHaveCount(2);
+      await pageObjects.graphListing.contentList.selectAllAndDelete();
       await expect(pageObjects.graphListing.emptyPromptCreateButton).toBeVisible();
     }
   );

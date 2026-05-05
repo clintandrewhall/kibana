@@ -6,51 +6,35 @@
  */
 
 import type { ScoutPage, Locator } from '@kbn/scout';
+import { ContentListWrapper } from '@kbn/scout';
 
 /**
- * Page object for the Graph listing page (`/app/graph`).
+ * Page object for the Graph listing page (`/app/graph#/home`).
  *
- * Selectors target Content List `data-test-subj` attributes.
+ * Generic Content List interactions (toolbar search, sort, selection, etc.)
+ * are delegated to {@link ContentListWrapper}; this class only owns
+ * Graph-specific navigation and CTAs.
  */
 export class GraphListingPage {
-  readonly pageHeader: Locator;
+  readonly contentList: ContentListWrapper;
   readonly createGraphButton: Locator;
   readonly emptyPromptCreateButton: Locator;
-  readonly searchBox: Locator;
-  readonly itemLinks: Locator;
-  readonly selectionBarDeleteButton: Locator;
-  readonly deleteConfirmButton: Locator;
-  readonly tableSelectAllCheckbox: Locator;
 
   constructor(private readonly page: ScoutPage) {
-    this.pageHeader = this.page.testSubj.locator('kibana-content-list-page-header');
+    this.contentList = new ContentListWrapper(page);
     this.createGraphButton = this.page.testSubj.locator('graphCreateGraphButton');
     this.emptyPromptCreateButton = this.page.testSubj.locator('graphCreateGraphPromptButton');
-    this.searchBox = this.page.testSubj.locator('contentListToolbar-searchBox');
-    this.itemLinks = this.page.testSubj.locator('content-list-table-item-link');
-    this.selectionBarDeleteButton = this.page.testSubj.locator(
-      'contentListSelectionBar-deleteButton'
-    );
-    this.deleteConfirmButton = this.page.testSubj.locator('confirmModalConfirmButton');
-    this.tableSelectAllCheckbox = this.page.testSubj.locator('checkboxSelectAll');
   }
 
   /** Navigate to the Graph listing page and wait for the header to be visible. */
   async goto() {
     await this.page.gotoApp('graph');
-    await this.pageHeader.waitFor({ state: 'visible' });
+    await this.contentList.waitForReady();
   }
 
-  /** Type a search query into the toolbar search box and confirm with Enter. */
-  async searchFor(text: string) {
-    await this.searchBox.fill(text);
-    await this.searchBox.press('Enter');
-  }
-
-  /** Select all items using the table header checkbox and delete via the selection bar. */
-  async selectAllAndDelete() {
-    await this.tableSelectAllCheckbox.check();
-    await this.selectionBarDeleteButton.click();
-    await this.deleteConfirmButton.click();
+  /** Navigate directly to a Graph listing URL search string (preserving the `#/home` route). */
+  async gotoWithSearch(search: string) {
+    await this.page.gotoApp('graph', { hash: `/home${search}` });
+    await this.contentList.waitForReady();
   }
 }
