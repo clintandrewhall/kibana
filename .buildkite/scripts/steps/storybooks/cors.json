@@ -1,0 +1,19 @@
+[
+  {
+    "origin": [
+      "https://codex.elastic.dev",
+      "https://docs-v3-preview.elastic.dev",
+      "https://docs.elastic.co",
+      "https://www.elastic.co"
+    ],
+    "method": ["GET", "HEAD", "OPTIONS"],
+    "responseHeader": [
+      "Content-Type",
+      "Content-Encoding",
+      "Cache-Control",
+      "ETag",
+      "Range"
+    ],
+    "maxAgeSeconds": 3600
+  }
+]

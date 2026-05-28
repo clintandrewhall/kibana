@@ -243,6 +243,9 @@ export const defaultConfig: StorybookConfig = {
     UiSharedDepsNpm.distDir,
     UiSharedDepsSrc.distDir,
     `${REPO_ROOT}/target/build/src/platform/packages/shared/kbn-monaco/target_workers`,
+    // Publishes registry.js (mountStory/unmountStory) at the build root so the
+    // Elastic docs site can embed stories from this static build.
+    `${REPO_ROOT}/src/platform/packages/shared/kbn-storybook/static`,
     {
       from: `${REPO_ROOT}/src/platform/plugins/shared/kibana_react/public/assets`,
       to: 'plugins/kibanaReact/assets',

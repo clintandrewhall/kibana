@@ -128,11 +128,38 @@ const upload = () => {
       process.cwd(),
       path.join(getKibanaDir(), '.buildkite', 'scripts', 'common', 'activate_service_account.sh')
     );
+    const corsConfig = path.join(
+      getKibanaDir(),
+      '.buildkite',
+      'scripts',
+      'steps',
+      'storybooks',
+      'cors.json'
+    );
     exec(`
       ${activateScript} gs://ci-artifacts.kibana.dev
       gcloud storage cp --cache-control="no-cache, max-age=0, no-transform" --gzip-local=js,css,html,json,map,txt,svg --recursive --no-user-output-enabled '*' 'gs://${STORYBOOK_BUCKET}/${STORYBOOK_DIRECTORY}/'
       gcloud storage cp --cache-control="no-cache, max-age=0, no-transform" --gzip-local=html --no-user-output-enabled 'index.html' 'gs://${STORYBOOK_BUCKET}/${STORYBOOK_DIRECTORY}/latest/'
     `);
+
+    // CORS is bucket-wide in GCS. The Elastic docs site loads registry.js as
+    // a module script and fetches index.json, both of which require CORS on
+    // the response. Re-applying the same config on every upload is a no-op.
+    // Tolerated to fail loudly (without breaking the storybook publish) in
+    // case the CI service account lacks storage.buckets.update — SRE can
+    // then apply cors.json once via `gcloud storage buckets update`.
+    console.log('--- Applying CORS policy to ci-artifacts.kibana.dev');
+    try {
+      execSync(
+        `gcloud storage buckets update gs://ci-artifacts.kibana.dev --cors-file="${corsConfig}"`,
+        { stdio: 'inherit' }
+      );
+    } catch (err) {
+      console.warn(
+        `Failed to apply CORS to gs://ci-artifacts.kibana.dev (likely missing storage.buckets.update on the upload service account). Storybook embeds from codex.elastic.dev / docs-v3-preview.elastic.dev will fail until SRE applies ${corsConfig} to the bucket.`
+      );
+      console.warn(err);
+    }
 
     if (process.env.BUILDKITE_PULL_REQUEST && process.env.BUILDKITE_PULL_REQUEST !== 'false') {
       exec(
