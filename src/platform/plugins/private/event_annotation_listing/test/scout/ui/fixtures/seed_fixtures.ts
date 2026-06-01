@@ -13,7 +13,7 @@ import {
   SAMPLE_DATA_VIEW_NAME,
   SAMPLE_TAG_NAME,
   buildAnnotationGroupAttrs,
-  buildSampleDvReferences,
+  buildSampleDataViewReferences,
   buildSampleTaggedReferences,
   getSampleDataViewId,
   getSampleTagId,
@@ -64,7 +64,7 @@ export const seedAnnotationListing = async ({
 
   const dataViewId = getSampleDataViewId(scoutSpace.id);
   const tagId = getSampleTagId(scoutSpace.id);
-  const dataViewReferences = buildSampleDvReferences(dataViewId);
+  const dataViewReferences = buildSampleDataViewReferences(dataViewId);
 
   await kbnClient.request({
     method: 'POST',

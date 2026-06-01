@@ -31,7 +31,7 @@ export const getSampleDataViewId = (spaceId: string) => `${SAMPLE_DATA_VIEW_ID}-
 export const getSampleTagId = (spaceId: string) => `${SAMPLE_TAG_ID}-${spaceId}`;
 
 /** A minimal `event-annotation-group` saved-object reference list pointing at the sample data view. */
-export const buildSampleDvReferences = (dataViewId: string) => [
+export const buildSampleDataViewReferences = (dataViewId: string) => [
   {
     id: dataViewId,
     name: `event-annotation-group_dataView-ref-${dataViewId}`,
@@ -41,7 +41,7 @@ export const buildSampleDvReferences = (dataViewId: string) => [
 
 /** Saved-object references for a sample group associated with the sample tag. */
 export const buildSampleTaggedReferences = (dataViewId: string, tagId: string) => [
-  ...buildSampleDvReferences(dataViewId),
+  ...buildSampleDataViewReferences(dataViewId),
   {
     id: tagId,
     name: SAMPLE_TAG_NAME,
