@@ -2,10 +2,10 @@
 plugins:
   enabled:
     - advanced_settings
+    - agent_builder
     - alerting
     - alerting_v2
     - apm
-    - agent_builder
     - automatic_import
     - banners
     - cloud_security_posture
@@ -27,12 +27,12 @@ plugins:
     - gen_ai_settings
     - global_search
     - grokdebugger
+    - home
     - index_management
     - infra
     - ingest_hub
     - ingest_pipelines
     - intercepts
-    - home
     - kibana_overview
     - lens
     - logstash
@@ -66,6 +66,7 @@ plugins:
     - upgrade_assistant
     - uptime
     - ux
+    - visualizations
     - workflows_extensions
     - workflows_management
   disabled:
