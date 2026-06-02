@@ -3,7 +3,13 @@
   "compilerOptions": {
     "outDir": "target/types"
   },
-  "include": ["common/**/*", "public/**/*", "server/**/*", "../../../../../typings/**/*"],
+  "include": [
+    "common/**/*",
+    "public/**/*",
+    "server/**/*",
+    "test/scout/**/*",
+    "../../../../../typings/**/*"
+  ],
   "kbn_references": [
     "@kbn/core",
     "@kbn/charts-plugin",
@@ -80,7 +86,10 @@
     "@kbn/visualization-listing-components",
     "@kbn/cps",
     "@kbn/kql",
-    "@kbn/cps-utils"
+    "@kbn/cps-utils",
+    "@kbn/content-list",
+    "@kbn/content-list-provider-client",
+    "@kbn/scout"
   ],
   "exclude": ["target/**/*"]
 }
