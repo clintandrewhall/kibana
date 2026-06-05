@@ -7087,10 +7087,6 @@
   version "0.0.0"
   uid ""
 
-"@kbn/feedback-components@link:src/platform/packages/shared/feedback-components":
-  version "0.0.0"
-  uid ""
-
 "@kbn/feedback-plugin@link:x-pack/platform/plugins/private/feedback":
   version "0.0.0"
   uid ""
@@ -9692,6 +9688,10 @@
   uid ""
 
 "@kbn/ui-chrome-layout@link:src/platform/kbn-ui/chrome-layout":
+  version "0.0.0"
+  uid ""
+
+"@kbn/ui-feedback@link:src/platform/kbn-ui/feedback":
   version "0.0.0"
   uid ""
 
