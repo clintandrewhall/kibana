@@ -25,6 +25,14 @@ Once clicked, a modal containing feedback questions and CSAT score buttons are d
 
 Feedback, along with other session data, is sent using the server-side EBT `feedback_submitted` event to Elastic's telemetry cluster, where it is stored in the `ebt-kibana-server` index.
 
+## The feedback UI
+
+The button and form are provided by the [`@kbn/ui-feedback`](/kibana-dev-docs/feedback/components) package, which is also distributed standalone to external consumers. This is the trigger button the plugin registers in the global header:
+
+:::{storybook}
+:id: kibana:kbn_ui:feedback--trigger-button
+:::
+
 ## Defining application specific questions
 
 To define application-specific questions, add them to the `@kbn/feedback-registry` package. Each application's questions live in a separate file under `questions/`, and the registry lazily loads only the relevant set at runtime.
