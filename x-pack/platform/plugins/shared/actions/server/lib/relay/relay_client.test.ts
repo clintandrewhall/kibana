@@ -219,6 +219,62 @@ describe('RelayClient', () => {
     });
   });
 
+  describe('trigger', () => {
+    it('posts to /v1/trigger with snake_case fields and Block Kit blocks', async () => {
+      requestMock.mockResolvedValue({
+        status: 200,
+        data: { ref: '1234.5678', tenant_key: 'team-A' },
+      } as never);
+      const blocks = [{ type: 'section', text: { type: 'mrkdwn', text: 'hello' } }];
+
+      await expect(
+        createClient().trigger({
+          tenantKey: 'team-A',
+          channel: 'C123',
+          message: 'fallback',
+          threadTs: '111.222',
+          blocks,
+        })
+      ).resolves.toEqual({ ref: '1234.5678', tenantKey: 'team-A' });
+
+      expect(requestMock).toHaveBeenCalledWith(
+        expect.objectContaining({
+          url: 'https://relay.test/v1/trigger',
+          method: 'post',
+          data: {
+            surface: 'slack',
+            tenant_key: 'team-A',
+            channel: 'C123',
+            message: 'fallback',
+            thread_ts: '111.222',
+            blocks,
+          },
+        })
+      );
+    });
+
+    it('omits blocks and thread_ts when they are absent', async () => {
+      requestMock.mockResolvedValue({ status: 200, data: { ref: '1.2' } } as never);
+
+      await createClient().trigger({
+        tenantKey: 'team-A',
+        channel: 'C123',
+        message: 'fallback',
+      });
+
+      expect(requestMock).toHaveBeenCalledWith(
+        expect.objectContaining({
+          data: {
+            surface: 'slack',
+            tenant_key: 'team-A',
+            channel: 'C123',
+            message: 'fallback',
+          },
+        })
+      );
+    });
+  });
+
   it('preserves Relay errors', async () => {
     requestMock.mockResolvedValue({
       status: 400,
