@@ -139,6 +139,11 @@ export type {
 export type { SkillRegistry } from './skills';
 export type { RendererTypeDefinition } from './renderers';
 export type {
+  SurfaceProjectorDefinition,
+  SurfaceProjection,
+  SurfaceProjectionInput,
+} from './surface_projection';
+export type {
   AgentBuilderPluginSetup,
   AgentBuilderPluginStart,
   TopSnippetsConfig,
@@ -146,6 +151,7 @@ export type {
   ToolsStart,
   AttachmentsSetup,
   RenderersSetup,
+  SurfaceProjectionSetup,
   SkillsSetup,
   SkillsStart,
   AgentsSetup,
