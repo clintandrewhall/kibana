@@ -102,7 +102,15 @@ export const RoundLayout: React.FC<RoundLayoutProps> = ({
   const [roundContainerMinHeight, setRoundContainerMinHeight] = useState(0);
   const [hasBeenLoading, setHasBeenLoading] = useState(false);
   const [promptResponses, setPromptResponses] = useState<Record<string, PromptResponse>>({});
-  const { steps, response, input, status, pending_prompts: pendingPrompts } = rawRound;
+  const {
+    steps,
+    response,
+    input,
+    status,
+    pending_prompts: pendingPrompts,
+    origin,
+    author,
+  } = rawRound;
   const todosStep = useMemo(() => findTodosStep(steps), [steps]);
 
   const {
@@ -196,6 +204,7 @@ export const RoundLayout: React.FC<RoundLayoutProps> = ({
           attachmentRefs={input.attachment_refs}
           conversationAttachments={conversationAttachments}
           fallbackAttachments={input.attachments}
+          {...{ origin, author }}
         />
       </EuiFlexItem>
 

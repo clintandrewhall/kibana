@@ -22,10 +22,12 @@ import type {
   VersionedAttachment,
 } from '@kbn/agent-builder-common/attachments';
 import { ATTACHMENT_REF_ACTOR } from '@kbn/agent-builder-common/attachments';
+import type { ConversationRoundAuthor, ConversationRoundOrigin } from '@kbn/agent-builder-common';
 import { AB_PANEL_RADIUS } from '../../../../common.styles';
 import { RoundResponseActions } from './round_response/round_response_actions';
 import { RoundAttachmentReferences } from './round_attachment_references';
 import { CommandBadgeText } from './command_badge_text';
+import { RoundInputAttribution } from './round_input_attribution';
 
 const labels = {
   userMessage: i18n.translate('xpack.agentBuilder.round.userInput', {
@@ -38,6 +40,8 @@ interface RoundInputProps {
   attachmentRefs?: AttachmentVersionRef[];
   conversationAttachments?: VersionedAttachment[];
   fallbackAttachments?: Attachment[];
+  origin?: ConversationRoundOrigin;
+  author?: ConversationRoundAuthor;
 }
 
 export const RoundInput = ({
@@ -45,6 +49,8 @@ export const RoundInput = ({
   attachmentRefs,
   conversationAttachments,
   fallbackAttachments,
+  origin,
+  author,
 }: RoundInputProps) => {
   const { euiTheme } = useEuiTheme();
   const [isHovering, setIsHovering] = useState(false);
@@ -67,6 +73,9 @@ export const RoundInput = ({
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
+      <EuiFlexItem grow={false}>
+        <RoundInputAttribution {...{ origin, author }} />
+      </EuiFlexItem>
       <EuiPanel
         css={inputContainerStyles}
         hasShadow={false}
