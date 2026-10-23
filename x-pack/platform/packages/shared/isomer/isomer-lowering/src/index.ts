@@ -38,6 +38,12 @@ export {
   selectionsToDsl,
   vegaSources,
 } from './vega';
+export {
+  type ConvertDashboardOptions,
+  type ConvertedDashboard,
+  type ConvertedPanel,
+  convertDashboard,
+} from './convert';
 export { type BoundPanel, bindVegaPanels } from './vega_panels';
 export {
   basemapTiles,
@@ -63,5 +69,16 @@ export {
   type PanelSize,
 } from './map_panels';
 export { engineHintFromLens } from './engine_hints';
+export {
+  type DashboardContext,
+  type EsqlVariable,
+  type PinnedControl,
+  type ResolveField,
+  type ResolvedField,
+  buildDashboardContext,
+  readPinnedControls,
+  readSavedContext,
+  withCurrentControls,
+} from './dashboard_context';
 export type { EsqlRequestOptions } from './esql_response';
 export type { DashboardBool } from './vega';
