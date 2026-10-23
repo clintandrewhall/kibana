@@ -14,6 +14,7 @@
     "@kbn/isomer-charts-elastic-node",
     "@kbn/isomer-components",
     "@kbn/isomer-primitives-charts",
+    "@kbn/isomer-primitives-dashboard",
     "@kbn/isomer-primitives-maps",
     "@kbn/isomer-primitives-vega",
     "@kbn/isomer-theme",

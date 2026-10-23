@@ -17,7 +17,8 @@ import {
   prepareCharts,
   type PrepareChartsOptions,
 } from '@kbn/isomer-primitives-charts';
-import { cardContentWidth } from '@kbn/isomer-theme';
+import { DASHBOARD_FRAME, dashboardFrame, dashboardPack } from '@kbn/isomer-primitives-dashboard';
+import { cardContentWidth, kibanaCardFrame } from '@kbn/isomer-theme';
 import { defineMapsPack, type MapGeometry } from '@kbn/isomer-primitives-maps';
 import { vegaPack } from '@kbn/isomer-primitives-vega';
 import { fromRoot } from '@kbn/repo-info';
@@ -119,11 +120,15 @@ export const createChartsDrawing = async ({
   });
   // The snapshot surface draws in the runtime's default card frame; charts size themselves for it at DEFAULT_CHART_SIZE.
   const runtime = createKibanaIsomerRuntime({
+    // The card for a composition; a dashboard's page for a dashboard.
+    frames: { card: kibanaCardFrame, [DASHBOARD_FRAME]: dashboardFrame },
+    defaultFrame: 'card',
     packs: [
       componentsPack,
       vegaPack,
       defineChartsPack(engine, { drawHeight: DEFAULT_CHART_SIZE.height }),
       defineMapsPack(geometry ? { geometry } : {}),
+      dashboardPack,
       ...packs,
     ],
   });

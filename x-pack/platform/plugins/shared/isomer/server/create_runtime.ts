@@ -15,12 +15,20 @@ export const createRuntime = async (): Promise<KibanaIsomerRuntime> => {
     { vegaPack },
     { chartsPack },
     { mapsPack },
+    { dashboardPack, dashboardFrame, DASHBOARD_FRAME },
+    { kibanaCardFrame },
   ] = await Promise.all([
     import('@kbn/isomer'),
     import('@kbn/isomer-components'),
     import('@kbn/isomer-primitives-vega'),
     import('@kbn/isomer-primitives-charts'),
     import('@kbn/isomer-primitives-maps'),
+    import('@kbn/isomer-primitives-dashboard'),
+    import('@kbn/isomer-theme'),
   ]);
-  return createKibanaIsomerRuntime({ packs: [componentsPack, vegaPack, chartsPack, mapsPack] });
+  return createKibanaIsomerRuntime({
+    frames: { card: kibanaCardFrame, [DASHBOARD_FRAME]: dashboardFrame },
+    defaultFrame: 'card',
+    packs: [componentsPack, vegaPack, chartsPack, mapsPack, dashboardPack],
+  });
 };
