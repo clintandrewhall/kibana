@@ -2,7 +2,7 @@
 
 Chart primitives for Isomer: `xyChart`, `donut`, `treemap`, `heatmap`, `metricTrend`, and `gauge`, with their schemas, catalog, examples, and validation. It depends on `@elastic/isomer-sdk` and `@elastic/distillate` alone.
 
-The pack does not draw charts yet. On every surface, a chart renders as its title, description, a one-sentence summary, and its data table.
+`chartsPack` draws no charts: on every surface, a chart renders as its title, description, a one-sentence summary, and its data table.
 
 ```ts
 import { chartsPack } from '@kbn/isomer-primitives-charts';
@@ -10,8 +10,24 @@ import { chartsPack } from '@kbn/isomer-primitives-charts';
 createKibanaIsomerRuntime({ packs: [chartsPack] });
 ```
 
+`defineChartsPack(engine)` draws charts through a `ChartEngine` (`src/engine/types.ts`). `@kbn/isomer-charts-elastic` is the engine for Elastic Charts.
+
+- With `render: 'live'`, the engine's components mount in a client-side React tree.
+- With `render: 'static'`, the default, `prepareCharts` draws each chart ahead of a static surface render. The surface renders inside that call's `render`, so it reads the drawings the call made, at its size and mode.
+- A chart the engine doesn't support, or whose drawing failed, keeps its summary and data table, which stay the accessible reading of every drawn chart too.
+
+```ts
+const runtime = createKibanaIsomerRuntime({ packs: [defineChartsPack(engine)] });
+const walk = createChildNodeWalker(runtime.primitives);
+const prepared = await prepareCharts(engine, composition, { walk, mode: 'light', width: 600 });
+try {
+  const { html } = prepared.render(() => runtime.surfaces.html.render(composition));
+} finally {
+  prepared.release();
+}
+```
+
 ## Plans
 
-- Draw the charts with a charting library such as Elastic Charts: live in the browser, and as images drawn ahead of the render for static surfaces such as Slack. The summary and data table stay as the accessible reading of every chart.
-- Raise each chart's `selection` event when a reader clicks a drawn mark. The schemas already accept `selection`; nothing raises it until charts are drawn.
+- Raise each chart's `selection` event from static drawings. Live charts raise it on a click; an artifact's `hitMap` is typed, but no engine draws one and no surface reads it yet.
 - Take colors from `@kbn/isomer-theme` instead of the Borealis literals in `src/theme/tokens.ts`.

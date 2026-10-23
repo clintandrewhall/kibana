@@ -6,10 +6,12 @@
  */
 
 import { createIsomerRuntime } from '@elastic/isomer-runtime';
-import type { Composition } from '@elastic/isomer-sdk';
+import { type Composition, createChildNodeWalker } from '@elastic/isomer-sdk';
 
 import { examples } from './charts/xy_chart/examples';
-import { chartsPack } from './pack';
+import { prepareCharts } from './engine/artifacts';
+import type { ChartEngine } from './engine/types';
+import { chartsPack, defineChartsPack } from './pack';
 import { registryTypes } from './registry.fixtures';
 
 const [chart] = examples;
@@ -65,5 +67,34 @@ describe('chartsPack', () => {
     const past = slack(100);
     expect(past.some(({ type }) => type === 'table')).toBe(false);
     expect(JSON.stringify(past)).toContain('99.5');
+  });
+});
+
+describe('defineChartsPack with an engine', () => {
+  const engine: ChartEngine = {
+    id: 'stub',
+    version: '1',
+    supports: { xyChart: { fidelity: 'native', selection: { live: false, static: false } } },
+    draw: (_node, { mode, width }) => ({
+      plot: { kind: 'svg', markup: `<svg data-drawn="${mode}-${width}"></svg>` },
+      width,
+      height: 100,
+      legend: [],
+    }),
+  };
+  const runtime = createIsomerRuntime({ packs: [defineChartsPack(engine)] });
+  const walk = createChildNodeWalker(runtime.primitives);
+  const html = () => runtime.surfaces.html.render(view()).html;
+  const state = (markup: string) => markup.match(/data-chart-state="(\w+)"/)?.[1];
+
+  it('renders each overlapping prepareCharts call from its own drawings', async () => {
+    const [wide, narrow] = await Promise.all(
+      [600, 300].map((width) => prepareCharts(engine, view(), { walk, mode: 'light', width }))
+    );
+    expect(wide.render(html)).toContain('data-drawn="light-600"');
+    expect(narrow.render(html)).toContain('data-drawn="light-300"');
+    expect(state(html())).toBe('fallback');
+    wide.release();
+    narrow.release();
   });
 });
