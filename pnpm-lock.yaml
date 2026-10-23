@@ -322,6 +322,9 @@ overrides:
 
 pnpmfileChecksum: sha256-JL9Z/8IecLxwanP1rhrhbsvFTvupuyak+iLixXT5Rmk=
 
+patchedDependencies:
+  vega-canvas@2.0.0: 07903a19a2a84dcbe414f36c41134c9ab10453995219a04ea0a7a983022b895f
+
 importers:
 
   .:
@@ -2528,6 +2531,9 @@ importers:
       '@kbn/isomer-primitives-charts':
         specifier: workspace:*
         version: link:x-pack/platform/packages/shared/isomer/isomer-primitives-charts
+      '@kbn/isomer-primitives-vega':
+        specifier: workspace:*
+        version: link:x-pack/platform/packages/shared/isomer/isomer-primitives-vega
       '@kbn/isomer-theme':
         specifier: workspace:*
         version: link:x-pack/platform/packages/shared/isomer/isomer-theme
@@ -9047,6 +9053,8 @@ importers:
   x-pack/platform/packages/shared/isomer/isomer-components: {}
 
   x-pack/platform/packages/shared/isomer/isomer-primitives-charts: {}
+
+  x-pack/platform/packages/shared/isomer/isomer-primitives-vega: {}
 
   x-pack/platform/packages/shared/isomer/isomer-theme: {}
 
@@ -44711,7 +44719,7 @@ snapshots:
 
   vary@1.1.2: {}
 
-  vega-canvas@2.0.0: {}
+  vega-canvas@2.0.0(patch_hash=07903a19a2a84dcbe414f36c41134c9ab10453995219a04ea0a7a983022b895f): {}
 
   vega-crossfilter@5.1.0:
     dependencies:
@@ -44773,7 +44781,7 @@ snapshots:
       d3-array: 3.2.4
       d3-color: 3.1.0
       d3-geo: 3.1.1
-      vega-canvas: 2.0.0
+      vega-canvas: 2.0.0(patch_hash=07903a19a2a84dcbe414f36c41134c9ab10453995219a04ea0a7a983022b895f)
       vega-dataflow: 6.1.0
       vega-projection: 2.1.0
       vega-statistics: 2.0.0
@@ -44791,7 +44799,7 @@ snapshots:
 
   vega-label@2.1.0:
     dependencies:
-      vega-canvas: 2.0.0
+      vega-canvas: 2.0.0(patch_hash=07903a19a2a84dcbe414f36c41134c9ab10453995219a04ea0a7a983022b895f)
       vega-dataflow: 6.1.0
       vega-scenegraph: 5.1.0
       vega-util: 2.1.0
@@ -44852,7 +44860,7 @@ snapshots:
     dependencies:
       d3-path: 3.1.0
       d3-shape: 3.2.0
-      vega-canvas: 2.0.0
+      vega-canvas: 2.0.0(patch_hash=07903a19a2a84dcbe414f36c41134c9ab10453995219a04ea0a7a983022b895f)
       vega-loader: 5.1.0
       vega-scale: 8.1.0
       vega-util: 2.1.0
@@ -44923,7 +44931,7 @@ snapshots:
 
   vega-wordcloud@5.1.0:
     dependencies:
-      vega-canvas: 2.0.0
+      vega-canvas: 2.0.0(patch_hash=07903a19a2a84dcbe414f36c41134c9ab10453995219a04ea0a7a983022b895f)
       vega-dataflow: 6.1.0
       vega-scale: 8.1.0
       vega-statistics: 2.0.0
