@@ -17,6 +17,11 @@ project:
   owner: '@elastic/appex-sharedux'
   sourceRoot: x-pack/platform/packages/shared/isomer/isomer-lowering
 dependsOn:
+  - '@kbn/es-query'
+  - '@kbn/esql-utils'
+  - '@kbn/isomer-charts-elastic'
+  - '@kbn/isomer-primitives-maps'
+  - '@kbn/isomer-primitives-vega'
   - '@kbn/lens-common'
 tags:
   - shared-common

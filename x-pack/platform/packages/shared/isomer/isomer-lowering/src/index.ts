@@ -13,6 +13,18 @@ export {
   type TimeRange,
   planDashboard,
 } from './dashboard';
+export {
+  type EsqlResponse,
+  type ExecuteEsql,
+  type ExecuteSearch,
+  formatValue,
+} from './esql_response';
+export {
+  type ChartPanelReport,
+  type ChartsDashboard,
+  type PanelOutcome,
+  bindChartsDashboard,
+} from './bind_charts';
 export type { ChartSelection, SelectionPredicate } from './selection';
 export { injectWhere, predicateToEsql, selectionsToEsql } from './esql';
 export {
@@ -26,4 +38,30 @@ export {
   selectionsToDsl,
   vegaSources,
 } from './vega';
+export { type BoundPanel, bindVegaPanels } from './vega_panels';
+export {
+  basemapTiles,
+  isKibanaMap,
+  KIBANA_MAP_PROJECTION,
+  kibanaConfigOf,
+  type KibanaMapView,
+  kibanaMapStyle,
+  lowerKibanaMapSpec,
+  parseKibanaMapView,
+} from './vega_map';
+export {
+  basemapId,
+  bindMapPanels,
+  dataViewResolver,
+  type LoweredMap,
+  lowerMap,
+  type LowerMapOptions,
+  type MapLoweringOptions,
+  type MapDataView,
+  type MapPanelState,
+  type MapServices,
+  type PanelSize,
+} from './map_panels';
+export { engineHintFromLens } from './engine_hints';
+export type { EsqlRequestOptions } from './esql_response';
 export type { DashboardBool } from './vega';
