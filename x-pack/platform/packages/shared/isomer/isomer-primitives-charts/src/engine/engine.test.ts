@@ -99,6 +99,22 @@ describe('prepareCharts', () => {
     expect(readDuring(prepared, engine, chart, 'dark')).toEqual(artifact('nested'));
   });
 
+  it('sizes and hints each chart from its containers and content', async () => {
+    const engine = stubEngine(() => artifact('a'));
+    const panel = { type: 'group', size: { width: 300, height: 120 }, items: [chart] };
+    const { release } = await prepareCharts(engine, view(panel), {
+      walk,
+      mode: 'light',
+      width: 600,
+      sizeFor: (_node, ancestors) => (ancestors[0] as unknown as typeof panel | undefined)?.size,
+      hintFor: () => ({ legend: { show: false } }),
+    });
+    expect(engine.calls).toEqual([
+      expect.objectContaining({ width: 300, height: 120, hint: { legend: { show: false } } }),
+    ]);
+    release();
+  });
+
   it('keeps a drawing two overlapping calls share until both release', async () => {
     let finish: (value: ChartArtifact) => void = () => undefined;
     const engine = stubEngine(() => new Promise<ChartArtifact>((resolve) => (finish = resolve)));
@@ -117,18 +133,43 @@ describe('prepareCharts', () => {
     expect(readDuring(b, engine, chart)).toBeUndefined();
   });
 
-  it('draws overlapping calls at their own sizes, and each render reads its own', async () => {
-    const engine = stubEngine((_node, { width }) => artifact(String(width)));
-    const [wide, narrow] = await Promise.all([
+  it('draws overlapping calls at their own sizes and hints, and each render reads its own', async () => {
+    const engine = stubEngine((_node, { width, hint }) =>
+      artifact(`${width}${hint === undefined ? '' : JSON.stringify(hint)}`)
+    );
+    const hint = { legend: { show: false } };
+    const [wide, narrow, hinted] = await Promise.all([
       prepareCharts(engine, view(chart), { walk, mode: 'light', width: 900 }),
       prepareCharts(engine, view(chart), { walk, mode: 'light', width: 300 }),
+      prepareCharts(engine, view(chart), { walk, mode: 'light', width: 300, hintFor: () => hint }),
     ]);
-    expect(engine.calls.map(({ width }) => width)).toEqual([900, 300]);
+    expect(engine.calls.map(({ width }) => width)).toEqual([900, 300, 300]);
     expect(readDuring(wide, engine, chart)).toEqual(artifact('900'));
     expect(readDuring(narrow, engine, chart)).toEqual(artifact('300'));
+    expect(readDuring(hinted, engine, chart)).toEqual(artifact(`300${JSON.stringify(hint)}`));
     wide.release();
     expect(readDuring(narrow, engine, chart)).toEqual(artifact('300'));
     narrow.release();
+    hinted.release();
+  });
+
+  it('draws a chart that appears twice in one composition once, at its first size', async () => {
+    const engine = stubEngine((_node, { width }) => artifact(String(width)));
+    const panel = (width: number) => ({
+      type: 'group',
+      size: { width, height: 120 },
+      items: [chart],
+    });
+    const prepared = await prepareCharts(engine, view(panel(300), panel(500)), {
+      walk,
+      mode: 'light',
+      width: 600,
+      sizeFor: (_node, ancestors) =>
+        (ancestors[0] as unknown as { size: { width: number; height: number } }).size,
+    });
+    expect(engine.calls.map(({ width }) => width)).toEqual([300]);
+    expect(readDuring(prepared, engine, chart)).toEqual(artifact('300'));
+    prepared.release();
   });
 
   it('leaves a chart whose drawing fails to its fallback, without failing the call', async () => {

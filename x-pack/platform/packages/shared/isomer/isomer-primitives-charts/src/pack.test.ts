@@ -97,4 +97,12 @@ describe('defineChartsPack with an engine', () => {
     wide.release();
     narrow.release();
   });
+
+  it('renders html, which names no mode, in its prepareCharts call’s mode', async () => {
+    const dark = await prepareCharts(engine, view(), { walk, mode: 'dark', width: 600 });
+    const markup = dark.render(html);
+    expect(state(markup)).toBe('artifact');
+    expect(markup).toContain('data-drawn="dark-600"');
+    dark.release();
+  });
 });

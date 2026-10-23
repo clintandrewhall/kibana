@@ -17,6 +17,8 @@
     "@kbn/isomer-primitives-maps",
     "@kbn/isomer-primitives-vega",
     "@kbn/isomer-theme",
-    "@kbn/repo-info"
+    "@kbn/maps-ems-plugin",
+    "@kbn/repo-info",
+    "@kbn/setup-node-env"
   ]
 }

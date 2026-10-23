@@ -35,7 +35,10 @@ export interface ChartsPackOptions {
    * Defaults to `static`.
    */
   render?: 'live' | 'static';
-  /** The mode on surfaces that name none (`react`, `html`); `snapshot` takes its frame's. Defaults to `light`. */
+  /**
+   * The mode on surfaces that name none (`react`, `html`), unless a `prepareCharts` render supplies its own; `snapshot`
+   * takes its frame's. Defaults to `light`.
+   */
   colorMode?: ColorMode;
   /** The height an engine draws each chart at on `snapshot`, which the card frame sizes for. Defaults to the figure height. */
   drawHeight?: number;

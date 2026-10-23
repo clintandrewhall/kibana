@@ -36,9 +36,12 @@ const stableStringify = (value: unknown): string =>
 const chartKey = (engine: ChartEngine, node: PrimitiveNode, mode: ColorMode): string =>
   `${engine.id}@${engine.version}|${mode}|${stableStringify(node)}`;
 
-/** What identifies a drawing: the chart, and the size it is drawn at. */
-const drawingKey = (chart: string, { width, height }: { width: number; height: number }): string =>
-  `${chart}|${width}x${height}`;
+/** What identifies a drawing: the chart, and the size and hint it is drawn with. */
+const drawingKey = (
+  chart: string,
+  { width, height }: { width: number; height: number },
+  hint: Readonly<Record<string, unknown>> | undefined
+): string => `${chart}|${width}x${height}|${hint === undefined ? '' : stableStringify(hint)}`;
 
 interface Held {
   drawing: Promise<ChartArtifact | undefined>;
@@ -57,8 +60,11 @@ const storeOf = (engine: ChartEngine): Map<string, Held> => {
   return store;
 };
 
-// The drawing each chart reads during a `PreparedCharts.render`, by chart key; set only for that synchronous call.
-let rendering: ReadonlyMap<string, string> | undefined;
+// The call whose `PreparedCharts.render` is running: its mode, and the drawing each chart reads, by chart key.
+let rendering: { mode: ColorMode; chosen: ReadonlyMap<string, string> } | undefined;
+
+/** The mode of the drawings a running {@link PreparedCharts.render} reads, for surfaces whose render names none. */
+export const renderingMode = (): ColorMode | undefined => rendering?.mode;
 
 /** The drawing the {@link prepareCharts} call whose `render` is running made for `node`, if any. */
 export const readArtifact = (
@@ -66,7 +72,7 @@ export const readArtifact = (
   node: PrimitiveNode,
   mode: ColorMode
 ): ChartArtifact | undefined => {
-  const key = rendering?.get(chartKey(engine, node, mode));
+  const key = rendering?.chosen.get(chartKey(engine, node, mode));
   return key === undefined ? undefined : stores.get(engine)?.get(key)?.artifact;
 };
 
@@ -74,15 +80,23 @@ export interface PrepareChartsOptions {
   /** Finds charts inside any pack's containers: `createChildNodeWalker(runtime.primitives)`. */
   walk: ChildNodeWalker;
   mode: ColorMode;
-  /** The width every chart is drawn at; no surface tells a chart its own. */
+  /** The width every chart is drawn at, unless `sizeFor` gives its own. */
   width: number;
   height?: number;
+  /** A chart's own size, from the containers it sits in (outermost first), e.g. a dashboard panel. */
+  sizeFor?: (
+    node: ChartNode,
+    ancestors: readonly PrimitiveNode[]
+  ) => { width: number; height: number } | undefined;
+  /** Engine-specific presentation for a chart, e.g. from its Lens source. */
+  hintFor?: (node: ChartNode) => Readonly<Record<string, unknown>> | undefined;
 }
 
 export interface PreparedCharts {
   /**
    * Runs a surface render that reads this call's drawings, so overlapping calls that draw the same chart at other
-   * sizes each read their own. The surface render must happen synchronously inside `fn`.
+   * sizes or hints each read their own. A surface whose render names no theme, such as `html`, draws in this call's
+   * mode. The surface render must happen synchronously inside `fn`.
    */
   render: <T>(fn: () => T) => T;
   /** Ends this call's hold on its drawings; call after the surface render. */
@@ -98,7 +112,7 @@ const isChart = (engine: ChartEngine, node: unknown): node is ChartNode =>
 export const prepareCharts = async (
   engine: ChartEngine,
   composition: Composition,
-  { walk, mode, width, height = DEFAULT_HEIGHT }: PrepareChartsOptions
+  { walk, mode, width, height = DEFAULT_HEIGHT, sizeFor, hintFor }: PrepareChartsOptions
 ): Promise<PreparedCharts> => {
   const { draw } = engine;
   const store = storeOf(engine);
@@ -106,15 +120,23 @@ export const prepareCharts = async (
   const chosen = new Map<string, string>();
   if (draw) {
     const theme = resolveChartTheme(mode);
-    const queue: unknown[] = [...composition.body];
+    const queue: Array<{ node: unknown; ancestors: readonly PrimitiveNode[] }> =
+      composition.body.map((node) => ({ node, ancestors: [] }));
     for (let index = 0; index < queue.length; index += 1) {
-      const node = queue[index];
-      queue.push(...walk(node).map(({ node: child }) => child));
+      const { node, ancestors } = queue[index];
+      const inside = [...ancestors, node as PrimitiveNode];
+      queue.push(...walk(node).map(({ node: child }) => ({ node: child, ancestors: inside })));
       if (!isChart(engine, node)) {
         continue;
       }
       const chart = chartKey(engine, node, mode);
-      const key = drawingKey(chart, { width, height });
+      const size = sizeFor?.(node, ancestors) ?? { width, height };
+      const hint = hintFor?.(node);
+      const key = drawingKey(chart, size, hint);
+      // A renderer sees only content, so the same chart twice in one composition reads its first drawing.
+      if ((chosen.get(chart) ?? key) !== key) {
+        continue;
+      }
       chosen.set(chart, key);
       const existing = store.get(key);
       if (existing) {
@@ -123,7 +145,7 @@ export const prepareCharts = async (
         // Held before the draw resolves, so a concurrent call shares it rather than drawing again.
         const entry: Held = {
           drawing: Promise.resolve()
-            .then(() => draw(node, { mode, theme, width, height }))
+            .then(() => draw(node, { mode, theme, ...size, ...(hint ? { hint } : {}) }))
             .then(
               (artifact) => (entry.artifact = artifact),
               // A drawing that fails leaves the chart to its fallback table.
@@ -145,7 +167,7 @@ export const prepareCharts = async (
   return {
     render: (fn) => {
       const outer = rendering;
-      rendering = chosen;
+      rendering = { mode, chosen };
       try {
         return fn();
       } finally {

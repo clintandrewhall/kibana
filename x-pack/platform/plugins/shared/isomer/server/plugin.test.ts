@@ -17,8 +17,10 @@ jest.mock('@kbn/isomer', () => {
 });
 
 const startPlugin = () => {
-  const plugin = new IsomerPlugin(coreMock.createPluginInitializerContext({}));
-  plugin.setup();
+  const plugin = new IsomerPlugin(
+    coreMock.createPluginInitializerContext({ charts: { serverDraw: false } })
+  );
+  plugin.setup(coreMock.createSetup());
   return plugin.start();
 };
 
@@ -87,5 +89,9 @@ describe('IsomerPlugin', () => {
     expect(JSON.stringify(surfaces.slack.render(vegaComposition).blocks)).toContain(
       vegaExample.caption
     );
+  });
+
+  it('rejects getDrawing while server drawing is off', async () => {
+    await expect(startPlugin().getDrawing()).rejects.toThrow('Server drawing is off');
   });
 });

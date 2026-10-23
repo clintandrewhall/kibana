@@ -9,6 +9,7 @@
     "id": "isomer",
     "browser": false,
     "server": true,
-    "configPath": ["xpack", "isomer"]
+    "configPath": ["xpack", "isomer"],
+    "optionalPlugins": ["mapsEms"]
   }
 }

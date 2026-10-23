@@ -10,7 +10,7 @@ Its start contract carries `getRuntime()`, which resolves a `createKibanaIsomerR
 xpack.isomer.charts.serverDraw: true
 ```
 
-`server/charts_drawing.ts` draws charts with Elastic Charts in a jsdom window on Skia (`@kbn/isomer-charts-elastic-node`), in a worker thread: `html` carries each chart as drawn, and `snapshot` returns a PNG rasterized by takumi. It isn't on the start contract yet.
+`server/charts_drawing.ts` draws charts with Elastic Charts in a jsdom window on Skia (`@kbn/isomer-charts-elastic-node`), in a worker thread: `html` carries each chart as drawn, and `snapshot` returns a PNG rasterized by takumi. The start contract's `getDrawing()` resolves it, and rejects while the setting is off.
 
 ## Follow-ups
 

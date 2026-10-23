@@ -8,7 +8,7 @@
 import { type ComponentType, createElement as h, type ReactNode } from 'react';
 import { nodeAnchor, type StyledRenderContext } from '@elastic/isomer-sdk';
 
-import { readArtifact } from '../engine/artifacts';
+import { readArtifact, renderingMode } from '../engine/artifacts';
 import type { ChartArtifact, ChartEngine, ChartNode, LiveChartProps } from '../engine/types';
 import { type ChartSelection, selectionEvent, type SelectionTarget } from '../model/selection';
 import { chartRoot } from '../theme/distillery';
@@ -142,7 +142,7 @@ export const chartReact =
   (node: TNode, { context, theme }: ChartReactEnv): ReactNode => {
     const { title, description } = node;
     const { summary, table: data } = read(node);
-    const colorMode = theme ? colorModeOf(theme) : seam.colorMode;
+    const colorMode = theme ? colorModeOf(theme) : renderingMode() ?? seam.colorMode;
     const Live =
       seam.render === 'live'
         ? (seam.engine?.live?.[node.type] as ComponentType<LiveChartProps> | undefined)
