@@ -92,16 +92,29 @@ interface TableProps {
   sort?: { state?: SortState; onSort: (column: number) => void };
 }
 
-const Table = ({ node, context, view: { columns, rows, note }, order, sort }: TableProps) => (
+const Table = ({
+  node,
+  context,
+  view: { columns, rows, note, styles },
+  order,
+  sort,
+}: TableProps) => (
   <div {...nodeAnchor(context, node)} className={classNames(context, handles.root)}>
-    <table className={classNames(context, handles.table)}>
+    <table
+      className={classNames(context, handles.table)}
+      // Sized columns keep their widths; the table may then be wider than its box, which cuts it off.
+      {...(columns.some(({ width }) => width)
+        ? { style: { width: 'max-content', minWidth: '100%' } }
+        : {})}
+    >
       <thead>
         <tr>
-          {columns.map(({ label, align }, index) => (
+          {columns.map(({ label, align, width }, index) => (
             <th
               key={index}
               scope="col"
               className={classNames(context, handles.head, handles[align])}
+              {...(width ? { style: { width, minWidth: width, maxWidth: width } } : {})}
               {...(sort?.state?.column === index
                 ? { 'aria-sort': ARIA_SORT[sort.state.direction] }
                 : {})}
@@ -129,14 +142,20 @@ const Table = ({ node, context, view: { columns, rows, note }, order, sort }: Ta
       <tbody>
         {order.map((rowIndex) => (
           <tr key={rowIndex}>
-            {rows[rowIndex].map((text, index) => (
-              <td
-                key={index}
-                className={classNames(context, handles.cell, handles[columns[index].align])}
-              >
-                {text}
-              </td>
-            ))}
+            {rows[rowIndex].map((text, index) => {
+              const cell = styles?.[rowIndex]?.[index];
+              return (
+                <td
+                  key={index}
+                  className={classNames(context, handles.cell, handles[columns[index].align])}
+                  {...(cell
+                    ? { style: { backgroundColor: cell.background, color: cell.color } }
+                    : {})}
+                >
+                  {text}
+                </td>
+              );
+            })}
           </tr>
         ))}
       </tbody>
