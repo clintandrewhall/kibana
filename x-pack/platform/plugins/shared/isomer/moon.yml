@@ -17,11 +17,17 @@ project:
   owner: '@elastic/appex-sharedux'
   sourceRoot: x-pack/platform/plugins/shared/isomer
 dependsOn:
+  - '@kbn/config-schema'
   - '@kbn/core'
+  - '@kbn/core-plugins-server'
   - '@kbn/isomer'
+  - '@kbn/isomer-charts-elastic'
+  - '@kbn/isomer-charts-elastic-node'
   - '@kbn/isomer-components'
   - '@kbn/isomer-primitives-charts'
   - '@kbn/isomer-primitives-vega'
+  - '@kbn/isomer-theme'
+  - '@kbn/repo-info'
 tags:
   - plugin
   - prod

@@ -12,5 +12,6 @@ export const plugin = async (initializerContext: PluginInitializerContext) => {
   return new IsomerPlugin(initializerContext);
 };
 
+export { config } from './config';
 export type { IsomerPluginSetup, IsomerPluginStart } from './plugin';
 export type { KibanaIsomerRuntime } from '@kbn/isomer';
