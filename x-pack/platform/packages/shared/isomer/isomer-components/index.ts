@@ -7,6 +7,7 @@
 
 export { type ComponentsNode, componentsPack, componentsPrimitives } from './src/pack';
 export type { ComponentsRenderContext } from './src/lib';
+export { APP_PATH_MAX_CHARS } from './src/primitives/link/link_target';
 export { CODE_COPY_ENHANCEMENT } from './src/primitives/code';
 export { TABLE_SORT_ENHANCEMENT } from './src/primitives/table';
 export {

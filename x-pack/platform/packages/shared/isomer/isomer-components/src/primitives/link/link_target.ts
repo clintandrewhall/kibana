@@ -33,10 +33,17 @@ const staysInProbe = (app: string, path: string): boolean => {
 /** Whether `path` stays inside its app once a URL parser decodes and normalizes it, as hosts do. */
 const staysInApp = (path: string): boolean => PROBE_APPS.every((app) => staysInProbe(app, path));
 
+/** Surface-independent bound on an app path. Slack's own URL limit is applied by its renderer. */
+export const APP_PATH_MAX_CHARS = 8192;
+
+/** Surface-independent bounds on a link or button label and an absolute URL. */
+export const LINK_LABEL_MAX_CHARS = 200;
+export const LINK_URL_MAX_CHARS = APP_PATH_MAX_CHARS;
+
 /** A path inside a Kibana app, which can't leave it. */
 export const appPathSchema = z
   .string()
-  .max(2000)
+  .max(APP_PATH_MAX_CHARS)
   .refine((value) => /^[/?#]/.test(value) && !value.startsWith('//') && !value.includes('\\'), {
     error: 'must start with /, ? or #, and not with //',
   })

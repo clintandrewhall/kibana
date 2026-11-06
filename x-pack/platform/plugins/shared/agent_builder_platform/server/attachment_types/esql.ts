@@ -14,7 +14,7 @@ import type {
   AttachmentTypeDefinition,
   SurfaceComposition,
 } from '@kbn/agent-builder-server/attachments';
-import type { ComponentsNode } from '@kbn/isomer-components';
+import { APP_PATH_MAX_CHARS, type ComponentsNode } from '@kbn/isomer-components';
 import { i18n } from '@kbn/i18n';
 import type { SerializableRecord } from '@kbn/utility-types';
 
@@ -51,6 +51,9 @@ export const createEsqlAttachmentType = ({
 
     try {
       const { app, path } = await locator.getLocation({ query: { esql: query } });
+      if (path.length > APP_PATH_MAX_CHARS) {
+        return [];
+      }
 
       return [
         {

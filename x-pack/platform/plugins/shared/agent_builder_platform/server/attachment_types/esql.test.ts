@@ -5,6 +5,7 @@
  * 2.0.
  */
 
+import { APP_PATH_MAX_CHARS } from '@kbn/isomer-components';
 import { AttachmentType, type EsqlAttachmentData } from '@kbn/agent-builder-common/attachments';
 import { createEsqlAttachmentType, type DiscoverEsqlLocator } from './esql';
 import { SURFACE_BASE_URL, renderSurface, surfaceContext } from './test_utils';
@@ -78,6 +79,36 @@ describe('esql attachment type', () => {
       );
 
       expect(composition?.body.map(({ type }) => type)).toEqual(['code']);
+    });
+
+    it('keeps the link to a 2,126-character Discover path', async () => {
+      const path = `#/${'a'.repeat(2124)}`;
+      const composition = await toComposition(
+        { query: 'FROM logs' },
+        { getLocation: async () => ({ app: 'discover', path }) }
+      );
+      const { valid, slack } = await renderSurface(composition);
+
+      expect(composition?.body.map(({ type }) => type)).toEqual(['code', 'actions']);
+      expect(valid).toBe(true);
+      expect(slack).toContain('Open in Discover');
+    });
+
+    it('keeps the query and description when the link path is past the bound', async () => {
+      const composition = await toComposition(
+        { query: 'FROM logs', description: 'Latest logs' },
+        {
+          getLocation: async () => ({
+            app: 'discover',
+            path: `#/${'a'.repeat(APP_PATH_MAX_CHARS)}`,
+          }),
+        }
+      );
+      const { valid, slack } = await renderSurface(composition);
+
+      expect(composition?.body.map(({ type }) => type)).toEqual(['markdown', 'code']);
+      expect(valid).toBe(true);
+      expect(slack).toContain('FROM logs');
     });
   });
 });

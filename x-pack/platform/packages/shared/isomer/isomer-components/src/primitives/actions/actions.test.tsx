@@ -11,6 +11,7 @@ import { createIsomerRuntime } from '@elastic/isomer-runtime';
 import { buildJsxShim } from '@elastic/isomer-sdk/author';
 import { componentsPack, componentsPrimitives } from '../../pack';
 import type { ComponentsRenderContext } from '../../lib';
+import { APP_PATH_MAX_CHARS, LINK_LABEL_MAX_CHARS } from '../link/link_target';
 import type { ActionsNode } from '.';
 
 const { surfaces, validate } = createIsomerRuntime({ packs: [componentsPack] });
@@ -116,6 +117,76 @@ describe('actions', () => {
       expect(surfaces.slack.renderNode(node).blocks).toEqual([]);
     });
 
+    describe('with long paths', () => {
+      const baseUrl = 'https://kibana.example.com';
+      const view = (node: ActionsNode) => validate({ type: 'view', body: [node] }).valid;
+      const discover = (length: number) => `#/${'a'.repeat(length - 2)}`;
+      const unicode = `/${'é'.repeat(501)}`;
+
+      it('accept a 2,126-character Discover path and refuse one past the bound', () => {
+        expect(view(links({ label: 'Open', app: 'discover', path: discover(2126) }))).toBe(true);
+        expect(
+          view(links({ label: 'Open', app: 'discover', path: discover(APP_PATH_MAX_CHARS) }))
+        ).toBe(true);
+        expect(
+          view(links({ label: 'Open', app: 'discover', path: discover(APP_PATH_MAX_CHARS + 1) }))
+        ).toBe(false);
+      });
+
+      it('link in Slack while the resolved URL fits', () => {
+        const { blocks } = surfaces.slack.renderNode(
+          links({ label: 'Open', app: 'discover', path: discover(2126) }),
+          { baseUrl }
+        );
+
+        expect(blocks).toHaveLength(1);
+        expect(JSON.stringify(blocks)).toContain(`${baseUrl}/app/discover${discover(2126)}`);
+      });
+
+      it('are omitted in Slack when encoding pushes the URL past its limit, with the block if none remain', () => {
+        const node = links({ label: 'Open', app: 'discover', path: unicode });
+
+        expect(view(node)).toBe(true);
+        expect(surfaces.slack.renderNode(node, { baseUrl }).blocks).toEqual([]);
+      });
+
+      it('keep the buttons that fit beside an omitted one', () => {
+        const { blocks } = surfaces.slack.renderNode(
+          links(
+            { label: 'Too long', app: 'discover', path: unicode },
+            { label: 'Skills', app: 'agent_builder', path: '/manage/skills' }
+          ),
+          { baseUrl }
+        );
+
+        expect(blocks).toEqual([
+          {
+            type: 'actions',
+            elements: [
+              {
+                type: 'button',
+                text: { type: 'plain_text', text: 'Skills', emoji: true },
+                url: `${baseUrl}/app/agent_builder/manage/skills`,
+              },
+            ],
+          },
+        ]);
+      });
+
+      it('keep the longer link on the other surfaces', () => {
+        const path = unicode;
+        const markup = renderToStaticMarkup(
+          <>
+            {surfaces.react.renderNode(links({ label: 'Open', app: 'discover', path }), {
+              context: { resolveKibanaPath: (resolved) => resolved },
+            })}
+          </>
+        );
+
+        expect(markup).toContain(`/app/discover${path}`);
+      });
+    });
+
     it('resolve through the React host, and are left out of text and Markdown', () => {
       const node = links(skills, { label: 'Docs', url: URL });
       const context: ComponentsRenderContext = {
@@ -128,6 +199,32 @@ describe('actions', () => {
       expect(surfaces.markdown.renderNode(node)).toBe(`[Docs](${URL})`);
       expect(surfaces.text.renderNode(node)).toBe(`Docs: ${URL}`);
       expect(surfaces.markdown.renderNode(links(skills))).toBe('');
+    });
+  });
+
+  describe('with long labels and URLs', () => {
+    const view = (node: ActionsNode) => validate({ type: 'view', body: [node] }).valid;
+    const longUrl = `https://kibana.example.com/app/discover?q=${'a'.repeat(3500)}`;
+
+    it('take a label past Slack’s button limit, which Slack clamps', () => {
+      const label = 'word '.repeat(LINK_LABEL_MAX_CHARS / 5).trim();
+      const node = links({ label, url: URL });
+      const [block] = surfaces.slack.renderNode(node).blocks as Array<{
+        elements: Array<{ text: { text: string } }>;
+      }>;
+
+      expect(view(node)).toBe(true);
+      expect(view(links({ label: 'a'.repeat(LINK_LABEL_MAX_CHARS + 1), url: URL }))).toBe(false);
+      expect(block.elements[0].text.text.length).toBeLessThanOrEqual(75);
+    });
+
+    it('take a URL past Slack’s limit, omit it in Slack and keep it elsewhere', () => {
+      const node = links({ label: 'Open', url: longUrl });
+
+      expect(view(node)).toBe(true);
+      expect(surfaces.slack.renderNode(node).blocks).toEqual([]);
+      expect(renderToStaticMarkup(surfaces.react.renderNode(node))).toContain(longUrl);
+      expect(surfaces.text.renderNode(node)).toBe(`Open: ${longUrl}`);
     });
   });
 
